@@ -727,17 +727,35 @@ function showPermissionModal(){
 }
 function closePermissionModal(){document.getElementById('permissionModal').classList.remove('show')}
 
+const CLOUD_MEMBERS_URL = 'https://jsonblob.com/api/jsonBlob/019e2095-8a1f-765c-8e16-2e69f084a3db';
+
 function getMembers(){
-  const saved = localStorage.getItem('kb_members');
-  if(saved) return JSON.parse(saved);
-  return [
+  return window._cachedMembers || [
     {id:1,name:'管理员',role:'admin'},
     {id:2,name:'客服主管',role:'editor'},
     {id:3,name:'客服小王',role:'viewer'},
     {id:4,name:'客服小李',role:'viewer'}
   ];
 }
-function saveMembers(members){localStorage.setItem('kb_members',JSON.stringify(members))}
+function saveMembers(members){
+  window._cachedMembers = members;
+  localStorage.setItem('kb_members',JSON.stringify(members));
+  fetch(CLOUD_MEMBERS_URL,{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(members)
+  }).then(()=>showToast('已同步到云端')).catch(()=>showToast('本地已保存，云端同步失败','warning'));
+}
+function loadMembersFromCloud(){
+  fetch(CLOUD_MEMBERS_URL)
+    .then(r=>r.json())
+    .then(data=>{window._cachedMembers=data;localStorage.setItem('kb_members',JSON.stringify(data))})
+    .catch(()=>{
+      const saved=localStorage.getItem('kb_members');
+      if(saved)window._cachedMembers=JSON.parse(saved);
+    });
+}
+loadMembersFromCloud();
 
 function renderPermissionModal(){
   const members = getMembers();
