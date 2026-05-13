@@ -747,12 +747,21 @@ function saveMembers(members){
   }).then(()=>showToast('已同步到云端')).catch(()=>showToast('本地已保存，云端同步失败','warning'));
 }
 function loadMembersFromCloud(){
+  const localData = localStorage.getItem('kb_members');
+  const localMembers = localData ? JSON.parse(localData) : null;
   fetch(CLOUD_MEMBERS_URL)
     .then(r=>r.json())
-    .then(data=>{window._cachedMembers=data;localStorage.setItem('kb_members',JSON.stringify(data))})
+    .then(cloudData=>{
+      if(localMembers && localMembers.length >= cloudData.length){
+        window._cachedMembers = localMembers;
+        fetch(CLOUD_MEMBERS_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(localMembers)});
+      } else {
+        window._cachedMembers = cloudData;
+        localStorage.setItem('kb_members',JSON.stringify(cloudData));
+      }
+    })
     .catch(()=>{
-      const saved=localStorage.getItem('kb_members');
-      if(saved)window._cachedMembers=JSON.parse(saved);
+      if(localMembers) window._cachedMembers = localMembers;
     });
 }
 loadMembersFromCloud();
