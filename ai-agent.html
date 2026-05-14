@@ -7,142 +7,125 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg-primary:#0a0e1a;--bg-secondary:#111827;--bg-card:#1a2235;--bg-card-hover:#1e2a42;
---border:#2a3550;--border-light:#3a4a6a;
---text-primary:#e8ecf4;--text-secondary:#8b9dc3;--text-muted:#5a6d8f;
---accent:#6366f1;--accent-hover:#818cf8;--accent-glow:rgba(99,102,241,.25);
---compliance:#f59e0b;--compliance-bg:rgba(245,158,11,.08);--compliance-border:rgba(245,158,11,.3);
---danger:#ef4444;--success:#10b981;--info:#3b82f6;
---radius:12px;--radius-sm:8px;--radius-xs:6px;
---shadow:0 4px 24px rgba(0,0,0,.3);--shadow-lg:0 8px 40px rgba(0,0,0,.4);
---transition:all .25s cubic-bezier(.4,0,.2,1);
+--bg1:#0a0e1a;--bg2:#111827;--bg3:#1a2235;--bg4:#1e2a42;
+--bd1:#2a3550;--bd2:#3a4a6a;
+--t1:#e8ecf4;--t2:#8b9dc3;--t3:#5a6d8f;
+--ac:#6366f1;--ac2:#818cf8;--acg:rgba(99,102,241,.25);
+--cm:#f59e0b;--cmb:rgba(245,158,11,.08);--cmd:rgba(245,158,11,.3);
+--dg:#ef4444;--ok:#10b981;--info:#3b82f6;
+--r:12px;--rs:8px;--rx:6px;
+--sh:0 4px 24px rgba(0,0,0,.3);
+--tr:all .25s cubic-bezier(.4,0,.2,1);
 }
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;background:var(--bg-primary);color:var(--text-primary);line-height:1.7;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg1);color:var(--t1);line-height:1.7;overflow-x:hidden}
 ::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg-secondary)}
-::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 
-.top-bar{background:var(--bg-secondary);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
-.top-bar .logo{display:flex;align-items:center;gap:12px}
-.top-bar .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
-.top-bar .logo-icon svg{width:20px;height:20px}
-.top-bar h1{font-size:16px;font-weight:700;background:linear-gradient(135deg,#e8ecf4,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.top-bar .nav-tabs{display:flex;gap:4px}
-.tab-btn{padding:8px 16px;border-radius:var(--radius-sm);border:1px solid transparent;background:transparent;color:var(--text-muted);font-size:13px;cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:6px}
-.tab-btn:hover{color:var(--text-secondary);background:var(--bg-card)}
-.tab-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
-.tab-btn svg{width:16px;height:16px}
-.tab-btn .badge{background:var(--danger);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:2px}
+.top-bar{background:var(--bg2);border-bottom:1px solid var(--bd1);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--ac),#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700}
+.logo h1{font-size:16px;font-weight:700;background:linear-gradient(135deg,#e8ecf4,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-tabs{display:flex;gap:4px}
+.tab-btn{padding:8px 16px;border-radius:var(--rs);border:1px solid transparent;background:transparent;color:var(--t3);font-size:13px;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:6px}
+.tab-btn:hover{color:var(--t2);background:var(--bg3)}
+.tab-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.badge{background:var(--dg);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:2px}
 
 .page{display:none;padding:20px 24px;max-width:1200px;margin:0 auto}
 .page.active{display:block}
 
-.chat-container{display:flex;gap:20px;height:calc(100vh - 80px)}
-.chat-main{flex:1;display:flex;flex-direction:column;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.chat-header{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.chat-header .user-info{display:flex;align-items:center;gap:10px}
-.chat-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#a855f7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
-.chat-header .user-name{font-size:14px;font-weight:600}
-.chat-header .user-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.15);color:var(--accent-hover)}
-.chat-messages{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
+.chat-wrap{display:flex;gap:20px;height:calc(100vh - 80px)}
+.chat-main{flex:1;display:flex;flex-direction:column;background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);overflow:hidden}
+.chat-hd{padding:14px 20px;border-bottom:1px solid var(--bd1);display:flex;align-items:center;justify-content:space-between}
+.chat-hd .uinfo{display:flex;align-items:center;gap:10px}
+.ch-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#a855f7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.ch-name{font-size:14px;font-weight:600}
+.ch-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.15);color:var(--ac2)}
+.chat-msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
 .msg{max-width:80%;display:flex;gap:8px}
-.msg.user{align-self:flex-end;flex-direction:row-reverse}
-.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
-.msg.ai .msg-avatar{background:linear-gradient(135deg,var(--accent),#a855f7)}
-.msg.user .msg-avatar{background:linear-gradient(135deg,var(--success),#34d399)}
-.msg-bubble{padding:10px 14px;border-radius:var(--radius-sm);font-size:13px;line-height:1.7;white-space:pre-wrap}
-.msg.ai .msg-bubble{background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border)}
-.msg.user .msg-bubble{background:var(--accent);color:#fff}
-.msg-bubble .compliance-tag{background:rgba(245,158,11,.15);color:var(--compliance);padding:1px 6px;border-radius:4px;font-size:12px;font-weight:600}
-.msg-bubble .action-btns{display:flex;gap:6px;margin-top:8px}
-.msg-action{padding:4px 10px;border-radius:var(--radius-xs);border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);font-size:11px;cursor:pointer;transition:var(--transition)}
-.msg-action:hover{border-color:var(--accent);color:var(--accent)}
-.msg-action.copied{border-color:var(--success);color:var(--success)}
-.msg-time{font-size:10px;color:var(--text-muted);margin-top:4px}
+.msg.u{align-self:flex-end;flex-direction:row-reverse}
+.msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.msg.ai .msg-av{background:linear-gradient(135deg,var(--ac),#a855f7)}
+.msg.u .msg-av{background:linear-gradient(135deg,var(--ok),#34d399)}
+.msg-bb{padding:10px 14px;border-radius:var(--rs);font-size:13px;line-height:1.7;white-space:pre-wrap}
+.msg.ai .msg-bb{background:var(--bg2);color:var(--t2);border:1px solid var(--bd1)}
+.msg.u .msg-bb{background:var(--ac);color:#fff}
+.msg-acts{display:flex;gap:6px;margin-top:8px}
+.mbtn{padding:4px 10px;border-radius:var(--rx);border:1px solid var(--bd1);background:var(--bg3);color:var(--t3);font-size:11px;cursor:pointer;transition:var(--tr)}
+.mbtn:hover{border-color:var(--ac);color:var(--ac)}
+.mbtn.ok{border-color:var(--ok);color:var(--ok)}
+.msg-t{font-size:10px;color:var(--t3);margin-top:4px}
+.chat-in{padding:14px 20px;border-top:1px solid var(--bd1);display:flex;gap:10px}
+.chat-in textarea{flex:1;padding:10px 14px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t1);font-size:13px;outline:none;resize:none;min-height:40px;max-height:120px;transition:var(--tr);font-family:inherit}
+.chat-in textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acg)}
+.send-btn{padding:10px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
+.send-btn:hover{background:var(--ac2)}
 
-.chat-input-area{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:10px}
-.chat-input{flex:1;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;outline:none;resize:none;min-height:40px;max-height:120px;transition:var(--transition)}
-.chat-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
-.send-btn{padding:10px 20px;background:var(--accent);border:none;border-radius:var(--radius-sm);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition);display:flex;align-items:center;gap:6px}
-.send-btn:hover{background:var(--accent-hover)}
-.send-btn svg{width:16px;height:16px}
+.chat-side{width:300px;display:flex;flex-direction:column;gap:12px}
+.scard{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);overflow:hidden}
+.scard .sh{padding:12px 16px;border-bottom:1px solid var(--bd1);font-size:13px;font-weight:600}
+.scard .sb{padding:12px 16px;font-size:12px;color:var(--t2);line-height:1.6}
+.scard .sb .fl{margin-bottom:8px}
+.scard .sb .fl-label{color:var(--t3);font-size:11px;margin-bottom:2px}
+.scard .sb .fl-val{color:var(--t1);font-size:13px;font-weight:500}
+.tsm{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
+.tsm.dg{background:rgba(239,68,68,.15);color:var(--dg)}
+.tsm.wn{background:rgba(245,158,11,.15);color:var(--cm)}
+.tsm.ok{background:rgba(16,185,129,.15);color:var(--ok)}
+.tsm.if{background:rgba(99,102,241,.15);color:var(--ac2)}
 
-.chat-sidebar{width:300px;display:flex;flex-direction:column;gap:12px}
-.sidebar-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.sidebar-card .card-header{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
-.sidebar-card .card-body{padding:12px 16px;font-size:12px;color:var(--text-secondary);line-height:1.6}
-.sidebar-card .card-body .field{margin-bottom:8px}
-.sidebar-card .card-body .field-label{color:var(--text-muted);font-size:11px;margin-bottom:2px}
-.sidebar-card .card-body .field-value{color:var(--text-primary);font-size:13px;font-weight:500}
-.tag-sm{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
-.tag-sm.danger{background:rgba(239,68,68,.15);color:var(--danger)}
-.tag-sm.warning{background:rgba(245,158,11,.15);color:var(--compliance)}
-.tag-sm.success{background:rgba(16,185,129,.15);color:var(--success)}
-.tag-sm.info{background:rgba(99,102,241,.15);color:var(--accent-hover)}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+.stcard{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:20px}
+.stcard .stl{font-size:12px;color:var(--t3);margin-bottom:8px}
+.stcard .stv{font-size:28px;font-weight:700}
+.stcard .stv.ac{color:var(--ac2)}.stcard .stv.ok{color:var(--ok)}.stcard .stv.wn{color:var(--cm)}.stcard .stv.dg{color:var(--dg)}
+.stcard .stc{font-size:11px;color:var(--t3);margin-top:4px}
 
-.dashboard-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
-.stat-card .stat-label{font-size:12px;color:var(--text-muted);margin-bottom:8px}
-.stat-card .stat-value{font-size:28px;font-weight:700}
-.stat-card .stat-value.accent{color:var(--accent-hover)}
-.stat-card .stat-value.success{color:var(--success)}
-.stat-card .stat-value.warning{color:var(--compliance)}
-.stat-card .stat-value.danger{color:var(--danger)}
-.stat-card .stat-change{font-size:11px;color:var(--text-muted);margin-top:4px}
+.log-item{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;transition:var(--tr)}
+.log-item:hover{border-color:var(--bd2)}
+.log-ic{width:32px;height:32px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
+.log-ic.chat{background:rgba(99,102,241,.15);color:var(--ac)}
+.log-ic.ticket{background:rgba(245,158,11,.15);color:var(--cm)}
+.log-ic.alert{background:rgba(239,68,68,.15);color:var(--dg)}
+.log-ic.check{background:rgba(16,185,129,.15);color:var(--ok)}
+.log-ct{flex:1;min-width:0}
+.log-ct .lt{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.log-ct .ld{font-size:11px;color:var(--t3);margin-top:2px}
+.log-tm{font-size:11px;color:var(--t3);flex-shrink:0}
 
-.log-list{display:flex;flex-direction:column;gap:8px}
-.log-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;display:flex;align-items:center;gap:12px;transition:var(--transition)}
-.log-item:hover{border-color:var(--border-light)}
-.log-item .log-icon{width:32px;height:32px;border-radius:var(--radius-xs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.log-item .log-icon.chat{background:rgba(99,102,241,.15);color:var(--accent)}
-.log-item .log-icon.ticket{background:rgba(245,158,11,.15);color:var(--compliance)}
-.log-item .log-icon.alert{background:rgba(239,68,68,.15);color:var(--danger)}
-.log-item .log-icon.check{background:rgba(16,185,129,.15);color:var(--success)}
-.log-item .log-icon svg{width:16px;height:16px}
-.log-item .log-content{flex:1;min-width:0}
-.log-item .log-title{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.log-item .log-desc{font-size:11px;color:var(--text-muted);margin-top:2px}
-.log-item .log-time{font-size:11px;color:var(--text-muted);flex-shrink:0}
+.tk-card{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.tk-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.tk-id{font-size:12px;color:var(--t3)}
+.tk-title{font-size:14px;font-weight:600;margin-bottom:6px}
+.tk-desc{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px}
+.tk-meta{display:flex;gap:8px;flex-wrap:wrap}
 
-.ticket-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:12px}
-.ticket-card .ticket-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.ticket-card .ticket-id{font-size:12px;color:var(--text-muted)}
-.ticket-card .ticket-title{font-size:14px;font-weight:600;margin-bottom:6px}
-.ticket-card .ticket-desc{font-size:12px;color:var(--text-secondary);line-height:1.6;margin-bottom:10px}
-.ticket-card .ticket-meta{display:flex;gap:8px;flex-wrap:wrap}
+.rule-card{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.rule-card .rt{font-size:14px;font-weight:600;margin-bottom:6px}
+.rule-card .rc{font-size:12px;color:var(--t2);line-height:1.7;white-space:pre-wrap}
+.rule-card .ra{display:flex;gap:8px;margin-top:10px}
+.rbtn{padding:6px 14px;border-radius:var(--rx);border:1px solid var(--bd1);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:var(--tr)}
+.rbtn:hover{border-color:var(--ac);color:var(--ac)}
+.rbtn.dg:hover{border-color:var(--dg);color:var(--dg)}
 
-.rules-list{display:flex;flex-direction:column;gap:12px}
-.rule-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-.rule-card .rule-title{font-size:14px;font-weight:600;margin-bottom:6px;display:flex;align-items:center;gap:8px}
-.rule-card .rule-content{font-size:12px;color:var(--text-secondary);line-height:1.7;white-space:pre-wrap}
-.rule-card .rule-actions{display:flex;gap:8px;margin-top:10px}
-.rule-btn{padding:6px 14px;border-radius:var(--radius-xs);border:1px solid var(--border);background:transparent;color:var(--text-secondary);font-size:12px;cursor:pointer;transition:var(--transition)}
-.rule-btn:hover{border-color:var(--accent);color:var(--accent)}
-.rule-btn.danger:hover{border-color:var(--danger);color:var(--danger)}
+.add-area{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-top:16px}
+.add-area textarea{width:100%;padding:10px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t1);font-size:13px;outline:none;resize:vertical;min-height:80px;transition:var(--tr);font-family:inherit}
+.add-area textarea:focus{border-color:var(--ac)}
+.add-btn{margin-top:10px;padding:8px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
+.add-btn:hover{background:var(--ac2)}
 
-.add-rule-area{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-top:16px}
-.add-rule-area textarea{width:100%;padding:10px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:13px;outline:none;resize:vertical;min-height:80px;transition:var(--transition)}
-.add-rule-area textarea:focus{border-color:var(--accent)}
-.add-rule-area .add-rule-btn{margin-top:10px;padding:8px 20px;background:var(--accent);border:none;border-radius:var(--radius-sm);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition)}
-.add-rule-area .add-rule-btn:hover{background:var(--accent-hover)}
-
-.section-title{font-size:18px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.section-title svg{width:20px;height:20px;color:var(--accent)}
-
-.empty-state{text-align:center;padding:40px;color:var(--text-muted);font-size:14px}
-
-.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;background:var(--success);color:#fff;border-radius:var(--radius-sm);font-size:13px;font-weight:600;transform:translateY(100px);opacity:0;transition:var(--transition);z-index:9999;box-shadow:var(--shadow-lg)}
-.toast::before{content:'';width:16px;height:16px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 13l4 4L19 7'/%3E%3C/svg%3E");flex-shrink:0;display:inline-block;vertical-align:middle;margin-right:6px}
+.sec-t{font-size:18px;font-weight:700;margin-bottom:16px}
+.empty{text-align:center;padding:40px;color:var(--t3);font-size:14px}
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;background:var(--ok);color:#fff;border-radius:var(--rs);font-size:13px;font-weight:600;transform:translateY(100px);opacity:0;transition:var(--tr);z-index:9999;box-shadow:var(--sh)}
 .toast.show{transform:translateY(0);opacity:1}
-
 @media(max-width:768px){
-.chat-container{flex-direction:column;height:auto}
-.chat-sidebar{width:100%}
-.dashboard-grid{grid-template-columns:repeat(2,1fr)}
+.chat-wrap{flex-direction:column;height:auto}
+.chat-side{width:100%}
+.dash-grid{grid-template-columns:repeat(2,1fr)}
 .top-bar{flex-wrap:wrap;gap:8px}
-.top-bar .nav-tabs{overflow-x:auto;width:100%}
+.nav-tabs{overflow-x:auto;width:100%}
 }
 </style>
 </head>
@@ -150,65 +133,54 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 
 <div class="top-bar">
   <div class="logo">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+    <div class="logo-icon">AI</div>
     <h1>ALPHAX AI 客服主管</h1>
   </div>
   <div class="nav-tabs">
-    <button class="tab-btn active" onclick="switchTab('chat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>AI对话</button>
-    <button class="tab-btn" onclick="switchTab('dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>工作台</button>
-    <button class="tab-btn" onclick="switchTab('tickets')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>工单<span class="badge" id="ticketBadge" style="display:none">0</span></button>
-    <button class="tab-btn" onclick="switchTab('rules')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>规则调教</button>
+    <button class="tab-btn active" onclick="switchTab('chat',this)">AI对话</button>
+    <button class="tab-btn" onclick="switchTab('dashboard',this)">工作台</button>
+    <button class="tab-btn" onclick="switchTab('tickets',this)">工单<span class="badge" id="tkBadge" style="display:none">0</span></button>
+    <button class="tab-btn" onclick="switchTab('rules',this)">规则调教</button>
   </div>
 </div>
 
 <div class="page active" id="page-chat">
-  <div class="chat-container">
+  <div class="chat-wrap">
     <div class="chat-main">
-      <div class="chat-header">
-        <div class="user-info">
-          <div class="chat-avatar" id="chatAvatar">U</div>
-          <div>
-            <div class="user-name" id="chatUserName">模拟用户</div>
-            <span class="user-tag" id="chatUserTag">新用户</span>
-          </div>
+      <div class="chat-hd">
+        <div class="uinfo">
+          <div class="ch-avatar" id="chAv">U</div>
+          <div><div class="ch-name" id="chName">模拟用户</div><span class="ch-tag" id="chTag">新用户</span></div>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="msg-action" onclick="clearChat()">清空对话</button>
-          <button class="msg-action" onclick="newUser()">换用户</button>
+          <button class="mbtn" onclick="clearChat()">清空对话</button>
+          <button class="mbtn" onclick="newUser()">换用户</button>
         </div>
       </div>
-      <div class="chat-messages" id="chatMessages">
-        <div class="msg ai">
-          <div class="msg-avatar">AI</div>
-          <div>
-            <div class="msg-bubble">您好！我是 ALPHAX AI 客服，请问有什么可以帮您的？</div>
-            <div class="msg-time" id="welcomeTime"></div>
-          </div>
-        </div>
-      </div>
-      <div class="chat-input-area">
-        <textarea class="chat-input" id="chatInput" placeholder="输入用户消息..." rows="1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
-        <button class="send-btn" onclick="sendMessage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>发送</button>
+      <div class="chat-msgs" id="chatMsgs"></div>
+      <div class="chat-in">
+        <textarea id="chatInput" placeholder="输入用户消息..." rows="1"></textarea>
+        <button class="send-btn" id="sendBtn">发送</button>
       </div>
     </div>
-    <div class="chat-sidebar">
-      <div class="sidebar-card">
-        <div class="card-header"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>用户档案</div>
-        <div class="card-body" id="userProfile">
-          <div class="field"><div class="field-label">用户名</div><div class="field-value" id="profileName">模拟用户</div></div>
-          <div class="field"><div class="field-label">UID</div><div class="field-value" id="profileUID">未提供</div></div>
-          <div class="field"><div class="field-label">会员版本</div><div class="field-value" id="profileVersion">未知</div></div>
-          <div class="field"><div class="field-label">情绪状态</div><div class="field-value" id="profileMood"><span class="tag-sm info">平静</span></div></div>
-          <div class="field"><div class="field-label">对话次数</div><div class="field-value" id="profileChats">0</div></div>
-          <div class="field"><div class="field-label">历史问题</div><div class="field-value" id="profileIssues">暂无</div></div>
+    <div class="chat-side">
+      <div class="scard">
+        <div class="sh">用户档案</div>
+        <div class="sb" id="userProfile">
+          <div class="fl"><div class="fl-label">用户名</div><div class="fl-val" id="pName">模拟用户</div></div>
+          <div class="fl"><div class="fl-label">UID</div><div class="fl-val" id="pUID">未提供</div></div>
+          <div class="fl"><div class="fl-label">会员版本</div><div class="fl-val" id="pVer">未知</div></div>
+          <div class="fl"><div class="fl-label">情绪状态</div><div class="fl-val" id="pMood"><span class="tsm if">平静</span></div></div>
+          <div class="fl"><div class="fl-label">对话次数</div><div class="fl-val" id="pChats">0</div></div>
+          <div class="fl"><div class="fl-label">历史问题</div><div class="fl-val" id="pIssues">暂无</div></div>
         </div>
       </div>
-      <div class="sidebar-card">
-        <div class="card-header"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>AI分析</div>
-        <div class="card-body" id="aiAnalysis">
-          <div class="field"><div class="field-label">意图识别</div><div class="field-value" id="analysisIntent">等待输入...</div></div>
-          <div class="field"><div class="field-label">匹配知识</div><div class="field-value" id="analysisMatch">-</div></div>
-          <div class="field"><div class="field-label">是否需要升级</div><div class="field-value" id="analysisEscalate"><span class="tag-sm success">否</span></div></div>
+      <div class="scard">
+        <div class="sh">AI分析</div>
+        <div class="sb">
+          <div class="fl"><div class="fl-label">意图识别</div><div class="fl-val" id="aIntent">等待输入...</div></div>
+          <div class="fl"><div class="fl-label">匹配知识</div><div class="fl-val" id="aMatch">-</div></div>
+          <div class="fl"><div class="fl-label">是否需要升级</div><div class="fl-val" id="aEsc"><span class="tsm ok">否</span></div></div>
         </div>
       </div>
     </div>
@@ -216,550 +188,510 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 </div>
 
 <div class="page" id="page-dashboard">
-  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>今日工作台</div>
-  <div class="dashboard-grid">
-    <div class="stat-card"><div class="stat-label">今日接待</div><div class="stat-value accent" id="statChats">0</div><div class="stat-change">对话数</div></div>
-    <div class="stat-card"><div class="stat-label">已解决</div><div class="stat-value success" id="statResolved">0</div><div class="stat-change">自动处理</div></div>
-    <div class="stat-card"><div class="stat-label">待处理工单</div><div class="stat-value warning" id="statPending">0</div><div class="stat-change">需人工介入</div></div>
-    <div class="stat-card"><div class="stat-label">升级通知</div><div class="stat-value danger" id="statEscalated">0</div><div class="stat-change">需主管处理</div></div>
+  <div class="sec-t">今日工作台</div>
+  <div class="dash-grid">
+    <div class="stcard"><div class="stl">今日接待</div><div class="stv ac" id="sChats">0</div><div class="stc">对话数</div></div>
+    <div class="stcard"><div class="stl">已解决</div><div class="stv ok" id="sResolved">0</div><div class="stc">自动处理</div></div>
+    <div class="stcard"><div class="stl">待处理工单</div><div class="stv wn" id="sPending">0</div><div class="stc">需人工介入</div></div>
+    <div class="stcard"><div class="stl">升级通知</div><div class="stv dg" id="sEscalated">0</div><div class="stc">需主管处理</div></div>
   </div>
-  <div class="section-title" style="margin-top:24px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>客服日志</div>
-  <div class="log-list" id="logList">
-    <div class="empty-state">暂无日志，开始对话后自动记录</div>
-  </div>
+  <div class="sec-t" style="margin-top:24px">客服日志</div>
+  <div id="logList"><div class="empty">暂无日志，开始对话后自动记录</div></div>
 </div>
 
 <div class="page" id="page-tickets">
-  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>工单管理</div>
-  <div id="ticketList">
-    <div class="empty-state">暂无工单，AI处理不了的问题会自动创建</div>
-  </div>
+  <div class="sec-t">工单管理</div>
+  <div id="tkList"><div class="empty">暂无工单，AI处理不了的问题会自动创建</div></div>
 </div>
 
 <div class="page" id="page-rules">
-  <div class="section-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>规则调教</div>
-  <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px">对AI的回答不满意？添加规则来纠正它的行为。规则优先级高于知识库。</p>
-  <div class="rules-list" id="rulesList"></div>
-  <div class="add-rule-area">
+  <div class="sec-t">规则调教</div>
+  <p style="font-size:13px;color:var(--t3);margin-bottom:16px">对AI的回答不满意？添加规则来纠正它的行为。</p>
+  <div id="rulesList"></div>
+  <div class="add-area">
     <div style="font-size:13px;font-weight:600;margin-bottom:8px">添加新规则</div>
-    <textarea id="newRuleInput" placeholder="例：当用户提到补偿时，先了解用户UID和消费金额，不要直接承诺任何数字，最大补偿不超过2000算力，必须强调一次性补偿"></textarea>
-    <button class="add-rule-btn" onclick="addRule()">添加规则</button>
+    <textarea id="newRuleInput" placeholder="例：当用户提到补偿时，先了解用户UID和消费金额，不要直接承诺任何数字"></textarea>
+    <button class="add-btn" onclick="addRule()">添加规则</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const KB_DATA=[{id:'s1',title:'产品初识与安全须知',tags:['产品','安全','合规'],items:[{q:'ALPHAX是什么软件？核心用途是什么？',tags:['产品','介绍'],compliance:true,a:'您好！ALPHAX·阿尔法是一款正版AI云计算工具，核心是基于GTO博弈论最优策略和AI矩阵算法，帮助您进行GTO策略学习、技巧训练、对局分析和决策研究。简单说，它是一个学习研究工具，不是实战辅助外挂，也不会修改或干预任何第三方平台程序。使用效果因人而异，我们不承诺或保证任何具体结果，仅供学习研究使用。使用前也麻烦您自行了解并遵守当地法律法规哦~'},{q:'ALPHAX是否属于外挂程序？是否具备透视功能？',tags:['安全','合规'],compliance:true,a:'您好！理解您的顾虑，请您放心，ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。我们的软件不会修改、侵入任何第三方平台程序，不篡改安装包，不破坏数据签名，所有功能都只用于GTO策略学习和对局分析。温馨提示：市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险，请提高警惕，避免上当受骗。'},{q:'使用ALPHAX是否会被平台检测或导致账号封禁？',tags:['安全','账号'],compliance:true,a:'您好！非常理解您对账号安全的重视和担心。各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。如遇账号相关问题，请直接联系对应平台官方客服了解详情。\n\n为保障您的账号安全，建议您注意以下事项：\n1.请遵守各平台的使用规则与相关法律法规，规范使用账号；\n2.不要在同一设备上多开账号或共享同一网络环境；\n3.使用软件时请允许获取必要权限，确保功能正常运行；\n4.请勿使用模拟器、云手机等非原生环境；\n5.请勿安装任何违规工具或非官方渠道的应用程序；\n6.建议一个账号对应一个设备，规范使用。\n\n如因个人违规行为导致账号异常，需由用户自行承担相应责任。'},{q:'ALPHAX能提高胜率吗？能稳赢吗？',tags:['产品','合规'],compliance:true,a:'您好！非常理解您对效果的关心。ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。'},{q:'什么是GTO？Q值、EV、EVQ等核心术语分别代表什么含义？',tags:['产品','术语'],a:'您好！\n- GTO：即博弈论最优策略（Game Theory Optimal），是智力竞技场景中一套均衡、严谨的决策逻辑体系；\n- Q值：代表当前手牌的强度评分；\n- EV：即期望价值，是策略层面的综合收益预期；\n- EVQ：是结合手牌强度与场景逻辑的综合权益评分；\n- GTO尺度建议：基于GTO策略模型，针对不同场景给出的行动尺度参考建议。\n以上均为策略学习与数据分析术语，仅用于GTO理论研究、思路训练与复盘参考。'}]},{id:'s2',title:'设备适配与下载',tags:['设备','下载'],items:[{q:'如何下载官方软件？',tags:['下载','安全'],a:'您好！ALPHAX的官方下载地址是：https://alphax.net.cn ，您可以通过这个链接下载适配iOS、安卓及电脑端的版本。重要提醒：请勿在第三方网站、网盘或非官方渠道下载，避免安装到盗版、捆绑软件或存在安全风险的版本。'},{q:'软件支持哪些设备和系统？',tags:['设备','适配'],a:'您好！ALPHAX已适配主流设备，支持安卓、iOS、Windows、MacOS全系统，各平台均有独立客户端，下载请前往官方地址 https://alphax.net.cn 获取对应版本。'},{q:'使用软件需要用到模拟器吗？',tags:['设备','安全'],compliance:true,a:'您好！使用ALPHAX不需要模拟器。在模拟器中运行软件可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行。若在非原生环境使用，需自行承担所有账号及合规风险。'},{q:'在国外可以使用软件吗？支持退款吗？',tags:['海外','退款'],compliance:true,a:'您好！境外用户可正常使用ALPHAX。若需要在境外使用，可开通对应地区加速服务，只需提供软件主页截图和UID，联系客服即可协助办理。使用期间请保持IP与定位地区一致。另外提前向您说明：境外相关订单暂不支持退款，请您购买前知悉知晓。'}]},{id:'s3',title:'账号注册与登录',tags:['账号','注册'],items:[{q:'如何注册账号？必须要实名认证吗？',tags:['账号','注册','实名'],a:'您好！注册流程很简单，使用手机号接收验证码即可完成注册。首次登录后需进行实名认证，按照系统提示绑定真实姓名及身份证信息，否则将无法正常使用相关功能。实名认证是使用软件的前提必要条件，一个身份证仅可绑定一个账号使用。'},{q:'登录时为什么收不到验证码？',tags:['账号','技术'],a:'您好！请逐一排查：\n1.手机信号不佳—建议到空旷处重新获取；\n2.短信被拦截/过滤—检查手机短信拦截记录；\n3.短信通道延迟—等待1-2分钟；\n4.手机号填写错误—确认区号和号码；\n5.频繁请求—同一手机号1分钟内多次请求会被限制。\n如以上均无法解决，请提供完整手机号，帮您对接技术排查。'},{q:'一个账号可以同时登录几台设备？',tags:['账号','设备'],a:'您好！同一账号仅支持单台设备登录使用，不支持多设备同时在线。如需在新设备上登录，已登录的旧设备需要手动退出。'},{q:'账号可以出租/借用/共享给他人吗？',tags:['账号','安全'],compliance:true,a:'您好！根据《用户协议》第六条第6.10款约定，用户应妥善保管账号，不得与他人共享。账号出租、借用或共享给他人，由此产生的盗号、数据泄露及其他损失，均需由您自行承担全部责任。'}]},{id:'s4',title:'会员版本与购买',tags:['会员','购买'],items:[{q:'会员版本有哪些？',tags:['会员','版本'],a:'您好！软件会员主要包含L0（试用版）、L1、L2、L3、L4五个版本，您可以打开软件APP进入会员订阅页面，查看各版本的详细功能对比和算力消耗。'},{q:'各版本之间有什么区别？推荐激活哪个？',tags:['会员','版本'],a:'您好！\n- L0/L1：入门试用版本，仅支持翻前基础功能；\n- L2：支持多平台与GTO尺度建议；\n- L3：解锁全量功能，是性价比最高的主流选择；\n- L4：最高性能版本，支持全部高阶功能与极限场景解算。\n大多数日常使用的用户推荐选择L3版本。'},{q:'试用版有什么限制？',tags:['会员','版本','试用'],a:'您好！付费体验版（T4）限时20分钟，功能与L4完全一致；L0试用版有效期30天，包含600算力，到期后无法继续使用，不可重复开通，也不能充值算力。L0仅支持手牌强度、翻前AIGTO分析、翻前EV权益计算，不支持高级功能。'},{q:'订阅版本和充值算力有什么区别？',tags:['会员','算力','购买'],compliance:true,a:'您好！激活版本=使用权限（退款按激活时约定的总算力计算比例）；充值算力=使用次数（每次决策都会扣费，充值算力永久有效，但一律不支持退款）。简单理解：版本是权限，算力是使用次数。两者为独立场景，规则需区分执行。'}]},{id:'s5',title:'算力规则与消耗',tags:['算力','规则'],items:[{q:'算力是什么？有什么作用？',tags:['算力','基础'],a:'您好！算力是使用ALPHAX进行GTO策略分析的专属消耗单位。当您调用AI对策略场景开展学习与演算分析时，系统会根据分析深度与阶段，扣除对应算力。算力仅在AI分析运行时产生消耗，闲置未使用不会扣除。'},{q:'算力是永久有效的吗？会员到期算力还在吗？',tags:['算力','规则'],a:'您好！套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用，不会浪费！'},{q:'算力用完了怎么办？',tags:['算力','充值'],a:'您好！算力用完后请在APP「会员订阅」页面充值算力即可继续使用。'},{q:'算力充值有哪些档位和价格？',tags:['算力','充值','价格'],a:'您好！当前可选￥680（5200算力）、￥980（8800算力）、￥1580（14900算力）、￥2580（26600算力）、￥3680（42200算力）五档。具体以APP内实时显示为准。'}]},{id:'s6',title:'功能使用与教程',tags:['功能','教程'],items:[{q:'下载后怎么使用软件？',tags:['教程','入门'],a:'您好！只需四步：\n1.注册账号并完成实名认证；\n2.订阅购买会员版本；\n3.进入实时场景分析·AiGTO；\n4.选择对应平台即可使用。\n购买会员后，可联系专属客服获取使用教程与指导！'},{q:'对抗策略是什么？',tags:['功能','L4'],a:'您好！对抗策略是L4版本专属功能，开启后可调整AI在策略分析中的变化幅度（默认35%）。建议设置：翻前10-45%，翻后30-60%。'},{q:'什么是辅助弃牌？',tags:['功能','L3','L4'],a:'您好！辅助弃牌是L3/L4版本的GTO学习辅助功能：当弃牌选项的GTO概率高于设定阈值，会提供弃牌建议供学习参考。阈值可在设置中自行调整。'}]},{id:'s7',title:'故障排查与技术支持',tags:['技术','故障'],items:[{q:'软件无法打开/黑屏/白屏/卡顿怎么办？',tags:['技术','故障'],a:'您好！请按以下步骤逐一尝试：\n1.切换网络（WiFi和5G）；\n2.点击APP的刷新按钮；\n3.关闭APP后重启（反复2-3次）；\n4.开启/关闭飞行模式；\n5.切换APP线路或节点；\n6.修改DNS；\n7.卸载重装APP；\n8.换时间段重试。\n以上方式仍未解决请联系客服提供UID和问题截图。'},{q:'软件页面一直显示更新中？',tags:['技术','故障'],a:'您好！表示当前版本正在升级维护，请耐心等待更新完成后再使用（预计3-12小时）。'},{q:'AI计算结果不准确怎么办？',tags:['技术','故障'],a:'您好！建议检查牌局数据同步及参数设置，重启APP刷新数据，如仍异常请联系客服提供UID、截图及问题场景。'}]},{id:'s8',title:'退款与账号注销',tags:['退款','注销'],items:[{q:'退款政策是怎样的？',tags:['退款','售后'],compliance:true,a:'您好！本软件属于数字化服务类商品，不支持七天无理由退款。\n\n可申请退款的情况：\n1.10天退款：自购买日起10天内，套餐剩余算力≥50%且无充值记录，可按剩余算力比例退款；\n2.30天未使用退款：购买后30天内完全未使用，可申请全额退款（扣除5%手续费）。\n不支持退款的情况：已充值算力一律不支持退款、同一账号仅限申请一次退款。\n\n需要退款请提供UID、实名信息及充值记录截图提交申请，1-3个工作日原路退回。'},{q:'如何申请注销账号？',tags:['注销','账号'],compliance:true,a:'您好！注销账号是不可逆操作：\n账号内所有信息、订阅权限、算力余额将永久清空且无法恢复；该账号的实名信息将永久失效，无法再注册新账号。\n\n如确认注销，需提供：1.账号UID 2.绑定手机号 3.实名姓名 4.身份证后四位 5.最近一笔消费截图。\n注销完成后，账号即刻失效，请谨慎操作。'}]},{id:'s9',title:'推荐合作与复购',tags:['推荐','合作'],items:[{q:'推荐好友有奖励吗？',tags:['推荐','福利'],a:'您好！成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：\n- 好友开通L4版本可获2000点数；\n- 好友开通L3版本可获1000点数；\n- 好友开通L2版本可获500点数。\n具体活动规则可联系客服咨询最新详情。'},{q:'如何申请商务合作？',tags:['合作','商务'],a:'您好！商务合作请联系：support@alphax.net'}]},{id:'s10',title:'合规法律与协议',tags:['合规','法律'],items:[{q:'软件使用有什么限制？发现违规使用会怎样？',tags:['合规','安全'],compliance:true,a:'您好！ALPHAX是专业的GTO策略学习工具。使用场景必须合法合规，禁止将本软件用于任何违规或不当用途。一经发现账号存在违规使用行为，账号将被立即封禁，并保留向相关部门报告的权利。请务必遵守相关法律法规，合理使用软件。'},{q:'软件收集哪些数据？如何保护用户隐私？',tags:['合规','隐私'],a:'您好！软件会收集以下必要信息：账号信息（手机号、实名认证信息）；设备信息（设备型号、操作系统版本）；使用数据（功能使用记录、算力消耗记录）；日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护您的数据安全，不会将您的信息出售或未经同意提供给第三方。'}]}];
-
-const CLOUD_URL='https://jsonblob.com/api/jsonBlob/019e2095-8a1f-765c-8e16-2e69f084a3db';
-let rules=[
-  {id:1,title:'补偿上限规则',content:'当用户要求补偿时，不要直接承诺任何数字。先了解用户UID和消费金额，补偿算力上限不超过2000，必须强调"一次性补偿，后续无法再申请"。'},
-  {id:2,title:'退款处理规则',content:'用户要求退款时，先核实是否符合退款条件（10天内剩余算力≥50%且无充值记录，或30天内完全未使用）。不符合条件时用规则说话，不说"领导不同意"，说"根据协议约定，统一执行的规则"。'},
-  {id:3,title:'情绪安抚规则',content:'用户情绪激动时，先安抚情绪再处理问题。用"非常理解您的心情"开头，不要硬刚，不要威胁或对抗。'},
-  {id:4,title:'升级通知规则',content:'以下情况需创建工单升级处理：1.用户威胁投诉/举报/法律手段；2.用户要求补偿超过2000算力；3.用户提出知识库未覆盖的问题；4.用户要求与主管/领导沟通。'},
-  {id:5,title:'合规底线规则',content:'任何回复中涉及"不承诺结果"、"仅供学习研究"、"严禁用于违法活动"等合规要点时，必须包含在回复中，不能省略。'}
+var KB=[
+{s:'产品初识',items:[
+{q:'ALPHAX是什么软件？',tags:['产品','介绍'],a:'ALPHAX是一款正版AI云计算工具，核心是基于GTO博弈论最优策略和AI矩阵算法，帮助您进行GTO策略学习、技巧训练、对局分析和决策研究。它是学习研究工具，不是实战辅助外挂，也不会修改或干预任何第三方平台程序。使用效果因人而异，不承诺或保证任何具体结果，仅供学习研究使用。'},
+{q:'ALPHAX是否属于外挂程序？是否具备透视功能？',tags:['安全','合规','外挂','透视'],a:'ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。软件不会修改、侵入任何第三方平台程序，不篡改安装包，不破坏数据签名，所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险。'},
+{q:'使用ALPHAX是否会被检测或导致账号封禁？',tags:['安全','账号','封号','封禁','检测'],a:'各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。建议一个账号对应一个设备，规范使用，不要多开或共享网络，不要使用模拟器或云手机。'},
+{q:'ALPHAX能提高胜率吗？能稳赢吗？',tags:['产品','合规','胜率','稳赢'],a:'ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。'},
+{q:'什么是GTO？Q值、EV等术语代表什么？',tags:['产品','术语','GTO'],a:'GTO即博弈论最优策略（Game Theory Optimal）；Q值代表当前手牌的强度评分；EV即期望价值，是策略层面的综合收益预期；EVQ是结合手牌强度与场景逻辑的综合权益评分。以上均为策略学习与数据分析术语，仅用于GTO理论研究与复盘参考。'}
+]},
+{s:'设备与下载',items:[
+{q:'如何下载官方软件？',tags:['下载','安全'],a:'官方下载地址是 https://alphax.net.cn ，支持iOS、安卓及电脑端。请勿在第三方网站、网盘或非官方渠道下载，避免安装到盗版或存在安全风险的版本。'},
+{q:'软件支持哪些设备和系统？',tags:['设备','适配','支持'],a:'已适配主流设备，支持安卓、iOS、Windows、MacOS全系统，各平台均有独立客户端，下载请前往官方地址获取对应版本。'},
+{q:'使用软件需要模拟器吗？',tags:['设备','安全','模拟器'],a:'使用ALPHAX不需要模拟器。在模拟器中运行可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行，若在非原生环境使用需自行承担所有风险。'},
+{q:'在国外可以使用吗？支持退款吗？',tags:['海外','国外','境外','退款'],a:'境外用户可正常使用ALPHAX，可开通对应地区加速服务，只需提供软件主页截图和UID联系客服即可协助办理，使用期间请保持IP与定位地区一致。境外相关订单暂不支持退款，请您购买前知悉。'}
+]},
+{s:'账号与登录',items:[
+{q:'如何注册账号？必须要实名认证吗？',tags:['账号','注册','实名'],a:'使用手机号接收验证码即可注册。首次登录后需进行实名认证，绑定真实姓名及身份证信息，否则无法正常使用。一个身份证仅可绑定一个账号。'},
+{q:'登录时收不到验证码？',tags:['账号','技术','验证码'],a:'请逐一排查：1.手机信号不佳—到空旷处重新获取；2.短信被拦截—检查拦截记录；3.通道延迟—等待1-2分钟；4.手机号填写错误—确认号码；5.频繁请求—1分钟内多次会被限制。如仍无法解决，请提供手机号帮您对接技术排查。'},
+{q:'一个账号可以同时登录几台设备？',tags:['账号','设备'],a:'同一账号仅支持单台设备登录使用，不支持多设备同时在线。如需在新设备登录，旧设备需手动退出。'},
+{q:'账号可以出租或借用给他人吗？',tags:['账号','安全','共享'],a:'根据用户协议约定，账号不得与他人共享。账号出租、借用或共享给他人，由此产生的盗号、数据泄露及其他损失均由您自行承担。'}
+]},
+{s:'会员与购买',items:[
+{q:'会员版本有哪些？',tags:['会员','版本'],a:'软件会员主要包含L0（试用版）、L1、L2、L3、L4五个版本，您可以打开APP进入会员订阅页面查看各版本详细功能对比和算力消耗。'},
+{q:'各版本之间有什么区别？',tags:['会员','版本','区别'],a:'L0/L1：入门试用版，仅支持翻前基础功能；L2：支持多平台与GTO尺度建议；L3：解锁全量功能，性价比最高；L4：最高性能版本，支持全部高阶功能。大多数用户推荐L3。'},
+{q:'试用版有什么限制？',tags:['会员','试用'],a:'付费体验版（T4）限时20分钟，功能与L4完全一致；L0试用版有效期30天，含600算力，到期后无法继续使用，不可重复开通，不能充值算力，仅支持翻前基础功能。'},
+{q:'订阅版本和充值算力有什么区别？',tags:['会员','算力','购买'],a:'激活版本=使用权限（退款按激活时约定的总算力计算比例）；充值算力=使用次数（每次决策都会扣费，充值算力永久有效，但一律不支持退款）。版本是权限，算力是使用次数，两者独立。'}
+]},
+{s:'算力规则',items:[
+{q:'算力是什么？有什么作用？',tags:['算力','基础'],a:'算力是使用ALPHAX进行GTO策略分析的专属消耗单位。调用AI分析时系统会根据分析深度与阶段扣除对应算力，仅在使用时消耗，闲置不扣。'},
+{q:'算力是永久有效的吗？',tags:['算力','规则','有效期'],a:'套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用。'},
+{q:'算力用完了怎么办？',tags:['算力','充值'],a:'算力用完后请在APP会员订阅页面充值算力即可继续使用。'},
+{q:'算力充值有哪些档位和价格？',tags:['算力','充值','价格'],a:'当前可选：680元/5200算力、980元/8800算力、1580元/14900算力、2580元/26600算力、3680元/42200算力。具体以APP内实时显示为准。'}
+]},
+{s:'功能使用',items:[
+{q:'下载后怎么使用软件？',tags:['教程','入门'],a:'只需四步：1.注册账号并完成实名认证；2.订阅购买会员版本；3.进入实时场景分析AiGTO；4.选择对应平台即可使用。购买会员后可联系专属客服获取使用教程与指导。'},
+{q:'对抗策略是什么？',tags:['功能','L4'],a:'对抗策略是L4版本专属功能，开启后可调整AI在策略分析中的变化幅度（默认35%），建议设置翻前10-45%，翻后30-60%。'},
+{q:'什么是辅助弃牌？',tags:['功能','L3','L4'],a:'辅助弃牌是L3/L4版本的GTO学习辅助功能：当弃牌选项的GTO概率高于设定阈值，会提供弃牌建议供学习参考，阈值可在设置中自行调整。'}
+]},
+{s:'故障排查',items:[
+{q:'软件无法打开/黑屏/白屏/卡顿怎么办？',tags:['技术','故障','黑屏','白屏','卡顿'],a:'请按以下步骤尝试：1.切换网络（WiFi和5G）；2.点击刷新按钮；3.关闭APP后重启（反复2-3次）；4.开启/关闭飞行模式；5.切换线路或节点；6.修改DNS；7.卸载重装APP；8.换时间段重试。以上仍未解决请联系客服提供UID和问题截图。'},
+{q:'软件页面一直显示更新中？',tags:['技术','故障','更新'],a:'表示当前版本正在升级维护，请耐心等待更新完成后再使用（预计3-12小时）。'},
+{q:'AI计算结果不准确怎么办？',tags:['技术','故障','准确'],a:'建议检查牌局数据同步及参数设置，重启APP刷新数据，如仍异常请联系客服提供UID、截图及问题场景。'}
+]},
+{s:'退款与注销',items:[
+{q:'退款政策是怎样的？',tags:['退款','售后','退费'],a:'本软件属于数字化服务类商品，不支持七天无理由退款。可申请退款的情况：1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款；2.购买30天内完全未使用，可全额退款（扣5%手续费）。不支持退款的情况：已充值算力一律不支持退款、同一账号仅限申请一次退款。需提供UID、实名信息及充值记录截图，1-3个工作日原路退回。'},
+{q:'如何申请注销账号？',tags:['注销','账号'],a:'注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效，无法再注册新账号。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。'}
+]},
+{s:'推荐合作',items:[
+{q:'推荐好友有奖励吗？',tags:['推荐','福利'],a:'成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：好友开通L4可获2000点数，L3可获1000点数，L2可获500点数。具体活动规则可联系客服咨询最新详情。'},
+{q:'如何申请商务合作？',tags:['合作','商务'],a:'商务合作请联系 support@alphax.net'}
+]},
+{s:'合规法律',items:[
+{q:'软件使用有什么限制？发现违规使用会怎样？',tags:['合规','安全','违规'],a:'ALPHAX是专业的GTO策略学习工具，使用场景必须合法合规，禁止将本软件用于任何违规或不当用途。一经发现违规使用行为，账号将被立即封禁，并保留向相关部门报告的权利。请务必遵守相关法律法规。'},
+{q:'软件收集哪些数据？如何保护用户隐私？',tags:['合规','隐私','数据'],a:'软件会收集账号信息（手机号、实名认证）、设备信息（型号、系统版本）、使用数据（功能使用记录、算力消耗）、日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护数据安全，不会将信息出售或未经同意提供给第三方。'}
+]}
 ];
 
-let currentUser={name:'模拟用户',uid:'',version:'',mood:'平静',chats:0,issues:[]};
-let chatHistory=[];
-let tickets=[];
-let logs=[];
-let stats={chats:0,resolved:0,pending:0,escalated:0};
+var rules=[
+{id:1,title:'补偿上限规则',content:'当用户要求补偿时，不要直接承诺任何数字。先了解用户UID和消费金额，补偿算力上限不超过2000，必须强调"一次性补偿，后续无法再申请"。'},
+{id:2,title:'退款处理规则',content:'用户要求退款时，先核实是否符合退款条件。不符合条件时用规则说话，不说"领导不同意"，说"根据协议约定，统一执行的规则"。'},
+{id:3,title:'情绪安抚规则',content:'用户情绪激动时，先安抚情绪再处理问题。用"非常理解您的心情"开头，不要硬刚，不要威胁或对抗。'},
+{id:4,title:'升级通知规则',content:'以下情况需创建工单升级：1.用户威胁投诉/举报/法律手段；2.用户要求补偿超过2000算力；3.知识库未覆盖的问题；4.用户要求与主管沟通。'},
+{id:5,title:'合规底线规则',content:'任何回复中涉及"不承诺结果"、"仅供学习研究"等合规要点时，必须包含，不能省略。'}
+];
 
-function switchTab(tab){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+var curUser={name:'模拟用户',uid:'',ver:'',mood:'平静',chats:0,issues:[]};
+var chatHist=[];
+var tickets=[];
+var logs=[];
+var stats={chats:0,resolved:0,pending:0,escalated:0};
+var convState={topic:null,step:0,ctx:{}};
+
+function switchTab(tab,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
   document.getElementById('page-'+tab).classList.add('active');
-  event.currentTarget.classList.add('active');
+  btn.classList.add('active');
 }
 
-function getTime(){const d=new Date();return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0')}
+function now(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
 
-function sendMessage(){
-  const input=document.getElementById('chatInput');
-  const text=input.value.trim();
-  if(!text)return;
-  input.value='';
-  
-  addMsg('user',text);
-  currentUser.chats++;
-  updateProfile();
-  
-  setTimeout(()=>{
-    const response=generateResponse(text);
-    addMsg('ai',response.text);
-    document.getElementById('analysisIntent').textContent=response.intent;
-    document.getElementById('analysisMatch').textContent=response.match;
-    if(response.escalate){
-      document.getElementById('analysisEscalate').innerHTML='<span class="tag-sm danger">是-需升级</span>';
-      createTicket(text,response.reason);
+function addMsg(type,txt){
+  var box=document.getElementById('chatMsgs');
+  var div=document.createElement('div');
+  div.className='msg '+type;
+  var av=type==='ai'?'AI':curUser.name.charAt(0);
+  var t=now();
+  var acts='';
+  if(type==='ai'){
+    acts='<div class="msg-acts"><button class="mbtn" onclick="copyMsg(this)">复制</button><button class="mbtn" onclick="mkTicket(this)">创建工单</button></div>';
+  }
+  var safeTxt=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  div.innerHTML='<div class="msg-av">'+av+'</div><div><div class="msg-bb">'+safeTxt+acts+'</div><div class="msg-t">'+t+'</div></div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+  chatHist.push({type:type,txt:txt,time:t});
+}
+
+function sendMsg(){
+  var inp=document.getElementById('chatInput');
+  var txt=inp.value.trim();
+  if(!txt)return;
+  inp.value='';
+  addMsg('u',txt);
+  curUser.chats++;
+  updProfile();
+  setTimeout(function(){
+    var r=genReply(txt);
+    addMsg('ai',r.txt);
+    document.getElementById('aIntent').textContent=r.intent;
+    document.getElementById('aMatch').textContent=r.match;
+    if(r.esc){
+      document.getElementById('aEsc').innerHTML='<span class="tsm dg">是-需升级</span>';
+      mkTicketRaw(txt,r.reason);
       stats.escalated++;
-    } else {
-      document.getElementById('analysisEscalate').innerHTML='<span class="tag-sm success">否</span>';
+    }else{
+      document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
       stats.resolved++;
     }
     stats.chats++;
-    addLog('chat',currentUser.name,text.substring(0,30)+(text.length>30?'...':''));
-    updateStats();
-  },500+Math.random()*1000);
+    addLog('chat',curUser.name,txt.substring(0,30)+(txt.length>30?'...':''));
+    updStats();
+  },600+Math.random()*800);
 }
 
-function addMsg(type,text){
-  const container=document.getElementById('chatMessages');
-  const div=document.createElement('div');
-  div.className='msg '+type;
-  const avatar=type==='ai'?'AI':currentUser.name.charAt(0);
-  const time=getTime();
-  const actions=type==='ai'?'<div class="action-btns"><button class="msg-action" onclick="copyMsg(this)">复制</button><button class="msg-action" onclick="createTicketFromMsg(this)">创建工单</button></div>':'';
-  div.innerHTML=`<div class="msg-avatar">${avatar}</div><div><div class="msg-bubble">${text.replace(/\n/g,'<br>')}${actions}</div><div class="msg-time">${time}</div></div>`;
-  container.appendChild(div);
-  container.scrollTop=container.scrollHeight;
-  chatHistory.push({type,text,time});
-}
+document.getElementById('sendBtn').addEventListener('click',sendMsg);
+document.getElementById('chatInput').addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
+});
 
-let conversationState={topic:null,step:0,context:{}};
+function genReply(input){
+  var lo=input.toLowerCase();
+  var intent='通用咨询',match='-',esc=false,reason='',txt='';
+  var kbMatch=findKB(input);
+  var st=convState;
 
-function generateResponse(input){
-  const lower=input.toLowerCase();
-  let intent='通用咨询',match='-',escalate=false,reason='',text='';
-  const matched=findInKB(input);
-  
-  const state=conversationState;
-  
-  if(state.topic==='refund'&&state.step>0){
-    return handleRefundFlow(input,lower);
-  }
-  if(state.topic==='compensate'&&state.step>0){
-    return handleCompensateFlow(input,lower);
-  }
-  if(state.topic==='tech'&&state.step>0){
-    return handleTechFlow(input,lower);
-  }
-  
-  if(lower.includes('退款')||lower.includes('退钱')||lower.includes('退费')){
+  if(st.topic==='refund'&&st.step>0){return refundFlow(input,lo);}
+  if(st.topic==='comp'&&st.step>0){return compFlow(input,lo);}
+  if(st.topic==='tech'&&st.step>0){return techFlow(input,lo);}
+
+  if(has(lo,['退款','退钱','退费','退'])){
     intent='退款咨询';
-    if(lower.includes('投诉')||lower.includes('举报')||lower.includes('法律')||lower.includes('315')||lower.includes('消费者')||lower.includes('虚假宣传')){
-      currentUser.mood='激动';
-      intent='退款+投诉升级';
-      match='投诉升级';
-      escalate=true;
-      reason='用户威胁投诉/法律手段';
-      text='您好！非常理解您的心情，我们很重视您的反馈。能先跟我说说具体是什么情况吗？我先帮您了解一下，看看怎么帮您处理~';
-      state.topic='refund';state.step=1;state.context={angry:true};
-    } else {
+    if(has(lo,['投诉','举报','法律','315','消费者','虚假宣传'])){
+      curUser.mood='激动';intent='退款+投诉升级';match='投诉升级';esc=true;reason='用户威胁投诉/法律手段';
+      txt='您好！非常理解您的心情，我们很重视您的反馈。能先跟我说说具体是什么情况吗？我先帮您了解一下，看看怎么帮您处理~';
+      st.topic='refund';st.step=1;st.ctx={angry:true};
+    }else{
       match='退款初步';
-      text='您好！请问是遇到什么问题了呢？能跟我说说具体情况吗，我先了解一下~';
-      state.topic='refund';state.step=1;state.context={};
+      txt='您好！请问是遇到什么问题了呢？能跟我说说具体情况吗，我先了解一下~';
+      st.topic='refund';st.step=1;st.ctx={};
     }
-  } else if(lower.includes('补偿')||lower.includes('送算力')||lower.includes('赠送')||lower.includes('弥补')){
-    intent='补偿请求';
-    match='补偿初步';
-    text='您好！非常理解您的心情，请问方便提供一下您的UID吗？我先帮您看看账号情况~';
-    state.topic='compensate';state.step=1;state.context={};
-  } else if(lower.includes('打不开')||lower.includes('黑屏')||lower.includes('白屏')||lower.includes('卡顿')||lower.includes('卡在')||lower.includes('闪退')||lower.includes('崩溃')||lower.includes('更新中')||lower.includes('无法打开')||lower.includes('进不去')||lower.includes('用不了')||(lower.includes('软件')&&(lower.includes('问题')||lower.includes('故障')))){
-    intent='故障排查';
-    match='故障初步';
-    text='您好！遇到这种情况确实影响体验，非常抱歉给您带来不便。请问具体是什么情况呢？比如是黑屏、白屏、卡在某个页面，还是闪退？有看到什么提示吗？';
-    state.topic='tech';state.step=1;context={};
-  } else if(lower.includes('封号')||lower.includes('封禁')||lower.includes('检测')||lower.includes('安全')){
-    match=matched?matched.q:'账号安全';
-    text=matched?humanizeAnswer(matched.q,matched.a):'您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统，其管理决策由平台独立作出，与ALPHAX无关。建议一个账号对应一个设备，规范使用。如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
-  } else if(lower.includes('外挂')||lower.includes('透视')||lower.includes('作弊')){
-    intent='产品性质';
-    match=matched?matched.q:'产品性质';
-    text=matched?humanizeAnswer(matched.q,matched.a):'您好！ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险。';
-  } else if(lower.includes('算力')&&(lower.includes('多少')||lower.includes('价格')||lower.includes('充值')||lower.includes('档位'))){
-    intent='算力价格';
-    match='算力充值档位';
-    text='您好！当前算力充值档位：\n- ￥680 → 5200算力\n- ￥980 → 8800算力\n- ￥1580 → 14900算力\n- ￥2580 → 26600算力\n- ￥3680 → 42200算力\n具体以APP内实时显示为准。';
-  } else if(lower.includes('注销')){
-    intent='账号注销';
-    match=matched?matched.q:'账号注销';
-    text=matched?matched.a:'您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
-  } else if(lower.includes('下载')||lower.includes('安装')){
-    intent='下载安装';
-    match=matched?matched.q:'下载安装';
-    text=matched?matched.a:'您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
-  } else if(lower.includes('胜率')||lower.includes('稳赢')||lower.includes('包赢')){
-    intent='效果咨询';
-    match=matched?matched.q:'效果咨询';
-    currentUser.mood='期待';
-    text=matched?matched.a:'您好！ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
-  } else if(matched){
-    intent='知识库匹配';
-    match=matched.q;
-    text=humanizeAnswer(matched.q,matched.a);
-  } else {
-    intent='未匹配';
-    match='无';
-    text='您好！这个问题我需要进一步核实，帮您转接处理，请稍等~';
-    escalate=true;
-    reason='知识库未覆盖的问题';
+  }else if(has(lo,['补偿','送算力','赠送','弥补'])){
+    intent='补偿请求';match='补偿初步';
+    txt='您好！非常理解您的心情，请问方便提供一下您的UID吗？我先帮您看看账号情况~';
+    st.topic='comp';st.step=1;st.ctx={};
+  }else if(has(lo,['打不开','黑屏','白屏','卡顿','卡在','闪退','崩溃','更新中','无法打开','进不去','用不了'])){
+    intent='故障排查';match='故障初步';
+    txt='您好！遇到这种情况确实影响体验，非常抱歉给您带来不便。请问具体是什么情况呢？比如是黑屏、白屏、卡在某个页面，还是闪退？有看到什么提示吗？';
+    st.topic='tech';st.step=1;st.ctx={};
+  }else if(has(lo,['封号','封禁','检测'])){
+    intent='账号安全';match=kbMatch?kbMatch.q:'账号安全';
+    txt=kbMatch?kbMatch.a:'各平台均拥有独立的风控系统，其管理决策由平台独立作出，与ALPHAX无关。建议一个账号对应一个设备，规范使用。';
+  }else if(has(lo,['外挂','透视','作弊'])){
+    intent='产品性质';match=kbMatch?kbMatch.q:'产品性质';
+    txt=kbMatch?kbMatch.a:'ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。所有功能都只用于GTO策略学习和对局分析。';
+  }else if(has(lo,['算力'])&&has(lo,['多少','价格','充值','档位'])){
+    intent='算力价格';match='算力充值档位';
+    txt='当前算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n具体以APP内实时显示为准。';
+  }else if(has(lo,['注销'])){
+    intent='账号注销';match=kbMatch?kbMatch.q:'账号注销';
+    txt=kbMatch?kbMatch.a:'注销账号是不可逆操作，所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
+  }else if(has(lo,['下载','安装'])){
+    intent='下载安装';match=kbMatch?kbMatch.q:'下载安装';
+    txt=kbMatch?kbMatch.a:'官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
+  }else if(has(lo,['胜率','稳赢','包赢'])){
+    intent='效果咨询';match=kbMatch?kbMatch.q:'效果咨询';curUser.mood='期待';
+    txt=kbMatch?kbMatch.a:'ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
+  }else if(kbMatch){
+    intent='知识库匹配';match=kbMatch.q;txt=kbMatch.a;
+  }else{
+    intent='未匹配';match='无';esc=true;reason='知识库未覆盖的问题';
+    txt='您好！这个问题我需要进一步核实，帮您转接处理，请稍等~';
   }
-  
-  updateMood(lower);
-  return {intent,match,escalate,reason,text};
+
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
 }
 
-function humanizeAnswer(question,answer){
-  const q=question.toLowerCase();
-  let prefix='';
-  if(q.includes('下载')||q.includes('安装'))prefix='好的，';
-  else if(q.includes('支持')||q.includes('适配'))prefix='关于这个问题，';
-  else if(q.includes('国外')||q.includes('海外')||q.includes('境外'))prefix='关于境外使用，';
-  else if(q.includes('注册')||q.includes('登录'))prefix='关于账号注册，';
-  else if(q.includes('版本')||q.includes('会员'))prefix='关于会员版本，';
-  else if(q.includes('算力'))prefix='关于算力问题，';
-  else if(q.includes('功能')||q.includes('教程'))prefix='关于功能使用，';
-  else if(q.includes('故障')||q.includes('打不开')||q.includes('黑屏'))prefix='遇到这种情况确实影响体验，';
-  else if(q.includes('注销'))prefix='关于账号注销，';
-  else if(q.includes('推荐')||q.includes('合作'))prefix='感谢您对ALPHAX的关注！';
-  else if(q.includes('隐私')||q.includes('数据'))prefix='您的隐私安全是我们最重视的，';
-  else if(q.includes('外挂')||q.includes('透视'))prefix='理解您的顾虑，';
-  else if(q.includes('胜率')||q.includes('稳赢'))prefix='非常理解您对效果的关心，';
-  else prefix='您好！';
-  if(answer.startsWith('您好')||answer.startsWith('好的'))return answer;
-  return prefix+answer.replace(/^您好！?/,'');
-}
+function has(str,words){for(var i=0;i<words.length;i++){if(str.indexOf(words[i])>=0)return true;}return false;}
 
-function handleRefundFlow(input,lower){
-  const state=conversationState;
-  let intent='退款跟进',match='退款流程Step'+state.step,escalate=false,reason='',text='';
-  
-  if(state.step===1){
-    if(lower.includes('效果')||lower.includes('不好')||lower.includes('不行')||lower.includes('没用')){
-      state.context.reason='效果不满意';
-      text='明白了，是使用效果方面的问题对吧，非常理解您的感受。请问您方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况，看看怎么帮您处理~';
-      state.step=2;
-    } else if(lower.includes('不会用')||lower.includes('不会操作')||lower.includes('不懂')){
-      state.context.reason='不会使用';
-      text='了解了，是使用方面的问题。其实我们提供专属客服一对一指导，可以帮您快速上手，您愿意试试吗？如果确实需要退款，也请提供UID和购买记录截图，这边帮您核实~';
-      state.step=2;
-    } else if(lower.includes('投诉')||lower.includes('举报')||lower.includes('法律')||lower.includes('315')||lower.includes('虚假')){
-      currentUser.mood='激动';
-      state.context.angry=true;
-      text='非常理解您的心情，您的反馈我们很重视。请您先提供一下UID和购买记录截图，这边帮您核实账号情况后，看看怎么妥善处理这个问题，好吗？';
-      state.step=2;
-    } else {
-      text='了解了，请问方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况~';
-      state.step=2;
+function refundFlow(input,lo){
+  var st=convState;
+  var intent='退款跟进',match='退款Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(has(lo,['效果','不好','不行','没用','不满意'])){
+      st.ctx.reason='效果不满意';
+      txt='明白了，是使用效果方面的问题对吧，非常理解您的感受。请问您方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况，看看怎么帮您处理~';
+      st.step=2;
+    }else if(has(lo,['不会用','不会操作','不懂'])){
+      st.ctx.reason='不会使用';
+      txt='了解了，是使用方面的问题。其实我们提供专属客服一对一指导，可以帮您快速上手，您愿意试试吗？如果确实需要退款，也请提供UID和购买记录截图，这边帮您核实~';
+      st.step=2;
+    }else if(has(lo,['投诉','举报','法律','315','虚假'])){
+      curUser.mood='激动';st.ctx.angry=true;
+      txt='非常理解您的心情，您的反馈我们很重视。请您先提供一下UID和购买记录截图，这边帮您核实账号情况后，看看怎么妥善处理这个问题，好吗？';
+      st.step=2;
+    }else{
+      txt='了解了，请问方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况~';
+      st.step=2;
     }
-  } else if(state.step===2){
-    if(lower.includes('uid')||lower.match(/\d{6,}/)){
-      state.context.hasUID=true;
-      text='好的，已收到您的信息。这边帮您核实一下，关于退款说明一下规则：1.购买10天内，剩余算力≥50%且无充值记录，可按比例退款；2.购买30天内完全未使用，可全额退款（扣5%手续费）；3.已充值算力不支持退款，同一账号仅限一次。这边先帮您核实是否符合条件，感谢理解！';
-      state.step=3;
-    } else if(lower.includes('不给')||lower.includes('拒绝')||lower.includes('不行')||lower.includes('投诉')){
-      currentUser.mood='激动';
-      escalate=true;
-      reason='退款纠纷升级';
-      text='非常理解您的心情，这边确实需要先核实您的账号情况才能判断。请您提供UID和购买记录截图，我这边一定积极帮您处理！';
-    } else {
-      text='好的，请您提供一下UID和购买记录截图，这边帮您核实~';
+  }else if(st.step===2){
+    if(has(lo,['uid'])||/\d{6,}/.test(lo)){
+      st.ctx.hasUID=true;
+      txt='好的，已收到您的信息。这边帮您核实一下，关于退款说明一下规则：\n1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款\n2.购买30天内完全未使用，可全额退款（扣5%手续费）\n3.已充值算力不支持退款，同一账号仅限一次\n这边先帮您核实是否符合条件，感谢理解！';
+      st.step=3;
+    }else if(has(lo,['不给','拒绝','投诉'])){
+      curUser.mood='激动';esc=true;reason='退款纠纷升级';
+      txt='非常理解您的心情，这边确实需要先核实您的账号情况才能判断。请您提供UID和购买记录截图，我这边一定积极帮您处理！';
+    }else{
+      txt='好的，请您提供一下UID和购买记录截图，这边帮您核实~';
     }
-  } else if(state.step>=3){
-    if(lower.includes('不符合')||lower.includes('不行')||lower.includes('为什么不能退')||lower.includes('不给退')){
-      text='很抱歉，根据服务协议约定，您的情况目前不符合退款条件。这个是按协议统一执行的，确实无法破例，非常抱歉没能帮到您！如果您有其他诉求，也可以跟我说，看看怎么帮您处理~';
-      state.topic=null;state.step=0;
-    } else if(lower.includes('补偿')||lower.includes('送')||lower.includes('弥补')){
-      conversationState.topic='compensate';conversationState.step=1;
-      return handleCompensateFlow(input,lower);
-    } else if(lower.includes('谢谢')||lower.includes('好的')||lower.includes('了解')){
-      text='不客气！有问题随时联系我们~';
-      state.topic=null;state.step=0;
-      stats.resolved++;
-    } else {
-      text='请问还有其他问题吗？';
-      state.topic=null;state.step=0;
+  }else if(st.step>=3){
+    if(has(lo,['不符合','不行','为什么不能退','不给退'])){
+      txt='很抱歉，根据服务协议约定，您的情况目前不符合退款条件。这个是按协议统一执行的，确实无法破例，非常抱歉没能帮到您！如果您有其他诉求，也可以跟我说，看看怎么帮您处理~';
+      st.topic=null;st.step=0;
+    }else if(has(lo,['补偿','送','弥补'])){
+      convState.topic='comp';convState.step=1;
+      return compFlow(input,lo);
+    }else if(has(lo,['谢谢','好的','了解'])){
+      txt='不客气！有问题随时联系我们~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='请问还有其他问题吗？';
+      st.topic=null;st.step=0;
     }
   }
-  
-  updateMood(lower);
-  return {intent,match,escalate,reason,text};
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
 }
 
-function handleCompensateFlow(input,lower){
-  const state=conversationState;
-  let intent='补偿跟进',match='补偿流程Step'+state.step,escalate=false,reason='',text='';
-  
-  if(state.step===1){
-    if(lower.match(/\d{6,}/)||lower.includes('uid')){
-      state.context.hasUID=true;
-      text='好的，已收到。请问您大概是什么问题导致体验不好呢？方便简单说一下吗？';
-      state.step=2;
-    } else {
-      text='请您提供一下UID，这边先帮您查看账号情况~';
+function compFlow(input,lo){
+  var st=convState;
+  var intent='补偿跟进',match='补偿Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(/\d{6,}/.test(lo)||has(lo,['uid'])){
+      st.ctx.hasUID=true;
+      txt='好的，已收到。请问您大概是什么问题导致体验不好呢？方便简单说一下吗？';
+      st.step=2;
+    }else{
+      txt='请您提供一下UID，这边先帮您查看账号情况~';
     }
-  } else if(state.step===2){
-    state.context.issue=input.substring(0,50);
-    text='了解了，非常理解您的感受。这边可以帮您申请算力补偿，但需要说明一下，补偿是一次性的，后续无法再申请。您看需要我帮您反馈申请吗？';
-    state.step=3;
-  } else if(state.step===3){
-    if(lower.includes('好')||lower.includes('可以')||lower.includes('要')||lower.includes('申请')){
-      escalate=true;
-      reason='用户申请补偿，需主管审批';
-      text='好的，这边帮您提交反馈申请，有结果第一时间通知您！';
-      state.topic=null;state.step=0;
-    } else if(lower.includes('不要')||lower.includes('不用')||lower.includes('算了')){
-      text='好的，没问题。如有其他问题随时联系我们~';
-      state.topic=null;state.step=0;
-      stats.resolved++;
-    } else {
-      text='请问您需要我帮您反馈申请补偿吗？';
+  }else if(st.step===2){
+    st.ctx.issue=input.substring(0,50);
+    txt='了解了，非常理解您的感受。这边可以帮您申请算力补偿，但需要说明一下，补偿是一次性的，后续无法再申请。您看需要我帮您反馈申请吗？';
+    st.step=3;
+  }else if(st.step===3){
+    if(has(lo,['好','可以','要','申请'])){
+      esc=true;reason='用户申请补偿，需主管审批';
+      txt='好的，这边帮您提交反馈申请，有结果第一时间通知您！';
+      st.topic=null;st.step=0;
+    }else if(has(lo,['不要','不用','算了'])){
+      txt='好的，没问题。如有其他问题随时联系我们~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='请问您需要我帮您反馈申请补偿吗？';
     }
   }
-  
-  updateMood(lower);
-  return {intent,match,escalate,reason,text};
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
 }
 
-function handleTechFlow(input,lower){
-  const state=conversationState;
-  let intent='故障排查',match='故障流程Step'+state.step,escalate=false,reason='',text='';
-  
-  if(state.step===1){
-    if(lower.includes('黑屏')){
-      state.context.issue='黑屏';
-      text='了解了，黑屏的问题。请问您是刚打开就黑屏，还是使用过程中突然黑屏的？用的是手机还是电脑？';
-      state.step=2;
-    } else if(lower.includes('白屏')){
-      state.context.issue='白屏';
-      text='了解了，白屏的情况。请问是打开就白屏，还是操作到某个页面变白的？您用的是什么设备？';
-      state.step=2;
-    } else if(lower.includes('卡顿')||lower.includes('卡')||lower.includes('慢')){
-      state.context.issue='卡顿';
-      text='了解了，卡顿确实影响体验。请问是全程卡顿还是某个操作时卡？大概用了多久开始卡的？';
-      state.step=2;
-    } else if(lower.includes('闪退')||lower.includes('退出')||lower.includes('崩溃')){
-      state.context.issue='闪退';
-      text='闪退确实很影响使用，非常抱歉。请问是打开就闪退，还是用了一会才闪退？有没有看到什么错误提示？';
-      state.step=2;
-    } else if(lower.includes('更新中')||lower.includes('更新')){
-      state.context.issue='更新中';
-      text='明白了，页面显示更新中的话，说明当前版本正在升级维护，请耐心等待3-12小时，更新完成后就可以正常使用了。如果超过12小时还是这个状态，请提供UID截图，这边帮您排查~';
-      state.topic=null;state.step=0;
-      stats.resolved++;
-    } else if(lower.includes('进不去')||lower.includes('无法')||lower.includes('打不开')){
-      state.context.issue='无法打开';
-      text='了解了，请问是完全打不开（点击没反应），还是打开后停在某个页面？有没有看到任何提示信息？';
-      state.step=2;
-    } else {
-      text='了解了，请问具体是什么表现呢？比如黑屏、白屏、卡住、闪退？有看到什么提示吗？方便的话也可以截图给我看看~';
+function techFlow(input,lo){
+  var st=convState;
+  var intent='故障排查',match='故障Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(has(lo,['黑屏'])){
+      st.ctx.issue='黑屏';
+      txt='了解了，黑屏的问题。请问您是刚打开就黑屏，还是使用过程中突然黑屏的？用的是手机还是电脑？';
+      st.step=2;
+    }else if(has(lo,['白屏'])){
+      st.ctx.issue='白屏';
+      txt='了解了，白屏的情况。请问是打开就白屏，还是操作到某个页面变白的？您用的是什么设备？';
+      st.step=2;
+    }else if(has(lo,['卡顿','卡','慢'])){
+      st.ctx.issue='卡顿';
+      txt='了解了，卡顿确实影响体验。请问是全程卡顿还是某个操作时卡？大概用了多久开始卡的？';
+      st.step=2;
+    }else if(has(lo,['闪退','退出','崩溃'])){
+      st.ctx.issue='闪退';
+      txt='闪退确实很影响使用，非常抱歉。请问是打开就闪退，还是用了一会才闪退？有没有看到什么错误提示？';
+      st.step=2;
+    }else if(has(lo,['更新中','更新'])){
+      st.ctx.issue='更新中';
+      txt='明白了，页面显示更新中的话，说明当前版本正在升级维护，请耐心等待3-12小时，更新完成后就可以正常使用了。如果超过12小时还是这个状态，请提供UID截图，这边帮您排查~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else if(has(lo,['进不去','无法','打不开'])){
+      st.ctx.issue='无法打开';
+      txt='了解了，请问是完全打不开（点击没反应），还是打开后停在某个页面？有没有看到任何提示信息？';
+      st.step=2;
+    }else{
+      txt='了解了，请问具体是什么表现呢？比如黑屏、白屏、卡住、闪退？有看到什么提示吗？方便的话也可以截图给我看看~';
     }
-  } else if(state.step===2){
-    const steps='建议您按以下步骤逐一尝试：\n1.切换网络（WiFi和5G之间切换试试）；\n2.点击APP内的刷新按钮；\n3.关闭APP后重新打开（可以反复2-3次）；\n4.开启再关闭飞行模式；\n5.切换APP线路或节点；\n6.修改DNS设置；\n7.卸载后重新安装APP；\n8.换个时间段再试。';
-    text='好的，了解了您的情况。'+steps+'\n\n以上方式仍未解决的话，请提供UID和问题截图，这边帮您对接技术排查~';
-    state.step=3;
-  } else if(state.step>=3){
-    if(lower.includes('还是不行')||lower.includes('没用')||lower.includes('试了')||lower.includes('还是打不开')){
-      escalate=true;
-      reason='故障排查未解决，需技术介入';
-      text='非常抱歉给您带来不便，这边帮您提交技术排查，请您提供UID和问题截图，技术同事会尽快处理！';
-      state.topic=null;state.step=0;
-    } else if(lower.includes('好了')||lower.includes('可以了')||lower.includes('解决了')||lower.includes('谢谢')){
-      text='太好了！后续有问题随时联系我们~';
-      state.topic=null;state.step=0;
-      stats.resolved++;
-    } else {
-      text='请问还有其他问题吗？';
-      state.topic=null;state.step=0;
+  }else if(st.step===2){
+    txt='好的，了解了您的情况。建议您按以下步骤逐一尝试：\n1.切换网络（WiFi和5G之间切换试试）\n2.点击APP内的刷新按钮\n3.关闭APP后重新打开（可以反复2-3次）\n4.开启再关闭飞行模式\n5.切换APP线路或节点\n6.修改DNS设置\n7.卸载后重新安装APP\n8.换个时间段再试\n\n以上方式仍未解决的话，请提供UID和问题截图，这边帮您对接技术排查~';
+    st.step=3;
+  }else if(st.step>=3){
+    if(has(lo,['还是不行','没用','试了','还是打不开'])){
+      esc=true;reason='故障排查未解决，需技术介入';
+      txt='非常抱歉给您带来不便，这边帮您提交技术排查，请您提供UID和问题截图，技术同事会尽快处理！';
+      st.topic=null;st.step=0;
+    }else if(has(lo,['好了','可以了','解决了','谢谢'])){
+      txt='太好了！后续有问题随时联系我们~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='请问还有其他问题吗？';
+      st.topic=null;st.step=0;
     }
   }
-  
-  updateMood(lower);
-  return {intent,match,escalate,reason,text};
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
 }
 
-function findInKB(input){
-  const lower=input.toLowerCase();
-  let bestMatch=null,bestScore=0;
-  KB_DATA.forEach(stage=>{
-    stage.items.forEach(item=>{
-      let score=0;
-      const qLower=item.q.toLowerCase();
-      const aLower=item.a.toLowerCase();
-      item.tags.forEach(tag=>{if(lower.includes(tag.toLowerCase()))score+=3});
-      const qWords=qLower.split(/[\s|·，,？?、]+/);
-      qWords.forEach(w=>{if(w.length>1&&lower.includes(w))score+=2});
-      if(lower.includes(qLower.substring(0,10)))score+=5;
-      if(score>bestScore){bestScore=score;bestMatch=item}
-    });
-  });
-  return bestScore>=2?bestMatch:null;
-}
-
-function checkRules(input){
-  const lower=input.toLowerCase();
-  let matchedRule=null;
-  rules.forEach(rule=>{
-    const keywords=rule.title.replace(/规则$/,'');
-    if(lower.includes(keywords)||lower.includes(rule.title)){
-      matchedRule=rule;
+function findKB(input){
+  var lo=input.toLowerCase();
+  var best=null,bestSc=0;
+  for(var i=0;i<KB.length;i++){
+    for(var j=0;j<KB[i].items.length;j++){
+      var item=KB[i].items[j];
+      var sc=0;
+      var ql=item.q.toLowerCase();
+      for(var k=0;k<item.tags.length;k++){if(lo.indexOf(item.tags[k].toLowerCase())>=0)sc+=3;}
+      var ws=ql.split(/[\s|·，,？?、]+/);
+      for(var k=0;k<ws.length;k++){if(ws[k].length>1&&lo.indexOf(ws[k])>=0)sc+=2;}
+      if(lo.indexOf(ql.substring(0,10))>=0)sc+=5;
+      if(sc>bestSc){bestSc=sc;best=item;}
     }
-  });
-  if(lower.includes('补偿')||lower.includes('送'))matchedRule=rules.find(r=>r.id===1);
-  if(lower.includes('退款')||lower.includes('退钱'))matchedRule=rules.find(r=>r.id===2);
-  if(lower.includes('投诉')||lower.includes('举报')||lower.includes('法律'))matchedRule=rules.find(r=>r.id===3);
-  return matchedRule?null:null;
+  }
+  return bestSc>=2?best:null;
 }
 
-function updateMood(input){
-  const angry=['投诉','举报','法律','315','消费者','虚假宣传','骗','垃圾','差评','律师'];
-  const upset=['不满意','不行','太少了','不够','差','不好','失望'];
-  const calm=['谢谢','好的','了解','明白','可以'];
-  if(angry.some(w=>input.includes(w)))currentUser.mood='激动';
-  else if(upset.some(w=>input.includes(w)))currentUser.mood='不满';
-  else if(calm.some(w=>input.includes(w)))currentUser.mood='平静';
-  updateProfile();
+function updMood(input){
+  var angry=['投诉','举报','法律','315','消费者','虚假宣传','骗','垃圾','差评','律师'];
+  var upset=['不满意','不行','太少了','不够','差','不好','失望'];
+  var calm=['谢谢','好的','了解','明白','可以'];
+  for(var i=0;i<angry.length;i++){if(input.indexOf(angry[i])>=0){curUser.mood='激动';break;}}
+  if(curUser.mood!=='激动'){for(var i=0;i<upset.length;i++){if(input.indexOf(upset[i])>=0){curUser.mood='不满';break;}}}
+  if(curUser.mood!=='激动'&&curUser.mood!=='不满'){for(var i=0;i<calm.length;i++){if(input.indexOf(calm[i])>=0){curUser.mood='平静';break;}}}
+  updProfile();
 }
 
-function updateProfile(){
-  document.getElementById('profileName').textContent=currentUser.name;
-  document.getElementById('profileUID').textContent=currentUser.uid||'未提供';
-  document.getElementById('profileVersion').textContent=currentUser.version||'未知';
-  const moodMap={平静:'info',不满:'warning',激动:'danger',期待:'info'};
-  document.getElementById('profileMood').innerHTML=`<span class="tag-sm ${moodMap[currentUser.mood]||'info'}">${currentUser.mood}</span>`;
-  document.getElementById('profileChats').textContent=currentUser.chats;
-  document.getElementById('profileIssues').textContent=currentUser.issues.length?currentUser.issues.join('、'):'暂无';
-  document.getElementById('chatAvatar').textContent=currentUser.name.charAt(0);
-  document.getElementById('chatUserName').textContent=currentUser.name;
-  document.getElementById('chatUserTag').textContent=currentUser.mood==='激动'?'情绪激动':currentUser.chats>5?'老用户':'新用户';
+function updProfile(){
+  document.getElementById('pName').textContent=curUser.name;
+  document.getElementById('pUID').textContent=curUser.uid||'未提供';
+  document.getElementById('pVer').textContent=curUser.ver||'未知';
+  var mc={平静:'if',不满:'wn',激动:'dg',期待:'if'};
+  document.getElementById('pMood').innerHTML='<span class="tsm '+(mc[curUser.mood]||'if')+'">'+curUser.mood+'</span>';
+  document.getElementById('pChats').textContent=curUser.chats;
+  document.getElementById('pIssues').textContent=curUser.issues.length?curUser.issues.join('、'):'暂无';
+  document.getElementById('chAv').textContent=curUser.name.charAt(0);
+  document.getElementById('chName').textContent=curUser.name;
+  document.getElementById('chTag').textContent=curUser.mood==='激动'?'情绪激动':curUser.chats>5?'老用户':'新用户';
 }
 
 function newUser(){
-  const names=['张先生','李女士','王先生','赵女士','刘先生','陈女士'];
-  currentUser={name:names[Math.floor(Math.random()*names.length)],uid:'',version:'',mood:'平静',chats:0,issues:[]};
-  chatHistory=[];
-  document.getElementById('chatMessages').innerHTML='';
+  var names=['张先生','李女士','王先生','赵女士','刘先生','陈女士'];
+  curUser={name:names[Math.floor(Math.random()*names.length)],uid:'',ver:'',mood:'平静',chats:0,issues:[]};
+  chatHist=[];convState={topic:null,step:0,ctx:{}};
+  document.getElementById('chatMsgs').innerHTML='';
   addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
-  document.getElementById('analysisIntent').textContent='等待输入...';
-  document.getElementById('analysisMatch').textContent='-';
-  document.getElementById('analysisEscalate').innerHTML='<span class="tag-sm success">否</span>';
-  updateProfile();
+  document.getElementById('aIntent').textContent='等待输入...';
+  document.getElementById('aMatch').textContent='-';
+  document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
+  updProfile();
 }
 
 function clearChat(){
-  chatHistory=[];
-  document.getElementById('chatMessages').innerHTML='';
+  chatHist=[];convState={topic:null,step:0,ctx:{}};
+  document.getElementById('chatMsgs').innerHTML='';
   addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
 }
 
 function copyMsg(btn){
-  const bubble=btn.closest('.msg-bubble');
-  const text=bubble.textContent.replace(/复制|创建工单/g,'').trim();
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.classList.add('copied');btn.textContent='已复制';
-    setTimeout(()=>{btn.classList.remove('copied');btn.textContent='复制'},2000);
-  }).catch(()=>{
-    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.classList.add('copied');btn.textContent='已复制';
-    setTimeout(()=>{btn.classList.remove('copied');btn.textContent='复制'},2000);
-  });
+  var bb=btn.closest('.msg-bb');
+  var txt=bb.textContent.replace(/复制|创建工单/g,'').trim();
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(function(){btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);});
+  }else{
+    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);
+  }
 }
 
-function createTicketFromMsg(btn){
-  const bubble=btn.closest('.msg-bubble');
-  const text=bubble.textContent.replace(/复制|创建工单/g,'').trim();
-  createTicket(text,'手动创建');
+function mkTicket(btn){
+  var bb=btn.closest('.msg-bb');
+  var txt=bb.textContent.replace(/复制|创建工单/g,'').trim();
+  mkTicketRaw(txt,'手动创建');
 }
 
-function createTicket(desc,reason){
-  const ticket={id:'TK-'+Date.now().toString(36).toUpperCase(),user:currentUser.name,desc,reason,status:'待处理',time:new Date().toLocaleString('zh-CN'),escalate:reason};
-  tickets.push(ticket);
-  stats.pending++;
-  updateStats();
-  renderTickets();
-  showToast('工单已创建：'+ticket.id);
+function mkTicketRaw(desc,reason){
+  var tk={id:'TK-'+Date.now().toString(36).toUpperCase(),user:curUser.name,desc:desc,reason:reason,status:'待处理',time:new Date().toLocaleString('zh-CN'),esc:reason};
+  tickets.push(tk);stats.pending++;updStats();renderTk();
+  showToast('工单已创建：'+tk.id);
 }
 
-function renderTickets(){
-  const list=document.getElementById('ticketList');
-  const badge=document.getElementById('ticketBadge');
-  const pending=tickets.filter(t=>t.status==='待处理').length;
-  badge.style.display=pending?'inline':'none';
-  badge.textContent=pending;
-  
-  if(!tickets.length){list.innerHTML='<div class="empty-state">暂无工单</div>';return}
-  list.innerHTML=tickets.slice().reverse().map(t=>`
-    <div class="ticket-card">
-      <div class="ticket-header">
-        <div><span style="font-size:12px;color:var(--text-muted)">${t.id}</span> <span style="margin-left:8px;font-size:14px;font-weight:600">${t.user}</span></div>
-        <span class="tag-sm ${t.status==='待处理'?'warning':'success'}">${t.status}</span>
-      </div>
-      <div class="ticket-title">${t.escalate}</div>
-      <div class="ticket-desc">${t.desc.substring(0,100)}${t.desc.length>100?'...':''}</div>
-      <div class="ticket-meta">
-        <span class="tag-sm info">${t.time}</span>
-        ${t.status==='待处理'?`<button class="msg-action" onclick="resolveTicket('${t.id}')">标记已处理</button>`:''}
-      </div>
-    </div>
-  `).join('');
+function renderTk(){
+  var list=document.getElementById('tkList');
+  var badge=document.getElementById('tkBadge');
+  var pn=tickets.filter(function(t){return t.status==='待处理';}).length;
+  badge.style.display=pn?'inline':'none';badge.textContent=pn;
+  if(!tickets.length){list.innerHTML='<div class="empty">暂无工单</div>';return;}
+  var h='';
+  for(var i=tickets.length-1;i>=0;i--){
+    var t=tickets[i];
+    h+='<div class="tk-card"><div class="tk-hd"><div><span class="tk-id">'+t.id+'</span> <span style="margin-left:8px;font-size:14px;font-weight:600">'+t.user+'</span></div><span class="tsm '+(t.status==='待处理'?'wn':'ok')+'">'+t.status+'</span></div><div class="tk-title">'+t.esc+'</div><div class="tk-desc">'+t.desc.substring(0,100)+'</div><div class="tk-meta"><span class="tsm if">'+t.time+'</span>'+(t.status==='待处理'?'<button class="mbtn" onclick="resolveTk(\''+t.id+'\')">标记已处理</button>':'')+'</div></div>';
+  }
+  list.innerHTML=h;
 }
 
-function resolveTicket(id){
-  const t=tickets.find(t=>t.id===id);
-  if(t){t.status='已处理';stats.pending--;stats.resolved++;updateStats();renderTickets();showToast('工单已处理')}
+function resolveTk(id){
+  for(var i=0;i<tickets.length;i++){if(tickets[i].id===id){tickets[i].status='已处理';stats.pending--;stats.resolved++;updStats();renderTk();showToast('工单已处理');return;}}
 }
 
 function addLog(type,title,desc){
-  const icons={chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',alert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>',check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'};
-  logs.unshift({type,title,desc,time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
+  logs.unshift({type:type,title:title,desc:desc,time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
   renderLogs();
 }
 
 function renderLogs(){
-  const list=document.getElementById('logList');
-  if(!logs.length){list.innerHTML='<div class="empty-state">暂无日志</div>';return}
-  list.innerHTML=logs.slice(0,20).map(l=>`
-    <div class="log-item">
-      <div class="log-icon ${l.type}">${{chat:icons.chat,ticket:icons.ticket,alert:icons.alert,check:icons.check}[l.type]||icons.chat}</div>
-      <div class="log-content"><div class="log-title">${l.title}</div><div class="log-desc">${l.desc}</div></div>
-      <div class="log-time">${l.time}</div>
-    </div>
-  `).join('');
+  var list=document.getElementById('logList');
+  if(!logs.length){list.innerHTML='<div class="empty">暂无日志</div>';return;}
+  var h='';
+  var icons={chat:'💬',ticket:'📋',alert:'⚠️',check:'✅'};
+  for(var i=0;i<Math.min(logs.length,20);i++){
+    var l=logs[i];
+    h+='<div class="log-item"><div class="log-ic '+l.type+'">'+(icons[l.type]||'💬')+'</div><div class="log-ct"><div class="lt">'+l.title+'</div><div class="ld">'+l.desc+'</div></div><div class="log-tm">'+l.time+'</div></div>';
+  }
+  list.innerHTML=h;
 }
 
-function updateStats(){
-  document.getElementById('statChats').textContent=stats.chats;
-  document.getElementById('statResolved').textContent=stats.resolved;
-  document.getElementById('statPending').textContent=stats.pending;
-  document.getElementById('statEscalated').textContent=stats.escalated;
+function updStats(){
+  document.getElementById('sChats').textContent=stats.chats;
+  document.getElementById('sResolved').textContent=stats.resolved;
+  document.getElementById('sPending').textContent=stats.pending;
+  document.getElementById('sEscalated').textContent=stats.escalated;
 }
 
 function renderRules(){
-  const list=document.getElementById('rulesList');
-  list.innerHTML=rules.map(r=>`
-    <div class="rule-card">
-      <div class="rule-title"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--compliance)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>${r.title}</div>
-      <div class="rule-content">${r.content}</div>
-      <div class="rule-actions"><button class="rule-btn danger" onclick="deleteRule(${r.id})">删除</button></div>
-    </div>
-  `).join('');
+  var list=document.getElementById('rulesList');
+  var h='';
+  for(var i=0;i<rules.length;i++){
+    var r=rules[i];
+    h+='<div class="rule-card"><div class="rt">🛡️ '+r.title+'</div><div class="rc">'+r.content+'</div><div class="ra"><button class="rbtn dg" onclick="delRule('+r.id+')">删除</button></div></div>';
+  }
+  list.innerHTML=h;
 }
 
 function addRule(){
-  const input=document.getElementById('newRuleInput');
-  const text=input.value.trim();
-  if(!text)return;
-  const maxId=rules.reduce((max,r)=>Math.max(max,r.id),0);
-  rules.push({id:maxId+1,title:'自定义规则#'+(maxId+1),content:text});
-  input.value='';
-  renderRules();
-  showToast('规则已添加');
+  var inp=document.getElementById('newRuleInput');
+  var txt=inp.value.trim();
+  if(!txt)return;
+  var maxId=0;for(var i=0;i<rules.length;i++){if(rules[i].id>maxId)maxId=rules[i].id;}
+  rules.push({id:maxId+1,title:'自定义规则#'+(maxId+1),content:txt});
+  inp.value='';renderRules();showToast('规则已添加');
 }
 
-function deleteRule(id){
-  rules=rules.filter(r=>r.id!==id);
-  renderRules();
-  showToast('规则已删除');
+function delRule(id){
+  rules=rules.filter(function(r){return r.id!==id;});
+  renderRules();showToast('规则已删除');
 }
 
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.className='toast show';setTimeout(()=>t.className='toast',2500)}
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show';setTimeout(function(){t.className='toast';},2500);}
 
-document.getElementById('welcomeTime').textContent=getTime();
+addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
 renderRules();
-renderTickets();
+renderTk();
 </script>
 </body>
 </html>
