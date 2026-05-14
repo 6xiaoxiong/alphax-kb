@@ -402,10 +402,7 @@ function generateResponse(input){
   return {intent,match,escalate,reason,text};
 }
 
-function handleRefundFlow(input,lower){
-
 function humanizeAnswer(question,answer){
-  const greetings=['您好！','您好！','您好！'];
   const q=question.toLowerCase();
   let prefix='';
   if(q.includes('下载')||q.includes('安装'))prefix='好的，';
