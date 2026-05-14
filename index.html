@@ -631,35 +631,98 @@ function handleSearch(query){
   searchQuery = query.trim();
   const countEl = document.getElementById('searchCount');
   if(searchQuery){
-    let total = 0;
-    KB_DATA.forEach(s=>{
-      s.items.forEach(it=>{
-        if(it.q.toLowerCase().includes(searchQuery.toLowerCase())||it.a.toLowerCase().includes(searchQuery.toLowerCase())) total++;
-      });
-    });
-    countEl.textContent = `找到 ${total} 条匹配结果`;
-    countEl.classList.add('show');
-    if(total>0){
-      let foundStage = -1;
-      KB_DATA.forEach((s,i)=>{
-        if(foundStage===-1 && s.items.some(it=>it.q.toLowerCase().includes(searchQuery.toLowerCase())||it.a.toLowerCase().includes(searchQuery.toLowerCase()))){
-          foundStage = i;
+    const q = searchQuery.toLowerCase();
+    let results = [];
+    KB_DATA.forEach((s,si)=>{
+      s.items.forEach((it,ii)=>{
+        const qMatch = it.q.toLowerCase().includes(q);
+        const aMatch = it.a.toLowerCase().includes(q);
+        const tagMatch = it.tags.some(t=>t.toLowerCase().includes(q));
+        if(qMatch||aMatch||tagMatch){
+          results.push({stage:si,stageTitle:s.title,item:it,itemIdx:ii,qMatch:qMatch,aMatch:aMatch});
         }
       });
-      if(foundStage!==-1 && foundStage!==currentStage){
-        currentStage = foundStage;
-        renderNav();
-      }
+    });
+    countEl.textContent = `找到 ${results.length} 条匹配结果`;
+    countEl.classList.add('show');
+    if(results.length>0){
+      const main = document.getElementById('mainContent');
+      main.innerHTML = `
+        <div class="main-header">
+          <div class="stage-title"><span>搜索结果：${searchQuery}</span></div>
+          <div class="header-actions">
+            <button class="header-btn" onclick="clearSearch()">清除搜索</button>
+          </div>
+        </div>
+        <div class="content" id="qaContainer">
+          ${results.map(r=>{
+            const hlQ = highlightText(r.item.q, searchQuery);
+            const hlA = highlightText(r.item.a.substring(0,120), searchQuery);
+            const isCompliance = r.item.compliance;
+            return `
+              <div class="qa-card ${isCompliance?'compliance-card':''} open search-result" id="qa-${r.stage}-${r.itemIdx}" style="cursor:pointer" onclick="goToResult(${r.stage})">
+                <div class="qa-question" style="cursor:pointer">
+                  <span class="q-badge" style="background:var(--accent)">${r.stageTitle}</span>
+                  <span class="q-text">${hlQ}</span>
+                </div>
+                <div class="qa-answer">
+                  <div class="qa-answer-inner">
+                    <div class="answer-content">${hlA}${r.item.a.length>120?'...':''}</div>
+                    <div class="answer-actions">
+                      <button class="copy-btn" onclick="event.stopPropagation();copyAnswer(${r.stage},${r.itemIdx})">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                        复制回复
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+          }).join('')}
+        </div>
+      `;
+    }else{
+      const main = document.getElementById('mainContent');
+      main.innerHTML = `
+        <div class="main-header">
+          <div class="stage-title"><span>搜索结果：${searchQuery}</span></div>
+          <div class="header-actions">
+            <button class="header-btn" onclick="clearSearch()">清除搜索</button>
+          </div>
+        </div>
+        <div class="empty-state">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"/></svg>
+          <h3>未找到匹配内容</h3>
+          <p>尝试更换关键词</p>
+        </div>
+      `;
     }
   } else {
     countEl.classList.remove('show');
+    renderStage(currentStage);
   }
+}
+
+function highlightText(text, keyword){
+  if(!keyword) return text;
+  const regex = new RegExp('('+keyword.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return text.replace(regex,'<mark style="background:rgba(245,158,11,.35);color:#fbbf24;padding:0 2px;border-radius:2px">$1</mark>');
+}
+
+function goToResult(stageIdx){
+  currentStage = stageIdx;
+  searchQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchCount').classList.remove('show');
+  renderNav();
   renderStage(currentStage);
-  if(searchQuery){
-    setTimeout(()=>{
-      document.querySelectorAll('.qa-card:not(.hidden)').forEach(c=>c.classList.add('open'));
-    },50);
-  }
+  setTimeout(()=>{document.querySelectorAll('.qa-card').forEach(c=>c.classList.add('open'));},50);
+}
+
+function clearSearch(){
+  searchQuery = '';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchCount').classList.remove('show');
+  renderStage(currentStage);
 }
 
 function copyAnswer(si,ii){
