@@ -357,11 +357,11 @@ function generateResponse(input){
   } else if(lower.includes('封号')||lower.includes('封禁')||lower.includes('检测')||lower.includes('安全')){
     intent='账号安全';
     match=matched?matched.q:'账号安全';
-    text=matched?matched.a:'您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统，其管理决策由平台独立作出，与ALPHAX无关。建议一个账号对应一个设备，规范使用。如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
+    text=matched?humanizeAnswer(matched.q,matched.a):'您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统，其管理决策由平台独立作出，与ALPHAX无关。建议一个账号对应一个设备，规范使用。如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
   } else if(lower.includes('外挂')||lower.includes('透视')||lower.includes('作弊')){
     intent='产品性质';
     match=matched?matched.q:'产品性质';
-    text=matched?matched.a:'您好！ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险。';
+    text=matched?humanizeAnswer(matched.q,matched.a):'您好！ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险。';
   } else if(lower.includes('算力')&&(lower.includes('多少')||lower.includes('价格')||lower.includes('充值')||lower.includes('档位'))){
     intent='算力价格';
     match='算力充值档位';
@@ -369,20 +369,20 @@ function generateResponse(input){
   } else if(lower.includes('注销')){
     intent='账号注销';
     match=matched?matched.q:'账号注销';
-    text=matched?matched.a:'您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
+    text=matched?humanizeAnswer(matched.q,matched.a):'您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
   } else if(lower.includes('下载')||lower.includes('安装')){
     intent='下载安装';
     match=matched?matched.q:'下载安装';
-    text=matched?matched.a:'您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
+    text=matched?humanizeAnswer(matched.q,matched.a):'您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
   } else if(lower.includes('胜率')||lower.includes('稳赢')||lower.includes('包赢')){
     intent='效果咨询';
     match=matched?matched.q:'效果咨询';
     currentUser.mood='期待';
-    text=matched?matched.a:'您好！ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
+    text=matched?humanizeAnswer(matched.q,matched.a):'您好！ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
   } else if(matched){
     intent='知识库匹配';
     match=matched.q;
-    text=matched.a;
+    text=humanizeAnswer(matched.q,matched.a);
   } else {
     intent='未匹配';
     match='无';
@@ -393,6 +393,30 @@ function generateResponse(input){
   
   updateMood(lower);
   return {intent,match,escalate,reason,text};
+}
+
+function handleRefundFlow(input,lower){
+
+function humanizeAnswer(question,answer){
+  const greetings=['您好！','您好！','您好！'];
+  const q=question.toLowerCase();
+  let prefix='';
+  if(q.includes('下载')||q.includes('安装'))prefix='好的，';
+  else if(q.includes('支持')||q.includes('适配'))prefix='关于这个问题，';
+  else if(q.includes('国外')||q.includes('海外')||q.includes('境外'))prefix='关于境外使用，';
+  else if(q.includes('注册')||q.includes('登录'))prefix='关于账号注册，';
+  else if(q.includes('版本')||q.includes('会员'))prefix='关于会员版本，';
+  else if(q.includes('算力'))prefix='关于算力问题，';
+  else if(q.includes('功能')||q.includes('教程'))prefix='关于功能使用，';
+  else if(q.includes('故障')||q.includes('打不开')||q.includes('黑屏'))prefix='遇到这种情况确实影响体验，';
+  else if(q.includes('注销'))prefix='关于账号注销，';
+  else if(q.includes('推荐')||q.includes('合作'))prefix='感谢您对ALPHAX的关注！';
+  else if(q.includes('隐私')||q.includes('数据'))prefix='您的隐私安全是我们最重视的，';
+  else if(q.includes('外挂')||q.includes('透视'))prefix='理解您的顾虑，';
+  else if(q.includes('胜率')||q.includes('稳赢'))prefix='非常理解您对效果的关心，';
+  else prefix='您好！';
+  if(answer.startsWith('您好')||answer.startsWith('好的'))return answer;
+  return prefix+answer.replace(/^您好！?/,'');
 }
 
 function handleRefundFlow(input,lower){
