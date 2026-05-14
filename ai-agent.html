@@ -369,16 +369,16 @@ function generateResponse(input){
   } else if(lower.includes('注销')){
     intent='账号注销';
     match=matched?matched.q:'账号注销';
-    text=matched?humanizeAnswer(matched.q,matched.a):'您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
+    text=matched?matched.a:'您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
   } else if(lower.includes('下载')||lower.includes('安装')){
     intent='下载安装';
     match=matched?matched.q:'下载安装';
-    text=matched?humanizeAnswer(matched.q,matched.a):'您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
+    text=matched?matched.a:'您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
   } else if(lower.includes('胜率')||lower.includes('稳赢')||lower.includes('包赢')){
     intent='效果咨询';
     match=matched?matched.q:'效果咨询';
     currentUser.mood='期待';
-    text=matched?humanizeAnswer(matched.q,matched.a):'您好！ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
+    text=matched?matched.a:'您好！ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
   } else if(matched){
     intent='知识库匹配';
     match=matched.q;
