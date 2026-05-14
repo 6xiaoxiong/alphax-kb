@@ -62,6 +62,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
 .chat-in textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acg)}
 .send-btn{padding:10px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
 .send-btn:hover{background:var(--ac2)}
+.img-btn{padding:10px 14px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t2);font-size:18px;cursor:pointer;transition:var(--tr);line-height:1}
+.img-btn:hover{border-color:var(--ac);color:var(--ac)}
+.msg-img{max-width:200px;max-height:200px;border-radius:var(--rs);margin-top:6px;cursor:pointer;display:block}
+.img-preview{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer}
+.img-preview img{max-width:90%;max-height:90%;border-radius:var(--r)}
 
 .chat-side{width:300px;display:flex;flex-direction:column;gap:12px}
 .scard{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);overflow:hidden}
@@ -159,6 +164,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
       </div>
       <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-in">
+        <label class="img-btn" for="imgUpload">📷</label>
+        <input type="file" id="imgUpload" accept="image/*" style="display:none">
         <textarea id="chatInput" placeholder="输入用户消息..." rows="1"></textarea>
         <button class="send-btn" id="sendBtn">发送</button>
       </div>
@@ -298,7 +305,7 @@ function switchTab(tab,btn){
 
 function now(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
 
-function addMsg(type,txt){
+function addMsg(type,txt,imgSrc){
   var box=document.getElementById('chatMsgs');
   var div=document.createElement('div');
   div.className='msg '+type;
@@ -309,10 +316,12 @@ function addMsg(type,txt){
     acts='<div class="msg-acts"><button class="mbtn" onclick="copyMsg(this)">复制</button><button class="mbtn" onclick="mkTicket(this)">创建工单</button></div>';
   }
   var safeTxt=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  div.innerHTML='<div class="msg-av">'+av+'</div><div><div class="msg-bb">'+safeTxt+acts+'</div><div class="msg-t">'+t+'</div></div>';
+  var imgHtml='';
+  if(imgSrc){imgHtml='<img class="msg-img" src="'+imgSrc+'" onclick="previewImg(this)">';}
+  div.innerHTML='<div class="msg-av">'+av+'</div><div><div class="msg-bb">'+safeTxt+imgHtml+acts+'</div><div class="msg-t">'+t+'</div></div>';
   box.appendChild(div);
   box.scrollTop=box.scrollHeight;
-  chatHist.push({type:type,txt:txt,time:t});
+  chatHist.push({type:type,txt:txt,time:t,hasImg:!!imgSrc});
 }
 
 function sendMsg(){
@@ -347,6 +356,45 @@ document.getElementById('chatInput').addEventListener('keydown',function(e){
   if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
 });
 
+document.getElementById('imgUpload').addEventListener('change',function(e){
+  var file=e.target.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(ev){
+    var imgSrc=ev.target.result;
+    addMsg('u','[截图]',imgSrc);
+    curUser.chats++;
+    updProfile();
+    setTimeout(function(){
+      var r=genReply('[用户发送了截图]');
+      addMsg('ai',r.txt);
+      document.getElementById('aIntent').textContent=r.intent;
+      document.getElementById('aMatch').textContent=r.match;
+      if(r.esc){
+        document.getElementById('aEsc').innerHTML='<span class="tsm dg">是-需升级</span>';
+        mkTicketRaw('[截图]',r.reason);
+        stats.escalated++;
+      }else{
+        document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
+        stats.resolved++;
+      }
+      stats.chats++;
+      addLog('chat',curUser.name,'发送了截图');
+      updStats();
+    },600+Math.random()*800);
+  };
+  reader.readAsDataURL(file);
+  e.target.value='';
+});
+
+function previewImg(img){
+  var overlay=document.createElement('div');
+  overlay.className='img-preview';
+  overlay.innerHTML='<img src="'+img.src+'">';
+  overlay.onclick=function(){document.body.removeChild(overlay);};
+  document.body.appendChild(overlay);
+}
+
 function genReply(input){
   var lo=input.toLowerCase();
   var intent='通用咨询',match='-',esc=false,reason='',txt='';
@@ -356,6 +404,21 @@ function genReply(input){
   if(st.topic==='refund'&&st.step>0){return refundFlow(input,lo);}
   if(st.topic==='comp'&&st.step>0){return compFlow(input,lo);}
   if(st.topic==='tech'&&st.step>0){return techFlow(input,lo);}
+
+  if(input.indexOf('[用户发送了截图]')>=0){
+    if(st.topic==='refund'&&st.step===2){
+      return refundFlow(input,lo);
+    }
+    if(st.topic==='comp'&&st.step===1){
+      return compFlow(input,lo);
+    }
+    if(st.topic==='tech'){
+      return techFlow(input,lo);
+    }
+    intent='收到截图';match='截图确认';
+    txt='好的，已收到您的截图，我这边帮您核实一下~';
+    return {intent:intent,match:match,esc:false,reason:'',txt:txt};
+  }
 
   if(has(lo,['退款','退钱','退费','退'])){
     intent='退款咨询';
@@ -428,9 +491,9 @@ function refundFlow(input,lo){
       st.step=2;
     }
   }else if(st.step===2){
-    if(has(lo,['uid'])||/\d{6,}/.test(lo)){
+    if(has(lo,['uid'])||/\d{6,}/.test(lo)||input.indexOf('[用户发送了截图]')>=0){
       st.ctx.hasUID=true;
-      txt='好的，已收到您的信息。这边帮您核实一下，关于退款说明一下规则：\n1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款\n2.购买30天内完全未使用，可全额退款（扣5%手续费）\n3.已充值算力不支持退款，同一账号仅限一次\n这边先帮您核实是否符合条件，感谢理解！';
+      txt='好的，已收到您的信息和截图。这边帮您核实一下，关于退款说明一下规则：\n1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款\n2.购买30天内完全未使用，可全额退款（扣5%手续费）\n3.已充值算力不支持退款，同一账号仅限一次\n这边先帮您核实是否符合条件，感谢理解！';
       st.step=3;
     }else if(has(lo,['不给','拒绝','投诉'])){
       curUser.mood='激动';esc=true;reason='退款纠纷升级';
@@ -461,7 +524,7 @@ function compFlow(input,lo){
   var st=convState;
   var intent='补偿跟进',match='补偿Step'+st.step,esc=false,reason='',txt='';
   if(st.step===1){
-    if(/\d{6,}/.test(lo)||has(lo,['uid'])){
+    if(/\d{6,}/.test(lo)||has(lo,['uid'])||input.indexOf('[用户发送了截图]')>=0){
       st.ctx.hasUID=true;
       txt='好的，已收到。请问您大概是什么问题导致体验不好呢？方便简单说一下吗？';
       st.step=2;
