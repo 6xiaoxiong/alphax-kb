@@ -333,6 +333,9 @@ function generateResponse(input){
   if(state.topic==='compensate'&&state.step>0){
     return handleCompensateFlow(input,lower);
   }
+  if(state.topic==='tech'&&state.step>0){
+    return handleTechFlow(input,lower);
+  }
   
   if(lower.includes('退款')||lower.includes('退钱')||lower.includes('退费')){
     intent='退款咨询';
@@ -354,8 +357,12 @@ function generateResponse(input){
     match='补偿初步';
     text='您好！非常理解您的心情，请问方便提供一下您的UID吗？我先帮您看看账号情况~';
     state.topic='compensate';state.step=1;state.context={};
+  } else if(lower.includes('打不开')||lower.includes('黑屏')||lower.includes('白屏')||lower.includes('卡顿')||lower.includes('卡在')||lower.includes('闪退')||lower.includes('崩溃')||lower.includes('更新中')||lower.includes('无法打开')||lower.includes('进不去')||lower.includes('用不了')||(lower.includes('软件')&&(lower.includes('问题')||lower.includes('故障')))){
+    intent='故障排查';
+    match='故障初步';
+    text='您好！遇到这种情况确实影响体验，非常抱歉给您带来不便。请问具体是什么情况呢？比如是黑屏、白屏、卡在某个页面，还是闪退？有看到什么提示吗？';
+    state.topic='tech';state.step=1;context={};
   } else if(lower.includes('封号')||lower.includes('封禁')||lower.includes('检测')||lower.includes('安全')){
-    intent='账号安全';
     match=matched?matched.q:'账号安全';
     text=matched?humanizeAnswer(matched.q,matched.a):'您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统，其管理决策由平台独立作出，与ALPHAX无关。建议一个账号对应一个设备，规范使用。如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
   } else if(lower.includes('外挂')||lower.includes('透视')||lower.includes('作弊')){
@@ -503,6 +510,63 @@ function handleCompensateFlow(input,lower){
       stats.resolved++;
     } else {
       text='请问您需要我帮您反馈申请补偿吗？';
+    }
+  }
+  
+  updateMood(lower);
+  return {intent,match,escalate,reason,text};
+}
+
+function handleTechFlow(input,lower){
+  const state=conversationState;
+  let intent='故障排查',match='故障流程Step'+state.step,escalate=false,reason='',text='';
+  
+  if(state.step===1){
+    if(lower.includes('黑屏')){
+      state.context.issue='黑屏';
+      text='了解了，黑屏的问题。请问您是刚打开就黑屏，还是使用过程中突然黑屏的？用的是手机还是电脑？';
+      state.step=2;
+    } else if(lower.includes('白屏')){
+      state.context.issue='白屏';
+      text='了解了，白屏的情况。请问是打开就白屏，还是操作到某个页面变白的？您用的是什么设备？';
+      state.step=2;
+    } else if(lower.includes('卡顿')||lower.includes('卡')||lower.includes('慢')){
+      state.context.issue='卡顿';
+      text='了解了，卡顿确实影响体验。请问是全程卡顿还是某个操作时卡？大概用了多久开始卡的？';
+      state.step=2;
+    } else if(lower.includes('闪退')||lower.includes('退出')||lower.includes('崩溃')){
+      state.context.issue='闪退';
+      text='闪退确实很影响使用，非常抱歉。请问是打开就闪退，还是用了一会才闪退？有没有看到什么错误提示？';
+      state.step=2;
+    } else if(lower.includes('更新中')||lower.includes('更新')){
+      state.context.issue='更新中';
+      text='明白了，页面显示更新中的话，说明当前版本正在升级维护，请耐心等待3-12小时，更新完成后就可以正常使用了。如果超过12小时还是这个状态，请提供UID截图，这边帮您排查~';
+      state.topic=null;state.step=0;
+      stats.resolved++;
+    } else if(lower.includes('进不去')||lower.includes('无法')||lower.includes('打不开')){
+      state.context.issue='无法打开';
+      text='了解了，请问是完全打不开（点击没反应），还是打开后停在某个页面？有没有看到任何提示信息？';
+      state.step=2;
+    } else {
+      text='了解了，请问具体是什么表现呢？比如黑屏、白屏、卡住、闪退？有看到什么提示吗？方便的话也可以截图给我看看~';
+    }
+  } else if(state.step===2){
+    const steps='建议您按以下步骤逐一尝试：\n1.切换网络（WiFi和5G之间切换试试）；\n2.点击APP内的刷新按钮；\n3.关闭APP后重新打开（可以反复2-3次）；\n4.开启再关闭飞行模式；\n5.切换APP线路或节点；\n6.修改DNS设置；\n7.卸载后重新安装APP；\n8.换个时间段再试。';
+    text='好的，了解了您的情况。'+steps+'\n\n以上方式仍未解决的话，请提供UID和问题截图，这边帮您对接技术排查~';
+    state.step=3;
+  } else if(state.step>=3){
+    if(lower.includes('还是不行')||lower.includes('没用')||lower.includes('试了')||lower.includes('还是打不开')){
+      escalate=true;
+      reason='故障排查未解决，需技术介入';
+      text='非常抱歉给您带来不便，这边帮您提交技术排查，请您提供UID和问题截图，技术同事会尽快处理！';
+      state.topic=null;state.step=0;
+    } else if(lower.includes('好了')||lower.includes('可以了')||lower.includes('解决了')||lower.includes('谢谢')){
+      text='太好了！后续有问题随时联系我们~';
+      state.topic=null;state.step=0;
+      stats.resolved++;
+    } else {
+      text='请问还有其他问题吗？';
+      state.topic=null;state.step=0;
     }
   }
   
