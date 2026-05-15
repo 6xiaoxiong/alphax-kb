@@ -9,141 +9,77 @@
 <title>ALPHAX AI 客服主管</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg1:#0a0e1a;--bg2:#111827;--bg3:#1a2235;--bg4:#1e2a42;
---bd1:#2a3550;--bd2:#3a4a6a;
---t1:#e8ecf4;--t2:#8b9dc3;--t3:#5a6d8f;
---ac:#6366f1;--ac2:#818cf8;--acg:rgba(99,102,241,.25);
---cm:#f59e0b;--cmb:rgba(245,158,11,.08);--cmd:rgba(245,158,11,.3);
---dg:#ef4444;--ok:#10b981;--info:#3b82f6;
---r:12px;--rs:8px;--rx:6px;
---sh:0 4px 24px rgba(0,0,0,.3);
---tr:all .25s cubic-bezier(.4,0,.2,1);
-}
-html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg1);color:var(--t1);line-height:1.7;overflow-x:hidden}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
-
+:root{--bg1:#0a0e1a;--bg2:#111827;--bg3:#1a2235;--bd1:#2a3550;--bd2:#3a4a6a;--t1:#e8ecf4;--t2:#8b9dc3;--t3:#5a6d8f;--ac:#6366f1;--ac2:#818cf8;--acg:rgba(99,102,241,.25);--cm:#f59e0b;--dg:#ef4444;--ok:#10b981;--r:12px;--rs:8px;--rx:6px;--sh:0 4px 24px rgba(0,0,0,.3);--tr:all .25s cubic-bezier(.4,0,.2,1)}
+html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg1);color:var(--t1);line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:3px}
 .top-bar{background:var(--bg2);border-bottom:1px solid var(--bd1);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .logo{display:flex;align-items:center;gap:12px}
 .logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--ac),#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700}
 .logo h1{font-size:16px;font-weight:700;background:linear-gradient(135deg,#e8ecf4,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-tabs{display:flex;gap:4px}
 .tab-btn{padding:8px 16px;border-radius:var(--rs);border:1px solid transparent;background:transparent;color:var(--t3);font-size:13px;cursor:pointer;transition:var(--tr);display:flex;align-items:center;gap:6px}
-.tab-btn:hover{color:var(--t2);background:var(--bg3)}
-.tab-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
+.tab-btn:hover{color:var(--t2);background:var(--bg3)}.tab-btn.active{background:var(--ac);color:#fff;border-color:var(--ac)}
 .badge{background:var(--dg);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:2px}
-
-.page{display:none;padding:20px 24px;max-width:1200px;margin:0 auto}
-.page.active{display:block}
-
+.page{display:none;padding:20px 24px;max-width:1200px;margin:0 auto}.page.active{display:block}
 .chat-wrap{display:flex;gap:20px;height:calc(100vh - 80px)}
 .chat-main{flex:1;display:flex;flex-direction:column;background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);overflow:hidden}
 .chat-hd{padding:14px 20px;border-bottom:1px solid var(--bd1);display:flex;align-items:center;justify-content:space-between}
 .chat-hd .uinfo{display:flex;align-items:center;gap:10px}
 .ch-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--ac),#a855f7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
-.ch-name{font-size:14px;font-weight:600}
-.ch-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.15);color:var(--ac2)}
+.ch-name{font-size:14px;font-weight:600}.ch-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(99,102,241,.15);color:var(--ac2)}
 .chat-msgs{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:12px}
-.msg{max-width:80%;display:flex;gap:8px}
-.msg.u{align-self:flex-end;flex-direction:row-reverse}
+.msg{max-width:80%;display:flex;gap:8px}.msg.u{align-self:flex-end;flex-direction:row-reverse}
 .msg-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
-.msg.ai .msg-av{background:linear-gradient(135deg,var(--ac),#a855f7)}
-.msg.u .msg-av{background:linear-gradient(135deg,var(--ok),#34d399)}
+.msg.ai .msg-av{background:linear-gradient(135deg,var(--ac),#a855f7)}.msg.u .msg-av{background:linear-gradient(135deg,var(--ok),#34d399)}
 .msg-bb{padding:10px 14px;border-radius:var(--rs);font-size:13px;line-height:1.7;white-space:pre-wrap}
-.msg.ai .msg-bb{background:var(--bg2);color:var(--t2);border:1px solid var(--bd1)}
-.msg.u .msg-bb{background:var(--ac);color:#fff}
+.msg.ai .msg-bb{background:var(--bg2);color:var(--t2);border:1px solid var(--bd1)}.msg.u .msg-bb{background:var(--ac);color:#fff}
 .msg-acts{display:flex;gap:6px;margin-top:8px}
 .mbtn{padding:4px 10px;border-radius:var(--rx);border:1px solid var(--bd1);background:var(--bg3);color:var(--t3);font-size:11px;cursor:pointer;transition:var(--tr)}
-.mbtn:hover{border-color:var(--ac);color:var(--ac)}
-.mbtn.ok{border-color:var(--ok);color:var(--ok)}
+.mbtn:hover{border-color:var(--ac);color:var(--ac)}.mbtn.ok{border-color:var(--ok);color:var(--ok)}
 .msg-t{font-size:10px;color:var(--t3);margin-top:4px}
 .chat-in{padding:14px 20px;border-top:1px solid var(--bd1);display:flex;gap:10px}
 .chat-in textarea{flex:1;padding:10px 14px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t1);font-size:13px;outline:none;resize:none;min-height:40px;max-height:120px;transition:var(--tr);font-family:inherit}
 .chat-in textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px var(--acg)}
-.send-btn{padding:10px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
-.send-btn:hover{background:var(--ac2)}
-.img-btn{padding:10px 14px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t2);font-size:18px;cursor:pointer;transition:var(--tr);line-height:1}
-.img-btn:hover{border-color:var(--ac);color:var(--ac)}
+.send-btn{padding:10px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}.send-btn:hover{background:var(--ac2)}
+.img-btn{padding:10px 14px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t2);font-size:18px;cursor:pointer;transition:var(--tr);line-height:1}.img-btn:hover{border-color:var(--ac);color:var(--ac)}
 .msg-img{max-width:200px;max-height:200px;border-radius:var(--rs);margin-top:6px;cursor:pointer;display:block}
-.img-preview{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer}
-.img-preview img{max-width:90%;max-height:90%;border-radius:var(--r)}
-
+.img-preview{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer}.img-preview img{max-width:90%;max-height:90%;border-radius:var(--r)}
 .chat-side{width:300px;display:flex;flex-direction:column;gap:12px}
 .scard{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);overflow:hidden}
 .scard .sh{padding:12px 16px;border-bottom:1px solid var(--bd1);font-size:13px;font-weight:600}
 .scard .sb{padding:12px 16px;font-size:12px;color:var(--t2);line-height:1.6}
-.scard .sb .fl{margin-bottom:8px}
-.scard .sb .fl-label{color:var(--t3);font-size:11px;margin-bottom:2px}
-.scard .sb .fl-val{color:var(--t1);font-size:13px;font-weight:500}
+.scard .sb .fl{margin-bottom:8px}.scard .sb .fl-label{color:var(--t3);font-size:11px;margin-bottom:2px}.scard .sb .fl-val{color:var(--t1);font-size:13px;font-weight:500}
 .tsm{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
-.tsm.dg{background:rgba(239,68,68,.15);color:var(--dg)}
-.tsm.wn{background:rgba(245,158,11,.15);color:var(--cm)}
-.tsm.ok{background:rgba(16,185,129,.15);color:var(--ok)}
-.tsm.if{background:rgba(99,102,241,.15);color:var(--ac2)}
-
+.tsm.dg{background:rgba(239,68,68,.15);color:var(--dg)}.tsm.wn{background:rgba(245,158,11,.15);color:var(--cm)}.tsm.ok{background:rgba(16,185,129,.15);color:var(--ok)}.tsm.if{background:rgba(99,102,241,.15);color:var(--ac2)}
 .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
 .stcard{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:20px}
-.stcard .stl{font-size:12px;color:var(--t3);margin-bottom:8px}
-.stcard .stv{font-size:28px;font-weight:700}
+.stcard .stl{font-size:12px;color:var(--t3);margin-bottom:8px}.stcard .stv{font-size:28px;font-weight:700}
 .stcard .stv.ac{color:var(--ac2)}.stcard .stv.ok{color:var(--ok)}.stcard .stv.wn{color:var(--cm)}.stcard .stv.dg{color:var(--dg)}
-.stcard .stc{font-size:11px;color:var(--t3);margin-top:4px}
-
-.log-item{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px;transition:var(--tr)}
-.log-item:hover{border-color:var(--bd2)}
+.log-item{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--rs);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:8px}
 .log-ic{width:32px;height:32px;border-radius:var(--rx);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px}
-.log-ic.chat{background:rgba(99,102,241,.15);color:var(--ac)}
-.log-ic.ticket{background:rgba(245,158,11,.15);color:var(--cm)}
-.log-ic.alert{background:rgba(239,68,68,.15);color:var(--dg)}
-.log-ic.check{background:rgba(16,185,129,.15);color:var(--ok)}
-.log-ct{flex:1;min-width:0}
-.log-ct .lt{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.log-ct .ld{font-size:11px;color:var(--t3);margin-top:2px}
+.log-ic.chat{background:rgba(99,102,241,.15);color:var(--ac)}.log-ic.ticket{background:rgba(245,158,11,.15);color:var(--cm)}.log-ic.alert{background:rgba(239,68,68,.15);color:var(--dg)}.log-ic.check{background:rgba(16,185,129,.15);color:var(--ok)}
+.log-ct{flex:1;min-width:0}.log-ct .lt{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.log-ct .ld{font-size:11px;color:var(--t3);margin-top:2px}
 .log-tm{font-size:11px;color:var(--t3);flex-shrink:0}
-
 .tk-card{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-bottom:12px}
 .tk-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.tk-id{font-size:12px;color:var(--t3)}
-.tk-title{font-size:14px;font-weight:600;margin-bottom:6px}
-.tk-desc{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px}
-.tk-meta{display:flex;gap:8px;flex-wrap:wrap}
-
+.tk-title{font-size:14px;font-weight:600;margin-bottom:6px}.tk-desc{font-size:12px;color:var(--t2);line-height:1.6;margin-bottom:10px}
 .rule-card{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-bottom:12px}
-.rule-card .rt{font-size:14px;font-weight:600;margin-bottom:6px}
-.rule-card .rc{font-size:12px;color:var(--t2);line-height:1.7;white-space:pre-wrap}
+.rule-card .rt{font-size:14px;font-weight:600;margin-bottom:6px}.rule-card .rc{font-size:12px;color:var(--t2);line-height:1.7;white-space:pre-wrap}
 .rule-card .ra{display:flex;gap:8px;margin-top:10px}
-.rbtn{padding:6px 14px;border-radius:var(--rx);border:1px solid var(--bd1);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:var(--tr)}
-.rbtn:hover{border-color:var(--ac);color:var(--ac)}
-.rbtn.dg:hover{border-color:var(--dg);color:var(--dg)}
-
+.rbtn{padding:6px 14px;border-radius:var(--rx);border:1px solid var(--bd1);background:transparent;color:var(--t2);font-size:12px;cursor:pointer;transition:var(--tr)}.rbtn:hover{border-color:var(--ac);color:var(--ac)}.rbtn.dg:hover{border-color:var(--dg);color:var(--dg)}
 .add-area{background:var(--bg3);border:1px solid var(--bd1);border-radius:var(--r);padding:16px;margin-top:16px}
-.add-area textarea{width:100%;padding:10px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t1);font-size:13px;outline:none;resize:vertical;min-height:80px;transition:var(--tr);font-family:inherit}
-.add-area textarea:focus{border-color:var(--ac)}
-.add-btn{margin-top:10px;padding:8px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
-.add-btn:hover{background:var(--ac2)}
-
+.add-area textarea{width:100%;padding:10px;background:var(--bg2);border:1px solid var(--bd1);border-radius:var(--rs);color:var(--t1);font-size:13px;outline:none;resize:vertical;min-height:80px;transition:var(--tr);font-family:inherit}.add-area textarea:focus{border-color:var(--ac)}
+.add-btn{margin-top:10px;padding:8px 20px;background:var(--ac);border:none;border-radius:var(--rs);color:#fff;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}.add-btn:hover{background:var(--ac2)}
 .sec-t{font-size:18px;font-weight:700;margin-bottom:16px}
 .empty{text-align:center;padding:40px;color:var(--t3);font-size:14px}
-.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;background:var(--ok);color:#fff;border-radius:var(--rs);font-size:13px;font-weight:600;transform:translateY(100px);opacity:0;transition:var(--tr);z-index:9999;box-shadow:var(--sh)}
-.toast.show{transform:translateY(0);opacity:1}
-@media(max-width:768px){
-.chat-wrap{flex-direction:column;height:auto}
-.chat-side{width:100%}
-.dash-grid{grid-template-columns:repeat(2,1fr)}
-.top-bar{flex-wrap:wrap;gap:8px}
-.nav-tabs{overflow-x:auto;width:100%}
-}
+.toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;background:var(--ok);color:#fff;border-radius:var(--rs);font-size:13px;font-weight:600;transform:translateY(100px);opacity:0;transition:var(--tr);z-index:9999;box-shadow:var(--sh)}.toast.show{transform:translateY(0);opacity:1}
+.sim-bar{height:4px;border-radius:2px;background:var(--bd1);margin-top:4px;overflow:hidden}.sim-fill{height:100%;border-radius:2px;transition:width .3s}
+@media(max-width:768px){.chat-wrap{flex-direction:column;height:auto}.chat-side{width:100%}.dash-grid{grid-template-columns:repeat(2,1fr)}.top-bar{flex-wrap:wrap;gap:8px}.nav-tabs{overflow-x:auto;width:100%}}
 </style>
 </head>
 <body>
-
 <div class="top-bar">
-  <div class="logo">
-    <div class="logo-icon">AI</div>
-    <h1>ALPHAX AI 客服主管</h1>
-  </div>
+  <div class="logo"><div class="logo-icon">AI</div><h1>ALPHAX AI 客服主管</h1></div>
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="switchTab('chat',this)">AI对话</button>
     <button class="tab-btn" onclick="switchTab('dashboard',this)">工作台</button>
@@ -151,19 +87,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
     <button class="tab-btn" onclick="switchTab('rules',this)">规则调教</button>
   </div>
 </div>
-
 <div class="page active" id="page-chat">
   <div class="chat-wrap">
     <div class="chat-main">
       <div class="chat-hd">
-        <div class="uinfo">
-          <div class="ch-avatar" id="chAv">U</div>
-          <div><div class="ch-name" id="chName">模拟用户</div><span class="ch-tag" id="chTag">新用户</span></div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="mbtn" onclick="clearChat()">清空对话</button>
-          <button class="mbtn" onclick="newUser()">换用户</button>
-        </div>
+        <div class="uinfo"><div class="ch-avatar" id="chAv">U</div><div><div class="ch-name" id="chName">模拟用户</div><span class="ch-tag" id="chTag">新用户</span></div></div>
+        <div style="display:flex;gap:8px"><button class="mbtn" onclick="clearChat()">清空</button><button class="mbtn" onclick="newUser()">换用户</button></div>
       </div>
       <div class="chat-msgs" id="chatMsgs"></div>
       <div class="chat-in">
@@ -174,749 +103,271 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Micr
       </div>
     </div>
     <div class="chat-side">
-      <div class="scard">
-        <div class="sh">用户档案</div>
-        <div class="sb" id="userProfile">
-          <div class="fl"><div class="fl-label">用户名</div><div class="fl-val" id="pName">模拟用户</div></div>
-          <div class="fl"><div class="fl-label">UID</div><div class="fl-val" id="pUID">未提供</div></div>
-          <div class="fl"><div class="fl-label">会员版本</div><div class="fl-val" id="pVer">未知</div></div>
-          <div class="fl"><div class="fl-label">情绪状态</div><div class="fl-val" id="pMood"><span class="tsm if">平静</span></div></div>
-          <div class="fl"><div class="fl-label">对话次数</div><div class="fl-val" id="pChats">0</div></div>
-          <div class="fl"><div class="fl-label">历史问题</div><div class="fl-val" id="pIssues">暂无</div></div>
-        </div>
-      </div>
-      <div class="scard">
-        <div class="sh">AI分析</div>
-        <div class="sb">
-          <div class="fl"><div class="fl-label">意图识别</div><div class="fl-val" id="aIntent">等待输入...</div></div>
-          <div class="fl"><div class="fl-label">匹配知识</div><div class="fl-val" id="aMatch">-</div></div>
-          <div class="fl"><div class="fl-label">是否需要升级</div><div class="fl-val" id="aEsc"><span class="tsm ok">否</span></div></div>
-        </div>
-      </div>
+      <div class="scard"><div class="sh">用户档案</div><div class="sb">
+        <div class="fl"><div class="fl-label">用户名</div><div class="fl-val" id="pName">模拟用户</div></div>
+        <div class="fl"><div class="fl-label">UID</div><div class="fl-val" id="pUID">未提供</div></div>
+        <div class="fl"><div class="fl-label">情绪</div><div class="fl-val" id="pMood"><span class="tsm if">平静</span></div></div>
+        <div class="fl"><div class="fl-label">对话数</div><div class="fl-val" id="pChats">0</div></div>
+      </div></div>
+      <div class="scard"><div class="sh">AI分析</div><div class="sb">
+        <div class="fl"><div class="fl-label">意图</div><div class="fl-val" id="aIntent">等待输入...</div></div>
+        <div class="fl"><div class="fl-label">匹配问题</div><div class="fl-val" id="aMatch">-</div></div>
+        <div class="fl"><div class="fl-label">匹配度</div><div class="fl-val" id="aSim"><span class="tsm if">0%</span></div></div>
+        <div class="fl"><div class="fl-label">是否升级</div><div class="fl-val" id="aEsc"><span class="tsm ok">否</span></div></div>
+      </div></div>
     </div>
   </div>
 </div>
-
 <div class="page" id="page-dashboard">
   <div class="sec-t">今日工作台</div>
   <div class="dash-grid">
-    <div class="stcard"><div class="stl">今日接待</div><div class="stv ac" id="sChats">0</div><div class="stc">对话数</div></div>
-    <div class="stcard"><div class="stl">已解决</div><div class="stv ok" id="sResolved">0</div><div class="stc">自动处理</div></div>
-    <div class="stcard"><div class="stl">待处理工单</div><div class="stv wn" id="sPending">0</div><div class="stc">需人工介入</div></div>
-    <div class="stcard"><div class="stl">升级通知</div><div class="stv dg" id="sEscalated">0</div><div class="stc">需主管处理</div></div>
+    <div class="stcard"><div class="stl">今日接待</div><div class="stv ac" id="sChats">0</div><div class="stl">对话数</div></div>
+    <div class="stcard"><div class="stl">已解决</div><div class="stv ok" id="sResolved">0</div><div class="stl">自动处理</div></div>
+    <div class="stcard"><div class="stl">待处理</div><div class="stv wn" id="sPending">0</div><div class="stl">需人工</div></div>
+    <div class="stcard"><div class="stl">升级通知</div><div class="stv dg" id="sEscalated">0</div><div class="stl">需主管</div></div>
   </div>
   <div class="sec-t" style="margin-top:24px">客服日志</div>
-  <div id="logList"><div class="empty">暂无日志，开始对话后自动记录</div></div>
+  <div id="logList"><div class="empty">暂无日志</div></div>
 </div>
-
-<div class="page" id="page-tickets">
-  <div class="sec-t">工单管理</div>
-  <div id="tkList"><div class="empty">暂无工单，AI处理不了的问题会自动创建</div></div>
-</div>
-
+<div class="page" id="page-tickets"><div class="sec-t">工单管理</div><div id="tkList"><div class="empty">暂无工单</div></div></div>
 <div class="page" id="page-rules">
   <div class="sec-t">规则调教</div>
-  <p style="font-size:13px;color:var(--t3);margin-bottom:16px">对AI的回答不满意？添加规则来纠正它的行为。</p>
+  <p style="font-size:13px;color:var(--t3);margin-bottom:16px">AI答非所问？把用户那句话加进知识库，绑定正确答案，越用越准。</p>
   <div id="rulesList"></div>
   <div class="add-area">
-    <div style="font-size:13px;font-weight:600;margin-bottom:8px">添加新规则</div>
-    <textarea id="newRuleInput" placeholder="例：当用户提到补偿时，先了解用户UID和消费金额，不要直接承诺任何数字"></textarea>
-    <button class="add-btn" onclick="addRule()">添加规则</button>
+    <div style="font-size:13px;font-weight:600;margin-bottom:8px">添加新问答（用户可能这样问 → 标准答案）</div>
+    <textarea id="newRuleQ" placeholder="用户可能这样问：例：实名认证不通过怎么办" style="min-height:40px;margin-bottom:8px"></textarea>
+    <textarea id="newRuleInput" placeholder="标准答案：例：实名信息必须跟手机号绑定的实名一致..."></textarea>
+    <button class="add-btn" onclick="addRule()">添加到知识库</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-var KB=[
-{s:'产品初识',items:[
-{q:'ALPHAX是什么软件？',tags:['产品','介绍'],a:'ALPHAX是一款正版AI云计算工具，核心是基于GTO博弈论最优策略和AI矩阵算法，帮助您进行GTO策略学习、技巧训练、对局分析和决策研究。它是学习研究工具，不是实战辅助外挂，也不会修改或干预任何第三方平台程序。使用效果因人而异，不承诺或保证任何具体结果，仅供学习研究使用。'},
-{q:'ALPHAX是否属于外挂程序？是否具备透视功能？',tags:['安全','合规','外挂','透视'],a:'ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。软件不会修改、侵入任何第三方平台程序，不篡改安装包，不破坏数据签名，所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险。'},
-{q:'使用ALPHAX是否会被检测或导致账号封禁？',tags:['安全','账号','封号','封禁','检测'],a:'各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。建议一个账号对应一个设备，规范使用，不要多开或共享网络，不要使用模拟器或云手机。'},
-{q:'ALPHAX能提高胜率吗？能稳赢吗？',tags:['产品','合规','胜率','稳赢'],a:'ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。'},
-{q:'什么是GTO？Q值、EV等术语代表什么？',tags:['产品','术语','GTO'],a:'GTO即博弈论最优策略（Game Theory Optimal）；Q值代表当前手牌的强度评分；EV即期望价值，是策略层面的综合收益预期；EVQ是结合手牌强度与场景逻辑的综合权益评分。以上均为策略学习与数据分析术语，仅用于GTO理论研究与复盘参考。'}
-]},
-{s:'设备与下载',items:[
-{q:'如何下载官方软件？',tags:['下载','安全'],a:'官方下载地址是 https://alphax.net.cn ，支持iOS、安卓及电脑端。请勿在第三方网站、网盘或非官方渠道下载，避免安装到盗版或存在安全风险的版本。'},
-{q:'软件支持哪些设备和系统？',tags:['设备','适配','支持'],a:'已适配主流设备，支持安卓、iOS、Windows、MacOS全系统，各平台均有独立客户端，下载请前往官方地址获取对应版本。'},
-{q:'使用软件需要模拟器吗？',tags:['设备','安全','模拟器'],a:'使用ALPHAX不需要模拟器。在模拟器中运行可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行，若在非原生环境使用需自行承担所有风险。'},
-{q:'在国外可以使用吗？支持退款吗？',tags:['海外','国外','境外','退款'],a:'境外用户可正常使用ALPHAX，可开通对应地区加速服务，只需提供软件主页截图和UID联系客服即可协助办理，使用期间请保持IP与定位地区一致。境外相关订单暂不支持退款，请您购买前知悉。'}
-]},
-{s:'账号与登录',items:[
-{q:'如何注册账号？必须要实名认证吗？',tags:['账号','注册','实名'],a:'使用手机号接收验证码即可注册。首次登录后需进行实名认证，绑定真实姓名及身份证信息，否则无法正常使用。一个身份证仅可绑定一个账号。'},
-{q:'登录时收不到验证码？',tags:['账号','技术','验证码'],a:'请逐一排查：1.手机信号不佳—到空旷处重新获取；2.短信被拦截—检查拦截记录；3.通道延迟—等待1-2分钟；4.手机号填写错误—确认号码；5.频繁请求—1分钟内多次会被限制。如仍无法解决，请提供手机号帮您对接技术排查。'},
-{q:'一个账号可以同时登录几台设备？',tags:['账号','设备'],a:'同一账号仅支持单台设备登录使用，不支持多设备同时在线。如需在新设备登录，旧设备需手动退出。'},
-{q:'账号可以出租或借用给他人吗？',tags:['账号','安全','共享'],a:'根据用户协议约定，账号不得与他人共享。账号出租、借用或共享给他人，由此产生的盗号、数据泄露及其他损失均由您自行承担。'},
-{q:'实名认证提示不一致怎么办？',tags:['账号','实名','认证','不一致'],a:'您好！实名认证提示不一致，是因为实名信息必须与您注册手机号绑定的实名完全一致。请您确认以下几点：\n1.您填写的姓名和身份证号，必须与您注册用的手机号在运营商处登记的实名信息一致\n2.必须是本人真实信息，不能使用家人或他人的信息认证\n3.请仔细核对姓名是否有错别字、身份证号是否有误\n\n简单说就是：手机号是谁的实名，认证就填谁的，必须一致才行。如果确认信息无误仍提示不一致，请提供UID和主页面截图，这边帮您反馈核实~'}
-]},
-{s:'会员与购买',items:[
-{q:'会员版本有哪些？',tags:['会员','版本'],a:'软件会员主要包含L0（试用版）、L1、L2、L3、L4五个版本，您可以打开APP进入会员订阅页面查看各版本详细功能对比和算力消耗。'},
-{q:'各版本之间有什么区别？',tags:['会员','版本','区别'],a:'L0/L1：入门试用版，仅支持翻前基础功能；L2：支持多平台与GTO尺度建议；L3：解锁全量功能，性价比最高；L4：最高性能版本，支持全部高阶功能。大多数用户推荐L3。'},
-{q:'试用版有什么限制？',tags:['会员','试用'],a:'付费体验版（T4）限时20分钟，功能与L4完全一致；L0试用版有效期30天，含600算力，到期后无法继续使用，不可重复开通，不能充值算力，仅支持翻前基础功能。'},
-{q:'订阅版本和充值算力有什么区别？',tags:['会员','算力','购买'],a:'激活版本=使用权限（退款按激活时约定的总算力计算比例）；充值算力=使用次数（每次决策都会扣费，充值算力永久有效，但一律不支持退款）。版本是权限，算力是使用次数，两者独立。'}
-]},
-{s:'算力规则',items:[
-{q:'算力是什么？有什么作用？',tags:['算力','基础'],a:'算力是使用ALPHAX进行GTO策略分析的专属消耗单位。调用AI分析时系统会根据分析深度与阶段扣除对应算力，仅在使用时消耗，闲置不扣。'},
-{q:'算力是永久有效的吗？',tags:['算力','规则','有效期'],a:'套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用。'},
-{q:'算力用完了怎么办？',tags:['算力','充值'],a:'算力用完后请在APP会员订阅页面充值算力即可继续使用。'},
-{q:'算力充值有哪些档位和价格？',tags:['算力','充值','价格'],a:'当前可选：680元/5200算力、980元/8800算力、1580元/14900算力、2580元/26600算力、3680元/42200算力。具体以APP内实时显示为准。'}
-]},
-{s:'功能使用',items:[
-{q:'下载后怎么使用软件？',tags:['教程','入门'],a:'只需四步：1.注册账号并完成实名认证；2.订阅购买会员版本；3.进入实时场景分析AiGTO；4.选择对应平台即可使用。购买会员后可联系专属客服获取使用教程与指导。'},
-{q:'对抗策略是什么？',tags:['功能','L4'],a:'对抗策略是L4版本专属功能，开启后可调整AI在策略分析中的变化幅度（默认35%），建议设置翻前10-45%，翻后30-60%。'},
-{q:'什么是辅助弃牌？',tags:['功能','L3','L4'],a:'辅助弃牌是L3/L4版本的GTO学习辅助功能：当弃牌选项的GTO概率高于设定阈值，会提供弃牌建议供学习参考，阈值可在设置中自行调整。'}
-]},
-{s:'故障排查',items:[
-{q:'软件无法打开/黑屏/白屏/卡顿怎么办？',tags:['技术','故障','黑屏','白屏','卡顿'],a:'请按以下步骤尝试：1.切换网络（WiFi和5G）；2.点击刷新按钮；3.关闭APP后重启（反复2-3次）；4.开启/关闭飞行模式；5.切换线路或节点；6.修改DNS；7.卸载重装APP；8.换时间段重试。以上仍未解决请联系客服提供UID和问题截图。'},
-{q:'软件页面一直显示更新中？',tags:['技术','故障','更新'],a:'表示当前版本正在升级维护，请耐心等待更新完成后再使用（预计3-12小时）。'},
-{q:'AI计算结果不准确怎么办？',tags:['技术','故障','准确'],a:'建议检查牌局数据同步及参数设置，重启APP刷新数据，如仍异常请联系客服提供UID、截图及问题场景。'}
-]},
-{s:'退款与注销',items:[
-{q:'退款政策是怎样的？',tags:['退款','售后','退费'],a:'本软件属于数字化服务类商品，不支持七天无理由退款。可申请退款的情况：1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款；2.购买30天内完全未使用，可全额退款（扣5%手续费）。不支持退款的情况：已充值算力一律不支持退款、同一账号仅限申请一次退款。需提供UID、实名信息及充值记录截图，1-3个工作日原路退回。'},
-{q:'如何申请注销账号？',tags:['注销','账号'],a:'注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效，无法再注册新账号。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。'}
-]},
-{s:'推荐合作',items:[
-{q:'推荐好友有奖励吗？',tags:['推荐','福利'],a:'成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：好友开通L4可获2000点数，L3可获1000点数，L2可获500点数。具体活动规则可联系客服咨询最新详情。'},
-{q:'如何申请商务合作？',tags:['合作','商务'],a:'商务合作请联系 support@alphax.net'}
-]},
-{s:'合规法律',items:[
-{q:'软件使用有什么限制？发现违规使用会怎样？',tags:['合规','安全','违规'],a:'ALPHAX是专业的GTO策略学习工具，使用场景必须合法合规，禁止将本软件用于任何违规或不当用途。一经发现违规使用行为，账号将被立即封禁，并保留向相关部门报告的权利。请务必遵守相关法律法规。'},
-{q:'软件收集哪些数据？如何保护用户隐私？',tags:['合规','隐私','数据'],a:'软件会收集账号信息（手机号、实名认证）、设备信息（型号、系统版本）、使用数据（功能使用记录、算力消耗）、日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护数据安全，不会将信息出售或未经同意提供给第三方。'}
-]}
+var FAQ=[
+{q:['ALPHAX是什么','ALPHAX是干嘛的','这个软件是什么','ALPHAX是什么软件','你们软件是做什么的'],a:'ALPHAX是一款正版AI云计算工具，核心是基于GTO博弈论最优策略和AI矩阵算法，帮助您进行GTO策略学习、技巧训练、对局分析和决策研究。它是学习研究工具，不是实战辅助外挂，也不会修改或干预任何第三方平台程序。使用效果因人而异，不承诺或保证任何具体结果，仅供学习研究使用。'},
+{q:['是外挂吗','是不是外挂','能透视吗','有透视功能吗','算作弊吗','开挂吗','违规软件','辅助工具','作弊器'],a:'ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。软件不会修改、侵入任何第三方平台程序，不篡改安装包，不破坏数据签名，所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险，请提高警惕。'},
+{q:['会被封号吗','会被检测吗','封号','封禁','被封','号没了','账号封了','冻结','禁用','限制','风控','警告','账号异常'],a:'各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。建议一个账号对应一个设备，规范使用，不要多开或共享网络，不要使用模拟器或云手机。如因个人违规行为导致账号异常，需由用户自行承担相应责任。'},
+{q:['能提高胜率吗','能稳赢吗','包赢吗','保证胜率','一定能赢','百分百赢','包过'],a:'ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。'},
+{q:['什么是GTO','GTO是什么','Q值是什么','EV是什么','EVQ是什么','GTO尺度建议'],a:'GTO即博弈论最优策略（Game Theory Optimal），是智力竞技场景中一套均衡、严谨的决策逻辑体系；Q值代表当前手牌的强度评分；EV即期望价值，是策略层面的综合收益预期；EVQ是结合手牌强度与场景逻辑的综合权益评分。以上均为策略学习与数据分析术语，仅用于GTO理论研究、思路训练与复盘参考。'},
+{q:['怎么下载','在哪下载','下载地址','安装包','怎么安装','在哪安装'],a:'官方下载地址是 https://alphax.net.cn ，支持iOS、安卓及电脑端。请勿在第三方网站、网盘或非官方渠道下载，避免安装到盗版或存在安全风险的版本。'},
+{q:['支持什么设备','支持哪些系统','苹果能用吗','安卓能用吗','电脑能用吗','手机能用吗'],a:'已适配主流设备，支持安卓、iOS、Windows、MacOS全系统，各平台均有独立客户端，下载请前往官方地址 https://alphax.net.cn 获取对应版本。'},
+{q:['需要模拟器吗','模拟器能用吗','云手机能用吗','虚拟机能用吗','多开','双开'],a:'使用ALPHAX不需要模拟器。在模拟器中运行可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行，若在非原生环境使用需自行承担所有账号及合规风险。'},
+{q:['国外能用吗','海外能用吗','境外能用吗','出国能用吗','加速器','加速服务'],a:'境外用户可正常使用ALPHAX，可开通对应地区加速服务，只需提供软件主页截图和UID联系客服即可协助办理，使用期间请保持IP与定位地区一致。另外提前向您说明：境外相关订单暂不支持退款，请您购买前知悉。'},
+{q:['怎么注册','注册不了','注册失败','无法注册'],a:'使用手机号接收验证码即可完成注册。首次登录后需进行实名认证，绑定真实姓名及身份证信息，否则无法正常使用。实名认证是使用软件的前提必要条件，一个身份证仅可绑定一个账号。'},
+{q:['收不到验证码','验证码收不到','验证码错误','登不上','登不进','无法登录','登录不了'],a:'请逐一排查：1.手机信号不佳—到空旷处重新获取；2.短信被拦截—检查手机短信拦截记录；3.短信通道延迟—等待1-2分钟；4.手机号填写错误—确认区号和号码；5.频繁请求—同一手机号1分钟内多次请求会被限制。如以上均无法解决，请提供完整手机号，帮您对接技术排查。'},
+{q:['一个账号能登录几台设备','能同时登录吗','多设备登录'],a:'同一账号仅支持单台设备登录使用，不支持多设备同时在线。如需在新设备上登录，已登录的旧设备需要手动退出。'},
+{q:['账号能借人吗','能出租吗','能共享吗','能给朋友用吗'],a:'根据《用户协议》第六条第6.10款约定，用户应妥善保管账号，不得与他人共享。账号出租、借用或共享给他人，由此产生的盗号、数据泄露及其他损失，均需由您自行承担全部责任。'},
+{q:['实名认证不一致','实名不通过','认证失败','身份证验证不通过','实名信息不对','身份验证失败'],a:'实名认证提示不一致，是因为您输入的实名信息必须与您注册手机号绑定的实名完全一致。请确认：1.您填写的姓名和身份证号，必须与您注册用的手机号在运营商处登记的实名信息一致；2.必须是本人真实信息，不能使用家人或他人的信息认证；3.请仔细核对姓名是否有错别字、身份证号是否有误。简单说就是：手机号是谁的实名，认证就填谁的，必须一致才行。如果确认信息无误仍提示不一致，请提供UID和主页面截图，这边帮您反馈核实。'},
+{q:['会员有哪些版本','版本有哪些','L0','L1','L2','L3','L4','有什么版本'],a:'软件会员主要包含L0（试用版）、L1、L2、L3、L4五个版本，您可以打开软件APP进入会员订阅页面，查看各版本的详细功能对比和算力消耗。'},
+{q:['L3和L4有什么区别','各版本区别','推荐哪个版本','哪个版本好','L2和L3区别'],a:'L0/L1：入门试用版本，仅支持翻前基础功能；L2：支持多平台与GTO尺度建议；L3：解锁全量功能，是性价比最高的主流选择；L4：最高性能版本，支持全部高阶功能与极限场景解算。大多数日常使用的用户推荐选择L3版本。'},
+{q:['试用版有什么限制','L0限制','试用多久','体验版'],a:'付费体验版（T4）限时20分钟，功能与L4完全一致；L0试用版有效期30天，包含600算力，到期后无法继续使用，不可重复开通，也不能充值算力。L0仅支持手牌强度、翻前AIGTO分析、翻前EV权益计算，不支持高级功能。'},
+{q:['版本和算力有什么区别','订阅和充值区别','版本是权限还是次数'],a:'激活版本=使用权限（退款按激活时约定的总算力计算比例）；充值算力=使用次数（每次决策都会扣费，充值算力永久有效，但一律不支持退款）。简单理解：版本是权限，算力是使用次数。两者为独立场景，规则需区分执行。'},
+{q:['算力是什么','算力有什么用','算力怎么算'],a:'算力是使用ALPHAX进行GTO策略分析的专属消耗单位。当您调用AI对策略场景开展学习与演算分析时，系统会根据分析深度与阶段，扣除对应算力。算力仅在AI分析运行时产生消耗，闲置未使用不会扣除。'},
+{q:['算力永久有效吗','算力会过期吗','算力清零','算力到期','算力有效期','剩余算力'],a:'套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用，不会浪费！'},
+{q:['算力用完了怎么办','算力不够','算力没了'],a:'算力用完后请在APP「会员订阅」页面充值算力即可继续使用。'},
+{q:['算力充值价格','算力多少钱','充值档位','买算力','算力价格','充值多少钱'],a:'当前可选￥680（5200算力）、￥980（8800算力）、￥1580（14900算力）、￥2580（26600算力）、￥3680（42200算力）五档。具体以APP内实时显示为准。'},
+{q:['怎么充值','充值操作','怎么续费','续订操作','充算力怎么操作'],a:'充值操作步骤：1.打开ALPHAX APP → 2.点击底部「会员订阅」→ 3.选择您需要的算力档位 → 4.完成支付即可到账。充值后算力即时到账，永久有效不清零。'},
+{q:['算力消耗快','算力扣得快','太费算力','算力怎么扣的'],a:'算力仅在AI分析运行时产生消耗，闲置不扣。套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用。如果觉得消耗快，可以检查一下是否有频繁调用分析，或者调整使用频率。算力用完后请在APP会员订阅页面充值即可继续使用。'},
+{q:['怎么使用软件','怎么操作','新手教程','使用方法','不会用','怎么上手'],a:'只需四步：1.注册账号并完成实名认证；2.订阅购买会员版本；3.进入实时场景分析·AiGTO；4.选择对应平台即可使用。购买会员后，可联系专属客服获取使用教程与指导！'},
+{q:['对抗策略是什么','对抗策略怎么用','变化幅度','对抗策略怎么调'],a:'对抗策略是L4版本专属功能，开启后可调整AI在策略分析中的变化幅度（默认35%）。使用方法：打开APP → 设置 → 对抗策略 → 开启 → 调整变化幅度。建议设置：翻前10-45%，翻后30-60%。变化幅度越大，策略越灵活，但也越偏离标准GTO。'},
+{q:['辅助弃牌是什么','辅助弃牌怎么用','弃牌建议','弃牌阈值'],a:'辅助弃牌是L3/L4版本的GTO学习辅助功能：当弃牌选项的GTO概率高于设定阈值，会提供弃牌建议供学习参考。使用方法：打开APP → 设置 → 辅助弃牌 → 开启 → 调整阈值。阈值越低越激进，越高越保守，建议根据自己风格调整。'},
+{q:['打不开软件','黑屏','白屏','卡顿','卡在页面','闪退','崩溃','更新中','无法打开','进不去','用不了','报错','出bug','死机','无响应','转圈','加载中'],a:'请按以下步骤逐一尝试：1.切换网络（WiFi和5G）；2.点击APP的刷新按钮；3.关闭APP后重启（反复2-3次）；4.开启/关闭飞行模式；5.切换APP线路或节点；6.修改DNS；7.卸载重装APP；8.换时间段重试。以上方式仍未解决请联系客服提供UID和问题截图。'},
+{q:['页面显示更新中','一直更新中','维护中'],a:'表示当前版本正在升级维护，请耐心等待更新完成后再使用（预计3-12小时）。'},
+{q:['AI计算不准','结果不准确','分析不对'],a:'建议检查牌局数据同步及参数设置，重启APP刷新数据，如仍异常请联系客服提供UID、截图及问题场景。'},
+{q:['退款政策','能退款吗','怎么退款','退钱','退费','申请退款','不想要了能退吗','到期能退吗','可以退款吗'],a:'本软件属于数字化服务类商品，不支持七天无理由退款。可申请退款的情况：1.自购买日起10天内，套餐剩余算力≥50%且无充值记录，可按剩余算力比例退款；2.购买后30天内完全未使用，可申请全额退款（扣除5%手续费）。不支持退款的情况：已充值算力一律不支持退款、同一账号仅限申请一次退款。需要退款请提供UID、实名信息及充值记录截图提交申请，1-3个工作日原路退回。'},
+{q:['怎么注销账号','注销','销号','删除账号','取消账号'],a:'注销账号是不可逆操作：账号内所有信息、订阅权限、算力余额将永久清空且无法恢复；该账号的实名信息将永久失效，无法再注册新账号。如确认注销，需提供：1.账号UID 2.绑定手机号 3.实名姓名 4.身份证后四位 5.最近一笔消费截图。注销完成后，账号即刻失效，请谨慎操作。'},
+{q:['推荐好友有奖励吗','邀请奖励','返利','拉新'],a:'成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：好友开通L4版本可获2000点数；好友开通L3版本可获1000点数；好友开通L2版本可获500点数。具体活动规则可联系客服咨询最新详情。'},
+{q:['商务合作','合作','怎么合作'],a:'商务合作请联系：support@alphax.net'},
+{q:['使用限制','违规使用','违规会怎样','合规','违法'],a:'ALPHAX是专业的GTO策略学习工具。使用场景必须合法合规，禁止将本软件用于任何违规或不当用途。一经发现账号存在违规使用行为，账号将被立即封禁，并保留向相关部门报告的权利。请务必遵守相关法律法规，合理使用软件。'},
+{q:['隐私安全','数据安全','信息泄露','收集什么数据','个人信息'],a:'软件会收集以下必要信息：账号信息（手机号、实名认证信息）；设备信息（设备型号、操作系统版本）；使用数据（功能使用记录、算力消耗记录）；日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护您的数据安全，不会将您的信息出售或未经同意提供给第三方。'}
 ];
 
-var rules=[
-{id:1,title:'补偿上限规则',content:'当用户要求补偿时，不要直接承诺任何数字。先了解用户UID和消费金额，补偿算力上限不超过2000，必须强调"一次性补偿，后续无法再申请"。'},
-{id:2,title:'退款处理规则',content:'用户要求退款时，先核实是否符合退款条件。不符合条件时用规则说话，不说"领导不同意"，说"根据协议约定，统一执行的规则"。'},
-{id:3,title:'情绪安抚规则',content:'用户情绪激动时，先安抚情绪再处理问题。用"非常理解您的心情"开头，不要硬刚，不要威胁或对抗。'},
-{id:4,title:'升级通知规则',content:'以下情况需创建工单升级：1.用户威胁投诉/举报/法律手段；2.用户要求补偿超过2000算力；3.知识库未覆盖的问题；4.用户要求与主管沟通。'},
-{id:5,title:'合规底线规则',content:'任何回复中涉及"不承诺结果"、"仅供学习研究"等合规要点时，必须包含，不能省略。'}
-];
+var SYSTEM_PROMPT='你是ALPHAX官方专属AI客服，兼具专业严谨和真人沟通温度。所有业务规则、功能解释、退款政策、版本权益、境外使用、账号规则等必须100%严格参照官方知识库内容，绝不自己编造、私自改规则、私自放宽或加条件。回答框架、核心规则完全沿用知识库标准答案，但可以在开头、结尾加自然共情语气。要像真人客服一样顺着用户的语气对应回复，用户着急就安抚、用户疑问就耐心解释、用户抱怨就先共情再讲规则。禁止答非所问、强行硬凑答案；如果知识库没有对应内容，委婉引导咨询人工，不瞎猜不瞎说。话术可以口语化、自然流畅，不用刻板机器句式，但关键业务文案、合规底线、退款条款一字不能改。不要过度机械化罗列条目，能用自然语句整合表达；保留人情味、共情安抚、礼貌用语，但不额外承诺任何权益、补偿、特殊政策。遇到用户情绪抱怨、不满、着急，先共情安抚，再讲官方规则，顺序不能反。';
 
-var curUser={name:'模拟用户',uid:'',ver:'',mood:'平静',chats:0,issues:[]};
+var SENSITIVE_WORDS=['投诉','举报','法律','315','消费者','虚假宣传','律师','曝光','12315','工商','消费者协会'];
+var ANGRY_WORDS=['骗','垃圾','差评','骗子','诈骗','坑人','忽悠','扯淡','无语','恶心'];
+var UPSET_WORDS=['不满意','不行','太少了','不够','差','不好','失望','着急','急','烦'];
+var CALM_WORDS=['谢谢','好的','了解','明白','可以','感谢','辛苦'];
+
+var curUser={name:'模拟用户',uid:'',mood:'平静',chats:0};
 var chatHist=[];
 var tickets=[];
 var logs=[];
 var stats={chats:0,resolved:0,pending:0,escalated:0};
-var convState={topic:null,step:0,ctx:{}};
+var SIM_THRESHOLD=0.4;
 
-function switchTab(tab,btn){
-  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
-  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
-  document.getElementById('page-'+tab).classList.add('active');
-  btn.classList.add('active');
-}
-
-function now(){var d=new Date();return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+function switchTab(tab,btn){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});document.getElementById('page-'+tab).classList.add('active');btn.classList.add('active');}
+function now(){var d=new Date();return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
 
 function addMsg(type,txt,imgSrc){
-  var box=document.getElementById('chatMsgs');
-  var div=document.createElement('div');
-  div.className='msg '+type;
-  var av=type==='ai'?'AI':curUser.name.charAt(0);
-  var t=now();
-  var acts='';
-  if(type==='ai'){
-    acts='<div class="msg-acts"><button class="mbtn" onclick="copyMsg(this)">复制</button><button class="mbtn" onclick="mkTicket(this)">创建工单</button></div>';
-  }
+  var box=document.getElementById('chatMsgs');var div=document.createElement('div');div.className='msg '+type;
+  var av=type==='ai'?'AI':curUser.name.charAt(0);var t=now();var acts='';
+  if(type==='ai'){acts='<div class="msg-acts"><button class="mbtn" onclick="copyMsg(this)">复制</button></div>';}
   var safeTxt=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-  var imgHtml='';
-  if(imgSrc){imgHtml='<img class="msg-img" src="'+imgSrc+'" onclick="previewImg(this)">';}
+  var imgHtml='';if(imgSrc){imgHtml='<img class="msg-img" src="'+imgSrc+'" onclick="previewImg(this)">';}
   div.innerHTML='<div class="msg-av">'+av+'</div><div><div class="msg-bb">'+safeTxt+imgHtml+acts+'</div><div class="msg-t">'+t+'</div></div>';
-  box.appendChild(div);
-  box.scrollTop=box.scrollHeight;
-  chatHist.push({type:type,txt:txt,time:t,hasImg:!!imgSrc});
+  box.appendChild(div);box.scrollTop=box.scrollHeight;chatHist.push({type:type,txt:txt,time:t});
 }
 
 function sendMsg(){
-  var inp=document.getElementById('chatInput');
-  var txt=inp.value.trim();
-  if(!txt)return;
-  inp.value='';
-  addMsg('u',txt);
-  curUser.chats++;
-  updProfile();
+  var inp=document.getElementById('chatInput');var txt=inp.value.trim();if(!txt)return;inp.value='';
+  addMsg('u',txt);curUser.chats++;updProfile();
   setTimeout(function(){
-    var r=genReply(txt);
-    addMsg('ai',r.txt);
+    var r=genReply(txt);addMsg('ai',r.txt);
     document.getElementById('aIntent').textContent=r.intent;
     document.getElementById('aMatch').textContent=r.match;
-    if(r.esc){
-      document.getElementById('aEsc').innerHTML='<span class="tsm dg">是-需升级</span>';
-      mkTicketRaw(txt,r.reason);
-      stats.escalated++;
-    }else{
-      document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
-      stats.resolved++;
-    }
-    stats.chats++;
-    addLog('chat',curUser.name,txt.substring(0,30)+(txt.length>30?'...':''));
-    updStats();
+    var simPct=Math.round(r.sim*100);
+    var simCls=simPct>=75?'ok':simPct>=50?'wn':'dg';
+    document.getElementById('aSim').innerHTML='<span class="tsm '+simCls+'">'+simPct+'%</span>';
+    if(r.esc){document.getElementById('aEsc').innerHTML='<span class="tsm dg">是</span>';mkTicketRaw(txt,r.reason);stats.escalated++;}
+    else{document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';if(r.sim>=SIM_THRESHOLD)stats.resolved++;}
+    stats.chats++;addLog('chat',curUser.name,txt.substring(0,30));updStats();
   },600+Math.random()*800);
 }
 
 document.getElementById('sendBtn').addEventListener('click',sendMsg);
-document.getElementById('chatInput').addEventListener('keydown',function(e){
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}
-});
-
+document.getElementById('chatInput').addEventListener('keydown',function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}});
 document.getElementById('imgUpload').addEventListener('change',function(e){
-  var file=e.target.files[0];
-  if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(ev){
-    var imgSrc=ev.target.result;
-    addMsg('u','[截图]',imgSrc);
-    curUser.chats++;
-    updProfile();
-    setTimeout(function(){
-      var r=genReply('[用户发送了截图]');
-      addMsg('ai',r.txt);
-      document.getElementById('aIntent').textContent=r.intent;
-      document.getElementById('aMatch').textContent=r.match;
-      if(r.esc){
-        document.getElementById('aEsc').innerHTML='<span class="tsm dg">是-需升级</span>';
-        mkTicketRaw('[截图]',r.reason);
-        stats.escalated++;
-      }else{
-        document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
-        stats.resolved++;
-      }
-      stats.chats++;
-      addLog('chat',curUser.name,'发送了截图');
-      updStats();
-    },600+Math.random()*800);
-  };
-  reader.readAsDataURL(file);
-  e.target.value='';
+  var file=e.target.files[0];if(!file)return;var reader=new FileReader();
+  reader.onload=function(ev){addMsg('u','[截图]',ev.target.result);curUser.chats++;updProfile();
+    setTimeout(function(){addMsg('ai','好的，已收到您的截图，我这边帮您核实一下~');stats.chats++;updStats();},600);};
+  reader.readAsDataURL(file);e.target.value='';
 });
+function previewImg(img){var o=document.createElement('div');o.className='img-preview';o.innerHTML='<img src="'+img.src+'">';o.onclick=function(){document.body.removeChild(o);};document.body.appendChild(o);}
 
-function previewImg(img){
-  var overlay=document.createElement('div');
-  overlay.className='img-preview';
-  overlay.innerHTML='<img src="'+img.src+'">';
-  overlay.onclick=function(){document.body.removeChild(overlay);};
-  document.body.appendChild(overlay);
+function calcSim(input,faq){
+  var lo=input.toLowerCase();var best=0;
+  for(var i=0;i<faq.q.length;i++){
+    var fq=faq.q[i].toLowerCase();var sc=0;var total=0;
+    var iWords=lo.replace(/[，。？！、的了是我你他她它吗吧呢啊哦嗯呀着过是]/g,'').split(/\s+/).filter(function(w){return w.length>0;});
+    var qWords=fq.replace(/[，。？！、的了是我你他她它吗吧呢啊哦嗯呀着过是]/g,'').split(/\s+/).filter(function(w){return w.length>0;});
+    for(var j=0;j<iWords.length;j++){total++;for(var k=0;k<qWords.length;k++){if(qWords[k].length>0&&iWords[j].indexOf(qWords[k])>=0||qWords[k].indexOf(iWords[j])>=0){sc++;break;}}}
+    for(var k=0;k<qWords.length;k++){if(qWords[k].length>1&&lo.indexOf(qWords[k])>=0)sc+=0.5;}
+    var sim=total>0?sc/total:0;if(sim>best)best=sim;
+  }
+  return best;
 }
 
 function genReply(input){
-  var lo=input.toLowerCase();
-  var intent='通用咨询',match='-',esc=false,reason='',txt='';
-  var kbMatch=findKB(input);
-  var st=convState;
+  var lo=input.toLowerCase();var intent='通用咨询',match='-',esc=false,reason='',txt='',sim=0;
+  var mood=detectMood(lo);
 
-  if(st.topic==='refund'&&st.step>0){return refundFlow(input,lo);}
-  if(st.topic==='comp'&&st.step>0){return compFlow(input,lo);}
-  if(st.topic==='tech'&&st.step>0){return techFlow(input,lo);}
-  if(st.topic==='account'&&st.step>0){return accountFlow(input,lo);}
-  if(st.topic==='purchase'&&st.step>0){return purchaseFlow(input,lo);}
-  if(st.topic==='feature'&&st.step>0){return featureFlow(input,lo);}
-
-  if(input.indexOf('[用户发送了截图]')>=0){
-    if(st.topic==='refund'&&st.step===2){return refundFlow(input,lo);}
-    if(st.topic==='comp'&&st.step===1){return compFlow(input,lo);}
-    if(st.topic==='tech'){return techFlow(input,lo);}
-    if(st.topic==='account'){return accountFlow(input,lo);}
-    intent='收到截图';match='截图确认';
-    txt='好的，已收到您的截图，我这边帮您核实一下~';
-    return {intent:intent,match:match,esc:false,reason:'',txt:txt};
+  if(hasAny(lo,SENSITIVE_WORDS)){
+    esc=true;reason='用户威胁投诉/法律手段';intent='投诉升级';match='投诉升级';sim=1;
+    txt='非常理解您的心情，您的反馈我们非常重视！请您先跟我说说具体遇到了什么问题，我先帮您了解一下，看看怎么妥善处理，好吗？';
+    curUser.mood='激动';updProfile();return {intent:intent,match:match,esc:esc,reason:reason,txt:txt,sim:sim};
   }
 
-  if(has(lo,['退款','退钱','退费','退回','退还','申请退'])){
-    intent='退款咨询';
-    if(has(lo,['投诉','举报','法律','315','消费者','虚假宣传','律师','曝光'])){
-      curUser.mood='激动';intent='退款+投诉升级';match='投诉升级';esc=true;reason='用户威胁投诉/法律手段';
-      txt='您好！非常理解您的心情，我们很重视您的反馈。能先跟我说说具体是什么情况吗？我先帮您了解一下，看看怎么帮您处理~';
-      st.topic='refund';st.step=1;st.ctx={angry:true};
-    }else{
-      match='退款初步';
-      txt='您好！请问是遇到什么问题了呢？能跟我说说具体情况吗，我先了解一下~';
-      st.topic='refund';st.step=1;st.ctx={};
-    }
-  }else if(has(lo,['补偿','送算力','赠送','弥补','补偿我','送我','白送','免费给'])){
-    intent='补偿请求';match='补偿初步';
-    txt='您好！非常理解您的心情，请问方便提供一下您的UID吗？我先帮您看看账号情况~';
-    st.topic='comp';st.step=1;st.ctx={};
-  }else if(has(lo,['打不开','黑屏','白屏','卡顿','卡在','闪退','崩溃','更新中','无法打开','进不去','用不了','加载','报错','错误','出bug','出问题','出故障','死机','无响应','转圈','一直在加载'])){
-    intent='故障排查';match='故障初步';
-    txt='您好！遇到这种情况确实影响体验，非常抱歉给您带来不便。请问具体是什么情况呢？比如是黑屏、白屏、卡在某个页面，还是闪退？有看到什么提示吗？';
-    st.topic='tech';st.step=1;st.ctx={};
-  }else if(has(lo,['封号','封禁','被封','号没了','账号没了','账号封','冻结','禁用','限制','风控','警告','异常'])){
-    intent='账号安全';match='账号安全';
-    txt='您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。\n\n为保障您的账号安全，建议注意以下事项：\n1.遵守各平台使用规则与相关法律法规\n2.不要同一设备多开账号或共享网络\n3.不要使用模拟器、云手机等非原生环境\n4.不要安装违规工具或非官方应用\n5.建议一个账号对应一个设备，规范使用\n\n如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
-  }else if(has(lo,['实名','认证','不一致','身份验证','实名信息','身份证','验证不通过','认证失败'])){
-    intent='实名认证';match='实名认证不一致';
-    txt='您好！实名认证提示不一致，是因为实名信息必须与您注册手机号绑定的实名完全一致。请您确认以下几点：\n1.您填写的姓名和身份证号，必须与您注册用的手机号在运营商处登记的实名信息一致\n2.必须是本人真实信息，不能使用家人或他人的信息认证\n3.请仔细核对姓名是否有错别字、身份证号是否有误\n\n简单说就是：手机号是谁的实名，认证就填谁的，必须一致才行。如果确认信息无误仍提示不一致，请提供UID和主页面截图，这边帮您反馈核实~';
-  }else if(has(lo,['外挂','透视','作弊','开挂','挂','违规软件','辅助工具','作弊器'])){
-    intent='产品性质';match='产品性质';
-    txt='您好！理解您的顾虑，ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。软件不会修改、侵入任何第三方平台程序，所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险，请提高警惕。';
-  }else if(has(lo,['算力'])&&has(lo,['多少','价格','充值','档位','多少钱','怎么买','买算力','算力价格'])){
-    intent='算力价格';match='算力充值档位';
-    txt='您好！当前算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n\n充值操作步骤：打开APP → 点击「会员订阅」→ 选择算力档位 → 完成支付即可。具体以APP内实时显示为准。';
-  }else if(has(lo,['充值','充算力','充钱','续费','续订','充点','续期'])){
-    intent='充值操作';match='充值操作';
-    txt='您好！充值操作步骤：\n1.打开ALPHAX APP\n2.点击底部「会员订阅」\n3.选择您需要的算力档位\n4.完成支付即可到账\n\n当前算力档位：680元/5200、980元/8800、1580元/14900、2580元/26600、3680元/42200\n充值后算力即时到账，永久有效不清零。请问还有什么可以帮您的吗？';
-  }else if(has(lo,['算力'])&&has(lo,['用完','不够','没了','消耗','扣','扣费','怎么算','消耗快','太费'])){
-    intent='算力消耗';match='算力消耗咨询';
-    txt='您好！算力是使用ALPHAX进行GTO策略分析的消耗单位，仅在AI分析运行时产生消耗，闲置不扣。套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用。如果觉得消耗快，可以检查一下是否有频繁调用分析，或者调整使用频率。算力用完后请在APP会员订阅页面充值即可继续使用。';
-  }else if(has(lo,['注销','销号','删除账号','不要账号','取消账号'])){
-    intent='账号注销';match='账号注销';
-    txt='您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效，无法再注册新账号。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作，确定要注销吗？';
-  }else if(has(lo,['下载','安装','在哪下','怎么下','下载地址','安装包'])){
-    intent='下载安装';match='下载安装';
-    txt='您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载，避免安装到盗版或存在安全风险的版本。';
-  }else if(has(lo,['胜率','稳赢','包赢','保证','一定能','包过','百分百'])){
-    intent='效果咨询';match='效果咨询';curUser.mood='期待';
-    txt='您好！非常理解您对效果的关心，ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
-  }else if(has(lo,['注册','账号','登录','登不上','登不进','验证码','收不到码','手机号'])){
-    intent='账号问题';match='账号注册登录';
-    txt='您好！请问是注册、登录还是验证码方面的问题呢？方便具体说一下吗？';
-    st.topic='account';st.step=1;st.ctx={};
-  }else if(has(lo,['买','购买','开通','升级','会员','版本','l0','l1','l2','l3','l4','套餐','订阅','付费','怎么买','多少钱'])){
-    intent='购买咨询';match='购买初步';
-    txt='您好！请问是想了解哪个版本呢？我们目前有L0到L4五个版本，不同版本功能不同，我帮您介绍一下~';
-    st.topic='purchase';st.step=1;st.ctx={};
-  }else if(has(lo,['功能','怎么用','教程','使用方法','操作','对抗策略','辅助弃牌','gto','怎么操作','不会用','新手','有什么功能','能做什么','功能介绍'])){
-    intent='功能使用';match='功能初步';
-    txt='您好！ALPHAX主要功能如下：\n\n1.【GTO策略分析】核心功能，实时分析对局策略，使用方法：打开APP → AiGTO → 选择平台\n2.【对抗策略】L4专属，调整AI变化幅度，默认35%，建议翻前10-45%、翻后30-60%\n3.【辅助弃牌】L3/L4，当弃牌GTO概率高于阈值时提示弃牌建议\n4.【多平台支持】L2及以上支持多平台\n\n请问您想了解哪个功能的详细用法？';
-    st.topic='feature';st.step=1;st.ctx={};
-  }else if(has(lo,['推荐','好友','邀请','奖励','返利','拉新'])){
-    intent='推荐奖励';match='推荐奖励';
-    txt='您好！成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：\n- 好友开通L4可获2000点数\n- 好友开通L3可获1000点数\n- 好友开通L2可获500点数\n具体活动规则可联系客服咨询最新详情~';
-  }else if(has(lo,['海外','国外','境外','国外用','出国','加速','加速器'])){
-    intent='海外使用';match='海外使用';
-    txt='您好！境外用户可正常使用ALPHAX，可开通对应地区加速服务，只需提供软件主页截图和UID联系客服即可协助办理，使用期间请保持IP与定位地区一致。另外提前说明：境外相关订单暂不支持退款，请您购买前知悉。';
-  }else if(has(lo,['隐私','数据','信息泄露','安全','收集','个人信息'])){
-    intent='隐私安全';match='隐私安全';
-    txt='您好！您的隐私安全是我们最重视的。软件会收集账号信息（手机号、实名认证）、设备信息（型号、系统版本）、使用数据（功能使用记录、算力消耗）、日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护数据安全，不会将信息出售或未经同意提供给第三方。';
-  }else if(has(lo,['模拟器','云手机','虚拟机','多开','双开'])){
-    intent='模拟器问题';match='模拟器问题';
-    txt='您好！使用ALPHAX不需要模拟器，在模拟器中运行可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行，若在非原生环境使用需自行承担所有风险。';
-  }else if(has(lo,['投诉','举报','315','消费者协会','工商','12315'])){
-    intent='投诉升级';match='投诉升级';esc=true;reason='用户要投诉';
-    txt='您好！非常理解您的心情，您的反馈我们非常重视。请问能先跟我说说具体遇到了什么问题吗？我先帮您了解一下，看看怎么妥善处理~';
-  }else if(has(lo,['人工','转人工','客服','真人','主管','领导','经理','上级'])){
-    intent='转人工';match='转人工';esc=true;reason='用户要求转人工/主管';
-    txt='好的，这边帮您转接，请稍等~';
-  }else if(kbMatch){
-    intent='知识库匹配';match=kbMatch.q;txt=kbMatch.a;
-  }else if(has(lo,['你好','在吗','有人吗','在不在','hello','hi','嗨'])){
-    intent='打招呼';match='打招呼';
-    txt='您好！我是ALPHAX AI客服，请问有什么可以帮您的？';
-  }else if(has(lo,['谢谢','感谢','辛苦了','谢了','thanks'])){
-    intent='感谢';match='感谢';
-    txt='不客气！有问题随时联系我们，祝您使用愉快~';
-    stats.resolved++;
-  }else if(has(lo,['算力'])&&has(lo,['有效期','过期','清零','到期','还有多少','剩余'])){
-    intent='算力有效期';match='算力有效期';
-    txt='您好！套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用，不会浪费！';
+  if(hasAny(lo,['人工','转人工','真人','主管','领导','经理'])){
+    esc=true;reason='用户要求转人工';intent='转人工';match='转人工';sim=1;
+    txt='好的，这边帮您转接人工客服，请稍等~';return {intent:intent,match:match,esc:esc,reason:reason,txt:txt,sim:sim};
+  }
+
+  if(hasAny(lo,['你好','在吗','有人吗','hello','hi','嗨'])){
+    intent='打招呼';match='打招呼';sim=1;txt='您好！我是ALPHAX AI客服，请问有什么可以帮您的？';return {intent:intent,match:match,esc:esc,reason:reason,txt:txt,sim:sim};
+  }
+  if(hasAny(lo,['谢谢','感谢','辛苦了','thanks'])){
+    intent='感谢';match='感谢';sim=1;txt='不客气！有问题随时联系我们，祝您使用愉快~';stats.resolved++;return {intent:intent,match:match,esc:esc,reason:reason,txt:txt,sim:sim};
+  }
+
+  var bestFAQ=null,bestSim=0;
+  for(var i=0;i<FAQ.length;i++){
+    var s=calcSim(input,FAQ[i]);
+    if(s>bestSim){bestSim=s;bestFAQ=FAQ[i];}
+  }
+  sim=bestSim;
+
+  if(bestSim>=SIM_THRESHOLD&&bestFAQ){
+    intent='知识库匹配';match=bestFAQ.q[0];
+    var answer=bestFAQ.a;
+    if(mood==='angry'){answer='非常理解您的心情！'+answer;}
+    else if(mood==='upset'){answer='别着急，我帮您看看～ '+answer;}
+    else if(mood==='calm'){answer=answer+' 有其他问题随时问我～';}
+    txt=answer;
   }else{
-    intent='智能匹配';match=kbMatch?kbMatch.q:'未匹配';
-    if(kbMatch){
-      txt=kbMatch.a;
-    }else{
-      esc=true;reason='知识库未覆盖的问题';
-      txt='您好！这个问题我需要进一步核实，帮您转接处理，请稍等~';
-    }
+    esc=true;reason='知识库未覆盖/匹配度低';intent='未匹配';match='无';
+    txt='抱歉，暂无相关业务解答，建议您咨询人工客服获取帮助。如需转人工，请告诉我～';
   }
 
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
+  updMood(lo);return {intent:intent,match:match,esc:esc,reason:reason,txt:txt,sim:sim};
 }
 
-function has(str,words){for(var i=0;i<words.length;i++){if(str.indexOf(words[i])>=0)return true;}return false;}
-
-function refundFlow(input,lo){
-  var st=convState;
-  var intent='退款跟进',match='退款Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(has(lo,['效果','不好','不行','没用','不满意'])){
-      st.ctx.reason='效果不满意';
-      txt='明白了，是使用效果方面的问题对吧，非常理解您的感受。请问您方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况，看看怎么帮您处理~';
-      st.step=2;
-    }else if(has(lo,['不会用','不会操作','不懂'])){
-      st.ctx.reason='不会使用';
-      txt='了解了，是使用方面的问题。其实我们提供专属客服一对一指导，可以帮您快速上手，您愿意试试吗？如果确实需要退款，也请提供UID和购买记录截图，这边帮您核实~';
-      st.step=2;
-    }else if(has(lo,['投诉','举报','法律','315','虚假'])){
-      curUser.mood='激动';st.ctx.angry=true;
-      txt='非常理解您的心情，您的反馈我们很重视。请您先提供一下UID和购买记录截图，这边帮您核实账号情况后，看看怎么妥善处理这个问题，好吗？';
-      st.step=2;
-    }else{
-      txt='了解了，请问方便提供一下UID和购买记录截图吗？这边先帮您核实一下账号情况~';
-      st.step=2;
-    }
-  }else if(st.step===2){
-    if(has(lo,['uid'])||/\d{6,}/.test(lo)||input.indexOf('[用户发送了截图]')>=0){
-      st.ctx.hasUID=true;
-      txt='好的，已收到您的信息和截图。这边帮您核实一下，关于退款说明一下规则：\n1.购买10天内，剩余算力>=50%且无充值记录，可按比例退款\n2.购买30天内完全未使用，可全额退款（扣5%手续费）\n3.已充值算力不支持退款，同一账号仅限一次\n这边先帮您核实是否符合条件，感谢理解！';
-      st.step=3;
-    }else if(has(lo,['不给','拒绝','投诉'])){
-      curUser.mood='激动';esc=true;reason='退款纠纷升级';
-      txt='非常理解您的心情，这边确实需要先核实您的账号情况才能判断。请您提供UID和购买记录截图，我这边一定积极帮您处理！';
-    }else{
-      txt='好的，请您提供一下UID和购买记录截图，这边帮您核实~';
-    }
-  }else if(st.step>=3){
-    if(has(lo,['不符合','不行','为什么不能退','不给退'])){
-      txt='很抱歉，根据服务协议约定，您的情况目前不符合退款条件。这个是按协议统一执行的，确实无法破例，非常抱歉没能帮到您！如果您有其他诉求，也可以跟我说，看看怎么帮您处理~';
-      st.topic=null;st.step=0;
-    }else if(has(lo,['补偿','送','弥补'])){
-      convState.topic='comp';convState.step=1;
-      return compFlow(input,lo);
-    }else if(has(lo,['谢谢','好的','了解'])){
-      txt='不客气！有问题随时联系我们~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='请问还有其他问题吗？';
-      st.topic=null;st.step=0;
-    }
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
+function hasAny(str,words){for(var i=0;i<words.length;i++){if(str.indexOf(words[i])>=0)return true;}return false;}
+function detectMood(lo){
+  if(hasAny(lo,ANGRY_WORDS))return 'angry';
+  if(hasAny(lo,UPSET_WORDS))return 'upset';
+  if(hasAny(lo,CALM_WORDS))return 'calm';
+  return 'neutral';
 }
-
-function compFlow(input,lo){
-  var st=convState;
-  var intent='补偿跟进',match='补偿Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(/\d{6,}/.test(lo)||has(lo,['uid'])||input.indexOf('[用户发送了截图]')>=0){
-      st.ctx.hasUID=true;
-      txt='好的，已收到。请问您大概是什么问题导致体验不好呢？方便简单说一下吗？';
-      st.step=2;
-    }else{
-      txt='请您提供一下UID，这边先帮您查看账号情况~';
-    }
-  }else if(st.step===2){
-    st.ctx.issue=input.substring(0,50);
-    txt='了解了，非常理解您的感受。这边可以帮您申请算力补偿，但需要说明一下，补偿是一次性的，后续无法再申请。您看需要我帮您反馈申请吗？';
-    st.step=3;
-  }else if(st.step===3){
-    if(has(lo,['好','可以','要','申请'])){
-      esc=true;reason='用户申请补偿，需主管审批';
-      txt='好的，这边帮您提交反馈申请，有结果第一时间通知您！';
-      st.topic=null;st.step=0;
-    }else if(has(lo,['不要','不用','算了'])){
-      txt='好的，没问题。如有其他问题随时联系我们~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='请问您需要我帮您反馈申请补偿吗？';
-    }
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
-}
-
-function techFlow(input,lo){
-  var st=convState;
-  var intent='故障排查',match='故障Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(has(lo,['黑屏'])){
-      st.ctx.issue='黑屏';
-      txt='了解了，黑屏的问题。请问您是刚打开就黑屏，还是使用过程中突然黑屏的？用的是手机还是电脑？';
-      st.step=2;
-    }else if(has(lo,['白屏'])){
-      st.ctx.issue='白屏';
-      txt='了解了，白屏的情况。请问是打开就白屏，还是操作到某个页面变白的？您用的是什么设备？';
-      st.step=2;
-    }else if(has(lo,['卡顿','卡','慢'])){
-      st.ctx.issue='卡顿';
-      txt='了解了，卡顿确实影响体验。请问是全程卡顿还是某个操作时卡？大概用了多久开始卡的？';
-      st.step=2;
-    }else if(has(lo,['闪退','退出','崩溃'])){
-      st.ctx.issue='闪退';
-      txt='闪退确实很影响使用，非常抱歉。请问是打开就闪退，还是用了一会才闪退？有没有看到什么错误提示？';
-      st.step=2;
-    }else if(has(lo,['更新中','更新'])){
-      st.ctx.issue='更新中';
-      txt='明白了，页面显示更新中的话，说明当前版本正在升级维护，请耐心等待3-12小时，更新完成后就可以正常使用了。如果超过12小时还是这个状态，请提供UID截图，这边帮您排查~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else if(has(lo,['进不去','无法','打不开'])){
-      st.ctx.issue='无法打开';
-      txt='了解了，请问是完全打不开（点击没反应），还是打开后停在某个页面？有没有看到任何提示信息？';
-      st.step=2;
-    }else{
-      txt='了解了，请问具体是什么表现呢？比如黑屏、白屏、卡住、闪退？有看到什么提示吗？方便的话也可以截图给我看看~';
-    }
-  }else if(st.step===2){
-    txt='好的，了解了您的情况。建议您按以下步骤逐一尝试：\n1.切换网络（WiFi和5G之间切换试试）\n2.点击APP内的刷新按钮\n3.关闭APP后重新打开（可以反复2-3次）\n4.开启再关闭飞行模式\n5.切换APP线路或节点\n6.修改DNS设置\n7.卸载后重新安装APP\n8.换个时间段再试\n\n以上方式仍未解决的话，请提供UID和问题截图，这边帮您对接技术排查~';
-    st.step=3;
-  }else if(st.step>=3){
-    if(has(lo,['还是不行','没用','试了','还是打不开'])){
-      esc=true;reason='故障排查未解决，需技术介入';
-      txt='非常抱歉给您带来不便，这边帮您提交技术排查，请您提供UID和问题截图，技术同事会尽快处理！';
-      st.topic=null;st.step=0;
-    }else if(has(lo,['好了','可以了','解决了','谢谢'])){
-      txt='太好了！后续有问题随时联系我们~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='请问还有其他问题吗？';
-      st.topic=null;st.step=0;
-    }
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
-}
-
-function accountFlow(input,lo){
-  var st=convState;
-  var intent='账号跟进',match='账号Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(has(lo,['注册','注册不了','注册失败','无法注册'])){
-      txt='了解了，注册方面的问题。请问是手机号收不到验证码，还是注册时提示什么错误信息呢？';
-      st.step=2;st.ctx.type='注册';
-    }else if(has(lo,['登录','登不上','登不进','登不了','无法登录'])){
-      txt='了解了，登录方面的问题。请问是收不到验证码，还是输入验证码后提示错误？有看到什么提示吗？';
-      st.step=2;st.ctx.type='登录';
-    }else if(has(lo,['验证码','收不到','没收到','验证码错误'])){
-      txt='了解了，验证码收不到的问题。请逐一排查：\n1.手机信号不佳—到空旷处重新获取\n2.短信被拦截—检查手机短信拦截记录\n3.通道延迟—等待1-2分钟\n4.手机号填写错误—确认区号和号码\n5.频繁请求—1分钟内多次会被限制\n\n如以上都无法解决，请提供手机号，这边帮您对接技术排查~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else if(has(lo,['实名','认证'])){
-      convState.topic=null;convState.step=0;
-      return genReply('实名认证不一致');
-    }else{
-      txt='了解了，请问具体是注册、登录、验证码还是实名认证方面的问题呢？';
-    }
-  }else if(st.step===2){
-    if(has(lo,['验证码','收不到','没收到'])){
-      txt='验证码收不到的话，请检查：1.手机信号 2.短信拦截 3.等待1-2分钟 4.确认手机号正确。如仍无法解决，请提供手机号帮您对接技术排查~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='了解了，请问方便提供一下UID或手机号吗？这边帮您核实一下账号情况~';
-      st.step=3;
-    }
-  }else if(st.step>=3){
-    txt='好的，已收到您的信息，这边帮您核实一下，请稍等~';
-    st.topic=null;st.step=0;stats.resolved++;
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
-}
-
-function purchaseFlow(input,lo){
-  var st=convState;
-  var intent='购买跟进',match='购买Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(has(lo,['l4','最高','最贵','全部功能','完整'])){
-      txt='L4是我们最高性能版本，支持全部高阶功能与极限场景解算，对抗策略可调整变化幅度。适合对策略分析有深度需求的用户。请问您需要了解具体价格吗？';
-      st.step=2;st.ctx.version='L4';
-    }else if(has(lo,['l3','推荐','性价比','主流','常用'])){
-      txt='L3是性价比最高的主流选择，解锁全量功能，大多数日常使用的用户都推荐L3版本。请问您需要了解具体价格吗？';
-      st.step=2;st.ctx.version='L3';
-    }else if(has(lo,['l2','基础','入门','翻后'])){
-      txt='L2支持多平台与GTO尺度建议，适合有一定基础的用户。不过大多数用户更推荐L3，功能更全面，性价比更高。请问您需要了解具体价格吗？';
-      st.step=2;st.ctx.version='L2';
-    }else if(has(lo,['l0','l1','试用','体验','免费'])){
-      txt='L0是试用版，有效期30天，含600算力，仅支持翻前基础功能，到期后无法继续使用，不可重复开通，不能充值算力。另外还有付费体验版T4，限时20分钟，功能与L4完全一致。建议先体验，满意后再选择正式版本~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else if(has(lo,['价格','多少钱','费用','收费'])){
-      txt='版本价格请在APP内会员订阅页面查看，不同版本价格不同。算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n具体以APP内实时显示为准。';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='我们目前有L0到L4五个版本：\n- L0/L1：入门试用版，仅翻前基础功能\n- L2：支持多平台与GTO尺度建议\n- L3：解锁全量功能，性价比最高（推荐）\n- L4：最高性能版本，支持全部高阶功能\n\n请问您想了解哪个版本呢？';
-    }
-  }else if(st.step===2){
-    if(has(lo,['价格','多少钱','费用','怎么买','购买'])){
-      txt='版本价格请在APP内会员订阅页面查看。\n\n购买操作步骤：\n1.打开ALPHAX APP\n2.点击底部「会员订阅」\n3.选择您需要的版本\n4.完成支付即可开通\n\n购买后可联系专属客服获取使用教程与指导~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else if(has(lo,['好','可以','要','买','开通'])){
-      txt='好的！购买操作步骤：\n1.打开ALPHAX APP\n2.点击底部「会员订阅」\n3.选择版本 → 完成支付\n\n购买后如有使用问题，随时联系我们~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='请问还有其他问题吗？';
-      st.topic=null;st.step=0;
-    }
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
-}
-
-function featureFlow(input,lo){
-  var st=convState;
-  var intent='功能跟进',match='功能Step'+st.step,esc=false,reason='',txt='';
-  if(st.step===1){
-    if(has(lo,['对抗策略','变化','幅度','调整'])){
-      txt='对抗策略是L4版本专属功能。\n\n使用方法：打开APP → 设置 → 对抗策略 → 开启 → 调整变化幅度\n\n默认35%，建议设置：翻前10-45%，翻后30-60%。变化幅度越大，策略越灵活，但也越偏离标准GTO。\n\n请问您目前是哪个版本呢？';
-      st.step=2;
-    }else if(has(lo,['辅助弃牌','弃牌','弃牌建议'])){
-      txt='辅助弃牌是L3/L4版本的GTO学习辅助功能。\n\n使用方法：打开APP → 设置 → 辅助弃牌 → 开启 → 调整阈值\n\n当弃牌选项的GTO概率高于您设定的阈值时，会提示弃牌建议。阈值越低越激进，越高越保守，建议根据自己风格调整。\n\n请问您目前是哪个版本呢？';
-      st.step=2;
-    }else if(has(lo,['gto','分析','策略分析','ai分析'])){
-      txt='GTO分析是软件核心功能，使用步骤：\n1.打开ALPHAX APP\n2.点击底部「AiGTO」\n3.选择您使用的平台\n4.进入对局后自动开始分析\n\n分析结果会实时显示策略建议，包括Q值（手牌强度）、EV（期望价值）等数据。购买会员后可联系专属客服获取详细教程~';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else if(has(lo,['不会用','新手','教程','怎么操作','使用方法'])){
-      txt='新手使用步骤：\n1.下载APP：https://alphax.net.cn\n2.注册账号并完成实名认证\n3.订阅购买会员版本\n4.打开APP → 点击「AiGTO」→ 选择平台\n5.进入对局后自动开始分析\n\n购买会员后可联系专属客服获取一对一使用教程与指导！';
-      st.topic=null;st.step=0;stats.resolved++;
-    }else{
-      txt='ALPHAX主要功能：\n1.【GTO策略分析】核心功能，打开APP → AiGTO → 选择平台\n2.【对抗策略】L4专属，设置 → 对抗策略 → 调整幅度\n3.【辅助弃牌】L3/L4，设置 → 辅助弃牌 → 调整阈值\n\n请问您想了解哪个功能的详细用法？';
-    }
-  }else if(st.step>=2){
-    if(has(lo,['l4','4','最高版'])){
-      txt='对抗策略需要L4版本才能使用，如果您目前不是L4，可以在APP内升级版本。如果已经是L4，在设置中找到对抗策略开关即可开启~';
-    }else if(has(lo,['l3','3'])){
-      txt='辅助弃牌L3版本就可以使用，在设置中找到辅助弃牌开关，调整阈值即可。对抗策略需要升级到L4~';
-    }else{
-      txt='建议您在APP内查看当前版本，不同版本支持的功能不同。如有使用问题，随时联系我们~';
-    }
-    st.topic=null;st.step=0;stats.resolved++;
-  }
-  updMood(lo);
-  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
-}
-
-function findKB(input){
-  var lo=input.toLowerCase();
-  var best=null,bestSc=0;
-  for(var i=0;i<KB.length;i++){
-    for(var j=0;j<KB[i].items.length;j++){
-      var item=KB[i].items[j];
-      var sc=0;
-      var ql=item.q.toLowerCase();
-      for(var k=0;k<item.tags.length;k++){if(lo.indexOf(item.tags[k].toLowerCase())>=0)sc+=3;}
-      var ws=ql.split(/[\s|·，,？?、]+/);
-      for(var k=0;k<ws.length;k++){if(ws[k].length>1&&lo.indexOf(ws[k])>=0)sc+=2;}
-      if(lo.indexOf(ql.substring(0,10))>=0)sc+=5;
-      if(sc>bestSc){bestSc=sc;best=item;}
-    }
-  }
-  return bestSc>=2?best:null;
-}
-
 function updMood(input){
-  var angry=['投诉','举报','法律','315','消费者','虚假宣传','骗','垃圾','差评','律师'];
-  var upset=['不满意','不行','太少了','不够','差','不好','失望'];
-  var calm=['谢谢','好的','了解','明白','可以'];
-  for(var i=0;i<angry.length;i++){if(input.indexOf(angry[i])>=0){curUser.mood='激动';break;}}
-  if(curUser.mood!=='激动'){for(var i=0;i<upset.length;i++){if(input.indexOf(upset[i])>=0){curUser.mood='不满';break;}}}
-  if(curUser.mood!=='激动'&&curUser.mood!=='不满'){for(var i=0;i<calm.length;i++){if(input.indexOf(calm[i])>=0){curUser.mood='平静';break;}}}
+  var m=detectMood(input);
+  if(m==='angry')curUser.mood='激动';
+  else if(m==='upset')curUser.mood='不满';
+  else if(m==='calm')curUser.mood='平静';
   updProfile();
 }
-
 function updProfile(){
   document.getElementById('pName').textContent=curUser.name;
   document.getElementById('pUID').textContent=curUser.uid||'未提供';
-  document.getElementById('pVer').textContent=curUser.ver||'未知';
-  var mc={平静:'if',不满:'wn',激动:'dg',期待:'if'};
+  var mc={平静:'if',不满:'wn',激动:'dg'};
   document.getElementById('pMood').innerHTML='<span class="tsm '+(mc[curUser.mood]||'if')+'">'+curUser.mood+'</span>';
   document.getElementById('pChats').textContent=curUser.chats;
-  document.getElementById('pIssues').textContent=curUser.issues.length?curUser.issues.join('、'):'暂无';
   document.getElementById('chAv').textContent=curUser.name.charAt(0);
   document.getElementById('chName').textContent=curUser.name;
   document.getElementById('chTag').textContent=curUser.mood==='激动'?'情绪激动':curUser.chats>5?'老用户':'新用户';
 }
-
 function newUser(){
   var names=['张先生','李女士','王先生','赵女士','刘先生','陈女士'];
-  curUser={name:names[Math.floor(Math.random()*names.length)],uid:'',ver:'',mood:'平静',chats:0,issues:[]};
-  chatHist=[];convState={topic:null,step:0,ctx:{}};
-  document.getElementById('chatMsgs').innerHTML='';
+  curUser={name:names[Math.floor(Math.random()*names.length)],uid:'',mood:'平静',chats:0};
+  chatHist=[];document.getElementById('chatMsgs').innerHTML='';
   addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
-  document.getElementById('aIntent').textContent='等待输入...';
-  document.getElementById('aMatch').textContent='-';
-  document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';
-  updProfile();
+  document.getElementById('aIntent').textContent='等待输入...';document.getElementById('aMatch').textContent='-';
+  document.getElementById('aSim').innerHTML='<span class="tsm if">0%</span>';document.getElementById('aEsc').innerHTML='<span class="tsm ok">否</span>';updProfile();
 }
-
-function clearChat(){
-  chatHist=[];convState={topic:null,step:0,ctx:{}};
-  document.getElementById('chatMsgs').innerHTML='';
-  addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
-}
-
+function clearChat(){chatHist=[];document.getElementById('chatMsgs').innerHTML='';addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');}
 function copyMsg(btn){
-  var bb=btn.closest('.msg-bb');
-  var txt=bb.textContent.replace(/复制|创建工单/g,'').trim();
-  if(navigator.clipboard){
-    navigator.clipboard.writeText(txt).then(function(){btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);});
-  }else{
-    var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);
-  }
+  var bb=btn.closest('.msg-bb');var txt=bb.textContent.replace(/复制/g,'').trim();
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(function(){btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);});}
+  else{var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);btn.classList.add('ok');btn.textContent='已复制';setTimeout(function(){btn.classList.remove('ok');btn.textContent='复制';},2000);}
 }
-
-function mkTicket(btn){
-  var bb=btn.closest('.msg-bb');
-  var txt=bb.textContent.replace(/复制|创建工单/g,'').trim();
-  mkTicketRaw(txt,'手动创建');
-}
-
 function mkTicketRaw(desc,reason){
   var tk={id:'TK-'+Date.now().toString(36).toUpperCase(),user:curUser.name,desc:desc,reason:reason,status:'待处理',time:new Date().toLocaleString('zh-CN'),esc:reason};
-  tickets.push(tk);stats.pending++;updStats();renderTk();
-  showToast('工单已创建：'+tk.id);
+  tickets.push(tk);stats.pending++;updStats();renderTk();showToast('工单已创建：'+tk.id);
 }
-
 function renderTk(){
-  var list=document.getElementById('tkList');
-  var badge=document.getElementById('tkBadge');
+  var list=document.getElementById('tkList');var badge=document.getElementById('tkBadge');
   var pn=tickets.filter(function(t){return t.status==='待处理';}).length;
   badge.style.display=pn?'inline':'none';badge.textContent=pn;
   if(!tickets.length){list.innerHTML='<div class="empty">暂无工单</div>';return;}
-  var h='';
-  for(var i=tickets.length-1;i>=0;i--){
-    var t=tickets[i];
-    h+='<div class="tk-card"><div class="tk-hd"><div><span class="tk-id">'+t.id+'</span> <span style="margin-left:8px;font-size:14px;font-weight:600">'+t.user+'</span></div><span class="tsm '+(t.status==='待处理'?'wn':'ok')+'">'+t.status+'</span></div><div class="tk-title">'+t.esc+'</div><div class="tk-desc">'+t.desc.substring(0,100)+'</div><div class="tk-meta"><span class="tsm if">'+t.time+'</span>'+(t.status==='待处理'?'<button class="mbtn" onclick="resolveTk(\''+t.id+'\')">标记已处理</button>':'')+'</div></div>';
-  }
+  var h='';for(var i=tickets.length-1;i>=0;i--){var t=tickets[i];
+    h+='<div class="tk-card"><div class="tk-hd"><div><span style="font-size:12px;color:var(--t3)">'+t.id+'</span> <span style="margin-left:8px;font-size:14px;font-weight:600">'+t.user+'</span></div><span class="tsm '+(t.status==='待处理'?'wn':'ok')+'">'+t.status+'</span></div><div class="tk-title">'+t.esc+'</div><div class="tk-desc">'+t.desc.substring(0,100)+'</div>'+(t.status==='待处理'?'<button class="mbtn" onclick="resolveTk(\''+t.id+'\')">标记已处理</button>':'')+'</div>';}
   list.innerHTML=h;
 }
-
-function resolveTk(id){
-  for(var i=0;i<tickets.length;i++){if(tickets[i].id===id){tickets[i].status='已处理';stats.pending--;stats.resolved++;updStats();renderTk();showToast('工单已处理');return;}}
-}
-
-function addLog(type,title,desc){
-  logs.unshift({type:type,title:title,desc:desc,time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
-  renderLogs();
-}
-
+function resolveTk(id){for(var i=0;i<tickets.length;i++){if(tickets[i].id===id){tickets[i].status='已处理';stats.pending--;stats.resolved++;updStats();renderTk();showToast('工单已处理');return;}}}
+function addLog(type,title,desc){logs.unshift({type:type,title:title,desc:desc,time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});renderLogs();}
 function renderLogs(){
-  var list=document.getElementById('logList');
-  if(!logs.length){list.innerHTML='<div class="empty">暂无日志</div>';return;}
-  var h='';
-  var icons={chat:'💬',ticket:'📋',alert:'⚠️',check:'✅'};
-  for(var i=0;i<Math.min(logs.length,20);i++){
-    var l=logs[i];
-    h+='<div class="log-item"><div class="log-ic '+l.type+'">'+(icons[l.type]||'💬')+'</div><div class="log-ct"><div class="lt">'+l.title+'</div><div class="ld">'+l.desc+'</div></div><div class="log-tm">'+l.time+'</div></div>';
-  }
+  var list=document.getElementById('logList');if(!logs.length){list.innerHTML='<div class="empty">暂无日志</div>';return;}
+  var icons={chat:'💬',ticket:'📋',alert:'⚠️',check:'✅'};var h='';
+  for(var i=0;i<Math.min(logs.length,20);i++){var l=logs[i];h+='<div class="log-item"><div class="log-ic '+l.type+'">'+(icons[l.type]||'💬')+'</div><div class="log-ct"><div class="lt">'+l.title+'</div><div class="ld">'+l.desc+'</div></div><div class="log-tm">'+l.time+'</div></div>';}
   list.innerHTML=h;
 }
-
-function updStats(){
-  document.getElementById('sChats').textContent=stats.chats;
-  document.getElementById('sResolved').textContent=stats.resolved;
-  document.getElementById('sPending').textContent=stats.pending;
-  document.getElementById('sEscalated').textContent=stats.escalated;
-}
-
+function updStats(){document.getElementById('sChats').textContent=stats.chats;document.getElementById('sResolved').textContent=stats.resolved;document.getElementById('sPending').textContent=stats.pending;document.getElementById('sEscalated').textContent=stats.escalated;}
 function renderRules(){
-  var list=document.getElementById('rulesList');
-  var h='';
-  for(var i=0;i<rules.length;i++){
-    var r=rules[i];
-    h+='<div class="rule-card"><div class="rt">🛡️ '+r.title+'</div><div class="rc">'+r.content+'</div><div class="ra"><button class="rbtn dg" onclick="delRule('+r.id+')">删除</button></div></div>';
-  }
+  var list=document.getElementById('rulesList');var h='';
+  for(var i=0;i<FAQ.length;i++){var f=FAQ[i];
+    h+='<div class="rule-card"><div class="rt">📋 '+f.q[0]+'</div><div class="rc">同义问句：'+f.q.join('、')+'</div><div class="rc" style="margin-top:6px">'+f.a.substring(0,80)+'...</div></div>';}
   list.innerHTML=h;
 }
-
 function addRule(){
-  var inp=document.getElementById('newRuleInput');
-  var txt=inp.value.trim();
-  if(!txt)return;
-  var maxId=0;for(var i=0;i<rules.length;i++){if(rules[i].id>maxId)maxId=rules[i].id;}
-  rules.push({id:maxId+1,title:'自定义规则#'+(maxId+1),content:txt});
-  inp.value='';renderRules();showToast('规则已添加');
+  var qInp=document.getElementById('newRuleQ');var aInp=document.getElementById('newRuleInput');
+  var qTxt=qInp.value.trim();var aTxt=aInp.value.trim();
+  if(!qTxt||!aTxt){showToast('请填写问题和答案');return;}
+  FAQ.push({q:[qTxt],a:aTxt});qInp.value='';aInp.value='';renderRules();showToast('已添加到知识库');
 }
-
-function delRule(id){
-  rules=rules.filter(function(r){return r.id!==id;});
-  renderRules();showToast('规则已删除');
-}
-
 function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show';setTimeout(function(){t.className='toast';},2500);}
 
 addMsg('ai','您好！我是ALPHAX AI客服，请问有什么可以帮您的？');
-renderRules();
-renderTk();
+renderRules();renderTk();
 </script>
 </body>
 </html>
