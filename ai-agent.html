@@ -408,25 +408,23 @@ function genReply(input){
   if(st.topic==='refund'&&st.step>0){return refundFlow(input,lo);}
   if(st.topic==='comp'&&st.step>0){return compFlow(input,lo);}
   if(st.topic==='tech'&&st.step>0){return techFlow(input,lo);}
+  if(st.topic==='account'&&st.step>0){return accountFlow(input,lo);}
+  if(st.topic==='purchase'&&st.step>0){return purchaseFlow(input,lo);}
+  if(st.topic==='feature'&&st.step>0){return featureFlow(input,lo);}
 
   if(input.indexOf('[用户发送了截图]')>=0){
-    if(st.topic==='refund'&&st.step===2){
-      return refundFlow(input,lo);
-    }
-    if(st.topic==='comp'&&st.step===1){
-      return compFlow(input,lo);
-    }
-    if(st.topic==='tech'){
-      return techFlow(input,lo);
-    }
+    if(st.topic==='refund'&&st.step===2){return refundFlow(input,lo);}
+    if(st.topic==='comp'&&st.step===1){return compFlow(input,lo);}
+    if(st.topic==='tech'){return techFlow(input,lo);}
+    if(st.topic==='account'){return accountFlow(input,lo);}
     intent='收到截图';match='截图确认';
     txt='好的，已收到您的截图，我这边帮您核实一下~';
     return {intent:intent,match:match,esc:false,reason:'',txt:txt};
   }
 
-  if(has(lo,['退款','退钱','退费','退'])){
+  if(has(lo,['退款','退钱','退费','退回','退还','申请退'])){
     intent='退款咨询';
-    if(has(lo,['投诉','举报','法律','315','消费者','虚假宣传'])){
+    if(has(lo,['投诉','举报','法律','315','消费者','虚假宣传','律师','曝光'])){
       curUser.mood='激动';intent='退款+投诉升级';match='投诉升级';esc=true;reason='用户威胁投诉/法律手段';
       txt='您好！非常理解您的心情，我们很重视您的反馈。能先跟我说说具体是什么情况吗？我先帮您了解一下，看看怎么帮您处理~';
       st.topic='refund';st.step=1;st.ctx={angry:true};
@@ -435,40 +433,88 @@ function genReply(input){
       txt='您好！请问是遇到什么问题了呢？能跟我说说具体情况吗，我先了解一下~';
       st.topic='refund';st.step=1;st.ctx={};
     }
-  }else if(has(lo,['补偿','送算力','赠送','弥补'])){
+  }else if(has(lo,['补偿','送算力','赠送','弥补','补偿我','送我','白送','免费给'])){
     intent='补偿请求';match='补偿初步';
     txt='您好！非常理解您的心情，请问方便提供一下您的UID吗？我先帮您看看账号情况~';
     st.topic='comp';st.step=1;st.ctx={};
-  }else if(has(lo,['打不开','黑屏','白屏','卡顿','卡在','闪退','崩溃','更新中','无法打开','进不去','用不了'])){
+  }else if(has(lo,['打不开','黑屏','白屏','卡顿','卡在','闪退','崩溃','更新中','无法打开','进不去','用不了','加载','报错','错误','出bug','出问题','出故障','死机','无响应','转圈','一直在加载'])){
     intent='故障排查';match='故障初步';
     txt='您好！遇到这种情况确实影响体验，非常抱歉给您带来不便。请问具体是什么情况呢？比如是黑屏、白屏、卡在某个页面，还是闪退？有看到什么提示吗？';
     st.topic='tech';st.step=1;st.ctx={};
-  }else if(has(lo,['封号','封禁','被封','号没了','账号没了','账号封','冻结','禁用','限制'])){
-    intent='账号安全';match=kbMatch?kbMatch.q:'账号安全';
+  }else if(has(lo,['封号','封禁','被封','号没了','账号没了','账号封','冻结','禁用','限制','风控','警告','异常'])){
+    intent='账号安全';match='账号安全';
     txt='您好！非常理解您对账号安全的重视。各平台均拥有独立的风控系统与账号管理规则，其管理决策由平台依据自身规定独立作出，与ALPHAX无关。ALPHAX无法干预任何平台的账号管理结果，也不对此承担任何责任。\n\n为保障您的账号安全，建议注意以下事项：\n1.遵守各平台使用规则与相关法律法规\n2.不要同一设备多开账号或共享网络\n3.不要使用模拟器、云手机等非原生环境\n4.不要安装违规工具或非官方应用\n5.建议一个账号对应一个设备，规范使用\n\n如因个人违规行为导致账号异常，需由用户自行承担相应责任。';
-  }else if(has(lo,['实名','认证','不一致','身份'])){
+  }else if(has(lo,['实名','认证','不一致','身份验证','实名信息','身份证','验证不通过','认证失败'])){
     intent='实名认证';match='实名认证不一致';
     txt='您好！实名认证提示不一致，是因为实名信息必须与您注册手机号绑定的实名完全一致。请您确认以下几点：\n1.您填写的姓名和身份证号，必须与您注册用的手机号在运营商处登记的实名信息一致\n2.必须是本人真实信息，不能使用家人或他人的信息认证\n3.请仔细核对姓名是否有错别字、身份证号是否有误\n\n简单说就是：手机号是谁的实名，认证就填谁的，必须一致才行。如果确认信息无误仍提示不一致，请提供UID和主页面截图，这边帮您反馈核实~';
-  }else if(has(lo,['外挂','透视','作弊'])){
-    intent='产品性质';match=kbMatch?kbMatch.q:'产品性质';
-    txt=kbMatch?kbMatch.a:'ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。所有功能都只用于GTO策略学习和对局分析。';
-  }else if(has(lo,['算力'])&&has(lo,['多少','价格','充值','档位'])){
+  }else if(has(lo,['外挂','透视','作弊','开挂','挂','违规软件','辅助工具','作弊器'])){
+    intent='产品性质';match='产品性质';
+    txt='您好！理解您的顾虑，ALPHAX绝对不是外挂程序，也完全不具备任何透视功能。软件不会修改、侵入任何第三方平台程序，所有功能都只用于GTO策略学习和对局分析。市面上声称具备违规数据获取或结果保障功能的产品均存在欺诈风险，请提高警惕。';
+  }else if(has(lo,['算力'])&&has(lo,['多少','价格','充值','档位','多少钱','怎么买','买算力','算力价格'])){
     intent='算力价格';match='算力充值档位';
-    txt='当前算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n具体以APP内实时显示为准。';
-  }else if(has(lo,['注销'])){
-    intent='账号注销';match=kbMatch?kbMatch.q:'账号注销';
-    txt=kbMatch?kbMatch.a:'注销账号是不可逆操作，所有信息将永久清空且无法恢复，实名信息将永久失效。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作。';
-  }else if(has(lo,['下载','安装'])){
-    intent='下载安装';match=kbMatch?kbMatch.q:'下载安装';
-    txt=kbMatch?kbMatch.a:'官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载。';
-  }else if(has(lo,['胜率','稳赢','包赢'])){
-    intent='效果咨询';match=kbMatch?kbMatch.q:'效果咨询';curUser.mood='期待';
-    txt=kbMatch?kbMatch.a:'ALPHAX是GTO策略学习和训练工具，仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
+    txt='您好！当前算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n具体以APP内实时显示为准。';
+  }else if(has(lo,['算力'])&&has(lo,['用完','不够','没了','消耗','扣','扣费','怎么算','消耗快','太费'])){
+    intent='算力消耗';match='算力消耗咨询';
+    txt='您好！算力是使用ALPHAX进行GTO策略分析的消耗单位，仅在AI分析运行时产生消耗，闲置不扣。套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用。如果觉得消耗快，可以检查一下是否有频繁调用分析，或者调整使用频率。算力用完后请在APP会员订阅页面充值即可继续使用。';
+  }else if(has(lo,['注销','销号','删除账号','不要账号','取消账号'])){
+    intent='账号注销';match='账号注销';
+    txt='您好！注销账号是不可逆操作，账号内所有信息将永久清空且无法恢复，实名信息将永久失效，无法再注册新账号。如确认注销，需提供UID、绑定手机号、实名姓名、身份证后四位、最近一笔消费截图。请谨慎操作，确定要注销吗？';
+  }else if(has(lo,['下载','安装','在哪下','怎么下','下载地址','安装包'])){
+    intent='下载安装';match='下载安装';
+    txt='您好！官方下载地址：https://alphax.net.cn ，支持安卓、iOS、Windows、MacOS全系统。请勿在第三方渠道下载，避免安装到盗版或存在安全风险的版本。';
+  }else if(has(lo,['胜率','稳赢','包赢','保证','一定能','包过','百分百'])){
+    intent='效果咨询';match='效果咨询';curUser.mood='期待';
+    txt='您好！非常理解您对效果的关心，ALPHAX是GTO策略学习和训练工具，帮助用户理解博弈论均衡策略的思路和逻辑。软件仅供学习研究参考使用，不承诺任何胜率提升或稳赢结果，所有分析结果仅供学习参考，不构成任何操作建议，严禁用于任何违法活动。';
+  }else if(has(lo,['注册','账号','登录','登不上','登不进','验证码','收不到码','手机号'])){
+    intent='账号问题';match='账号注册登录';
+    txt='您好！请问是注册、登录还是验证码方面的问题呢？方便具体说一下吗？';
+    st.topic='account';st.step=1;st.ctx={};
+  }else if(has(lo,['买','购买','开通','升级','会员','版本','l0','l1','l2','l3','l4','套餐','订阅','付费','怎么买','多少钱'])){
+    intent='购买咨询';match='购买初步';
+    txt='您好！请问是想了解哪个版本呢？我们目前有L0到L4五个版本，不同版本功能不同，我帮您介绍一下~';
+    st.topic='purchase';st.step=1;st.ctx={};
+  }else if(has(lo,['功能','怎么用','教程','使用方法','操作','对抗策略','辅助弃牌','gto','怎么操作','不会用','新手'])){
+    intent='功能使用';match='功能初步';
+    txt='您好！请问是哪个功能方面的问题呢？比如是GTO分析、对抗策略、辅助弃牌，还是其他功能？方便具体说一下吗？';
+    st.topic='feature';st.step=1;st.ctx={};
+  }else if(has(lo,['推荐','好友','邀请','奖励','返利','拉新'])){
+    intent='推荐奖励';match='推荐奖励';
+    txt='您好！成功推荐好友完成软件激活后，邀请人可获赠算力点数奖励：\n- 好友开通L4可获2000点数\n- 好友开通L3可获1000点数\n- 好友开通L2可获500点数\n具体活动规则可联系客服咨询最新详情~';
+  }else if(has(lo,['海外','国外','境外','国外用','出国','加速','加速器'])){
+    intent='海外使用';match='海外使用';
+    txt='您好！境外用户可正常使用ALPHAX，可开通对应地区加速服务，只需提供软件主页截图和UID联系客服即可协助办理，使用期间请保持IP与定位地区一致。另外提前说明：境外相关订单暂不支持退款，请您购买前知悉。';
+  }else if(has(lo,['隐私','数据','信息泄露','安全','收集','个人信息'])){
+    intent='隐私安全';match='隐私安全';
+    txt='您好！您的隐私安全是我们最重视的。软件会收集账号信息（手机号、实名认证）、设备信息（型号、系统版本）、使用数据（功能使用记录、算力消耗）、日志信息（访问时间等）。我们采用加密存储、权限隔离等技术手段保护数据安全，不会将信息出售或未经同意提供给第三方。';
+  }else if(has(lo,['模拟器','云手机','虚拟机','多开','双开'])){
+    intent='模拟器问题';match='模拟器问题';
+    txt='您好！使用ALPHAX不需要模拟器，在模拟器中运行可能触发平台安全风控，影响账号正常使用。建议在真实设备上运行，若在非原生环境使用需自行承担所有风险。';
+  }else if(has(lo,['投诉','举报','315','消费者协会','工商','12315'])){
+    intent='投诉升级';match='投诉升级';esc=true;reason='用户要投诉';
+    txt='您好！非常理解您的心情，您的反馈我们非常重视。请问能先跟我说说具体遇到了什么问题吗？我先帮您了解一下，看看怎么妥善处理~';
+  }else if(has(lo,['人工','转人工','客服','真人','主管','领导','经理','上级'])){
+    intent='转人工';match='转人工';esc=true;reason='用户要求转人工/主管';
+    txt='好的，这边帮您转接，请稍等~';
   }else if(kbMatch){
     intent='知识库匹配';match=kbMatch.q;txt=kbMatch.a;
+  }else if(has(lo,['你好','在吗','有人吗','在不在','hello','hi','嗨'])){
+    intent='打招呼';match='打招呼';
+    txt='您好！我是ALPHAX AI客服，请问有什么可以帮您的？';
+  }else if(has(lo,['谢谢','感谢','辛苦了','谢了','thanks'])){
+    intent='感谢';match='感谢';
+    txt='不客气！有问题随时联系我们，祝您使用愉快~';
+    stats.resolved++;
+  }else if(has(lo,['算力'])&&has(lo,['有效期','过期','清零','到期','还有多少','剩余'])){
+    intent='算力有效期';match='算力有效期';
+    txt='您好！套餐及充值购买的算力永久有效不清零，仅限会员有效期内使用（到期后冻结、续订后恢复）；每月配额算力当月有效、优先消耗、月底清零。续订后算力即可恢复使用，不会浪费！';
   }else{
-    intent='未匹配';match='无';esc=true;reason='知识库未覆盖的问题';
-    txt='您好！这个问题我需要进一步核实，帮您转接处理，请稍等~';
+    intent='智能匹配';match=kbMatch?kbMatch.q:'未匹配';
+    if(kbMatch){
+      txt=kbMatch.a;
+    }else{
+      esc=true;reason='知识库未覆盖的问题';
+      txt='您好！这个问题我需要进一步核实，帮您转接处理，请稍等~';
+    }
   }
 
   updMood(lo);
@@ -604,6 +650,112 @@ function techFlow(input,lo){
       txt='请问还有其他问题吗？';
       st.topic=null;st.step=0;
     }
+  }
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
+}
+
+function accountFlow(input,lo){
+  var st=convState;
+  var intent='账号跟进',match='账号Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(has(lo,['注册','注册不了','注册失败','无法注册'])){
+      txt='了解了，注册方面的问题。请问是手机号收不到验证码，还是注册时提示什么错误信息呢？';
+      st.step=2;st.ctx.type='注册';
+    }else if(has(lo,['登录','登不上','登不进','登不了','无法登录'])){
+      txt='了解了，登录方面的问题。请问是收不到验证码，还是输入验证码后提示错误？有看到什么提示吗？';
+      st.step=2;st.ctx.type='登录';
+    }else if(has(lo,['验证码','收不到','没收到','验证码错误'])){
+      txt='了解了，验证码收不到的问题。请逐一排查：\n1.手机信号不佳—到空旷处重新获取\n2.短信被拦截—检查手机短信拦截记录\n3.通道延迟—等待1-2分钟\n4.手机号填写错误—确认区号和号码\n5.频繁请求—1分钟内多次会被限制\n\n如以上都无法解决，请提供手机号，这边帮您对接技术排查~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else if(has(lo,['实名','认证'])){
+      convState.topic=null;convState.step=0;
+      return genReply('实名认证不一致');
+    }else{
+      txt='了解了，请问具体是注册、登录、验证码还是实名认证方面的问题呢？';
+    }
+  }else if(st.step===2){
+    if(has(lo,['验证码','收不到','没收到'])){
+      txt='验证码收不到的话，请检查：1.手机信号 2.短信拦截 3.等待1-2分钟 4.确认手机号正确。如仍无法解决，请提供手机号帮您对接技术排查~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='了解了，请问方便提供一下UID或手机号吗？这边帮您核实一下账号情况~';
+      st.step=3;
+    }
+  }else if(st.step>=3){
+    txt='好的，已收到您的信息，这边帮您核实一下，请稍等~';
+    st.topic=null;st.step=0;stats.resolved++;
+  }
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
+}
+
+function purchaseFlow(input,lo){
+  var st=convState;
+  var intent='购买跟进',match='购买Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(has(lo,['l4','最高','最贵','全部功能','完整'])){
+      txt='L4是我们最高性能版本，支持全部高阶功能与极限场景解算，对抗策略可调整变化幅度。适合对策略分析有深度需求的用户。请问您需要了解具体价格吗？';
+      st.step=2;st.ctx.version='L4';
+    }else if(has(lo,['l3','推荐','性价比','主流','常用'])){
+      txt='L3是性价比最高的主流选择，解锁全量功能，大多数日常使用的用户都推荐L3版本。请问您需要了解具体价格吗？';
+      st.step=2;st.ctx.version='L3';
+    }else if(has(lo,['l2','基础','入门','翻后'])){
+      txt='L2支持多平台与GTO尺度建议，适合有一定基础的用户。不过大多数用户更推荐L3，功能更全面，性价比更高。请问您需要了解具体价格吗？';
+      st.step=2;st.ctx.version='L2';
+    }else if(has(lo,['l0','l1','试用','体验','免费'])){
+      txt='L0是试用版，有效期30天，含600算力，仅支持翻前基础功能，到期后无法继续使用，不可重复开通，不能充值算力。另外还有付费体验版T4，限时20分钟，功能与L4完全一致。建议先体验，满意后再选择正式版本~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else if(has(lo,['价格','多少钱','费用','收费'])){
+      txt='版本价格请在APP内会员订阅页面查看，不同版本价格不同。算力充值档位：\n- 680元/5200算力\n- 980元/8800算力\n- 1580元/14900算力\n- 2580元/26600算力\n- 3680元/42200算力\n具体以APP内实时显示为准。';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='我们目前有L0到L4五个版本：\n- L0/L1：入门试用版，仅翻前基础功能\n- L2：支持多平台与GTO尺度建议\n- L3：解锁全量功能，性价比最高（推荐）\n- L4：最高性能版本，支持全部高阶功能\n\n请问您想了解哪个版本呢？';
+    }
+  }else if(st.step===2){
+    if(has(lo,['价格','多少钱','费用','怎么买','购买'])){
+      txt='版本价格请在APP内会员订阅页面查看。购买流程：打开APP → 会员订阅 → 选择版本 → 完成支付即可。购买后可联系专属客服获取使用教程与指导~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else if(has(lo,['好','可以','要','买','开通'])){
+      txt='好的！购买流程：打开APP → 会员订阅 → 选择版本 → 完成支付即可。购买后如有使用问题，随时联系我们~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='请问还有其他问题吗？';
+      st.topic=null;st.step=0;
+    }
+  }
+  updMood(lo);
+  return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
+}
+
+function featureFlow(input,lo){
+  var st=convState;
+  var intent='功能跟进',match='功能Step'+st.step,esc=false,reason='',txt='';
+  if(st.step===1){
+    if(has(lo,['对抗策略','变化','幅度','调整'])){
+      txt='对抗策略是L4版本专属功能，开启后可调整AI在策略分析中的变化幅度（默认35%），建议设置翻前10-45%，翻后30-60%。请问您目前是哪个版本呢？';
+      st.step=2;
+    }else if(has(lo,['辅助弃牌','弃牌','弃牌建议'])){
+      txt='辅助弃牌是L3/L4版本的GTO学习辅助功能：当弃牌选项的GTO概率高于设定阈值，会提供弃牌建议供学习参考，阈值可在设置中自行调整。请问您目前是哪个版本呢？';
+      st.step=2;
+    }else if(has(lo,['gto','分析','策略分析','ai分析'])){
+      txt='GTO分析是软件的核心功能，基于博弈论最优策略和AI矩阵算法，帮助您进行策略学习、技巧训练、对局分析和决策研究。使用方法：进入实时场景分析AiGTO → 选择对应平台即可。购买会员后可联系专属客服获取详细教程~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else if(has(lo,['不会用','新手','教程','怎么操作','使用方法'])){
+      txt='使用方法很简单：\n1.注册账号并完成实名认证\n2.订阅购买会员版本\n3.进入实时场景分析AiGTO\n4.选择对应平台即可使用\n\n购买会员后可联系专属客服获取一对一使用教程与指导~';
+      st.topic=null;st.step=0;stats.resolved++;
+    }else{
+      txt='我们软件主要功能包括：\n- GTO策略分析（核心功能）\n- 对抗策略（L4专属）\n- 辅助弃牌（L3/L4）\n- 多平台支持（L2及以上）\n\n请问您想了解哪个功能呢？';
+    }
+  }else if(st.step>=2){
+    if(has(lo,['l4','4','最高版'])){
+      txt='对抗策略需要L4版本才能使用，如果您目前不是L4，可以在APP内升级版本。如果已经是L4，在设置中找到对抗策略开关即可开启~';
+    }else if(has(lo,['l3','3'])){
+      txt='辅助弃牌L3版本就可以使用，在设置中找到辅助弃牌开关，调整阈值即可。对抗策略需要升级到L4~';
+    }else{
+      txt='建议您在APP内查看当前版本，不同版本支持的功能不同。如有使用问题，随时联系我们~';
+    }
+    st.topic=null;st.step=0;stats.resolved++;
   }
   updMood(lo);
   return {intent:intent,match:match,esc:esc,reason:reason,txt:txt};
