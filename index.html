@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -10,14 +11,14 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
---bg-primary:#0a0e1a;--bg-secondary:#111827;--bg-card:#1a2235;--bg-card-hover:#1e2a42;
---border:#2a3550;--border-light:#3a4a6a;
---text-primary:#e8ecf4;--text-secondary:#8b9dc3;--text-muted:#5a6d8f;
---accent:#6366f1;--accent-hover:#818cf8;--accent-glow:rgba(99,102,241,.25);
+--bg-primary:#f5f5f7;--bg-secondary:#ffffff;--bg-card:#ffffff;--bg-card-hover:#f8f9fa;
+--border:#e5e7eb;--border-light:#f3f4f6;
+--text-primary:#1d1d1f;--text-secondary:#6b7280;--text-muted:#9ca3af;
+--accent:#4c6ef5;--accent-hover:#3b5bdb;--accent-glow:rgba(76,110,245,.15);
 --compliance:#f59e0b;--compliance-bg:rgba(245,158,11,.08);--compliance-border:rgba(245,158,11,.3);
 --danger:#ef4444;--success:#10b981;--info:#3b82f6;
 --radius:12px;--radius-sm:8px;--radius-xs:6px;
---shadow:0 4px 24px rgba(0,0,0,.3);--shadow-lg:0 8px 40px rgba(0,0,0,.4);
+--shadow:0 4px 24px rgba(0,0,0,.06);--shadow-lg:0 8px 40px rgba(0,0,0,.1);
 --transition:all .25s cubic-bezier(.4,0,.2,1);
 }
 html{scroll-behavior:smooth}
@@ -27,8 +28,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 ::-webkit-scrollbar-thumb{background:var(--border-light);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
-.compliance-banner{background:linear-gradient(135deg,rgba(245,158,11,.12),rgba(239,68,68,.08));border-bottom:1px solid var(--compliance-border);padding:10px 24px;text-align:center;font-size:13px;color:var(--compliance);position:sticky;top:0;z-index:1001;backdrop-filter:blur(12px)}
-.compliance-banner strong{color:#fbbf24}
+.compliance-banner{background:linear-gradient(135deg,rgba(245,158,11,.08),rgba(239,68,68,.04));border-bottom:1px solid var(--compliance-border);padding:10px 24px;text-align:center;font-size:13px;color:var(--compliance);position:sticky;top:0;z-index:1001;backdrop-filter:blur(12px)}
+.compliance-banner strong{color:#d97706}
 
 .app{display:flex;min-height:calc(100vh - 40px)}
 
@@ -37,7 +38,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 .sidebar-logo{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .sidebar-logo .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--accent),#a855f7);border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff}
 .sidebar-logo .logo-icon svg{width:24px;height:24px}
-.sidebar-logo h1{font-size:18px;font-weight:700;background:linear-gradient(135deg,#e8ecf4,#a5b4fc);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sidebar-logo h1{font-size:18px;font-weight:700;background:linear-gradient(135deg,#1d1d1f,#4c6ef5);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .sidebar-logo .ver{font-size:11px;color:var(--text-muted);margin-top:2px}
 
 .search-box{position:relative}
@@ -73,7 +74,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 .header-btn:hover{border-color:var(--accent);color:var(--accent)}
 .header-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
 
-.tag-filters{padding:16px 32px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;background:rgba(17,24,39,.5)}
+.tag-filters{padding:16px 32px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:8px;background:rgba(0,0,0,.02)}
 .tag-btn{padding:5px 14px;border-radius:20px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);font-size:12px;cursor:pointer;transition:var(--transition)}
 .tag-btn:hover{border-color:var(--accent);color:var(--accent)}
 .tag-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
@@ -182,7 +183,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hira
 .empty-state h3{font-size:18px;margin-bottom:8px;color:var(--text-secondary)}
 .empty-state p{font-size:14px}
 
-.compliance-footer{background:linear-gradient(135deg,rgba(245,158,11,.06),rgba(239,68,68,.04));border-top:1px solid var(--compliance-border);padding:16px 32px;margin-top:40px}
+.compliance-footer{background:linear-gradient(135deg,rgba(245,158,11,.04),rgba(239,68,68,.02));border-top:1px solid var(--compliance-border);padding:16px 32px;margin-top:40px}
 .compliance-footer h4{color:var(--compliance);font-size:14px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .compliance-footer p{font-size:12px;color:var(--text-muted);line-height:1.8}
 
